@@ -1,0 +1,161 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+body {
+  margin: 0;
+  padding-top: 50px;
+  font-family: 'Poppins', sans-serif;
+  background-color: #ffffff;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 15px;
+  padding-top: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+}
+
+.navbar {
+  height: 60px;
+  background-color:#ffffff;
+  position: relative;
+}
+
+.logo {
+}
+
+.logo img{
+  width: 100px;
+  height: 100px;
+ filter: brightness(90%);
+ padding-left: 15%;
+ 
+}
+
+.navbar_p{
+  color: #171717;
+  font-size: 28px;
+  font-weight: 600;
+  display: inline;
+  font-style: italic;  
+  
+}
+
+.menu-icon {
+  display: none;
+  
+}
+
+.nav-elements {
+}
+
+.nav-elements ul {
+  display: flex;
+  justify-content: space-between;
+  list-style-type: none;
+  padding-right: 10%;
+  align-items: center;
+}
+
+.nav-elements ul li:not(:last-child) {
+  margin-right: 60px;
+}
+
+.nav-elements ul a {
+  font-size: 16px;
+  font-weight: 400;
+  color: #2f234f;
+  text-decoration: none;
+}
+
+.nav-elements ul a.active {
+  color: #574c4c;
+  font-weight: 500;
+  position: relative;
+}
+
+.nav-elements ul a.active::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #36d06a;
+}
+
+.nav_login_cart{
+ display: flex;
+ align-items: center;
+ padding-right: 50px;
+}
+
+.nav_login_cart img{
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+}
+
+.nav_cart_count{
+  width: 18px;
+  height: 18px;
+  border-radius: 12px;
+  font-size: 14px;
+  background-color: red;
+  color: white;
+  text-align: center;
+  
+
+}
+
+
+
+.nav_login_profile img{
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+} 
+
+@media (max-width: 768px) {
+  .nav-elements ul li:not(:last-child) {
+    margin-right: 30px;
+  }
+}
+
+@media (max-width: 600px) {
+  .menu-icon {
+    display: block;
+    cursor: pointer;
+  }
+
+  .nav-elements {
+    position: absolute;
+    right: 0;
+    top: 60px;
+    background-color: #ffffff;
+    width: 0px;
+    height: calc(100vh - 60px);
+    transition: all 0.3s ease-in;
+    overflow: hidden;
+  }
+
+  .nav-elements.active {
+    width: 270px;
+  }
+
+  .nav-elements ul {
+    display: flex;
+    flex-direction: column;
+  
+  }
+
+  .nav-elements ul li {
+    margin-right: unset;
+    margin-top: 22px;
+   
+  }
+}
+
