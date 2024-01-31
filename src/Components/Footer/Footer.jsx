@@ -1,8 +1,8 @@
 import React from 'react'
-import insta from '../../Assets/instagram.svg'
-import youtube from '../../Assets/youtube-new.svg'
+import { SiFacebook } from "react-icons/si";
+import { FaYoutube } from "react-icons/fa6";
+import { RiInstagramFill } from "react-icons/ri";
 import logo from '../../Assets/Green Leaf Super.png'
-import { ReactComponent as fbicon } from '../../Assets/facebook-new.svg'
 import './Footer.css'
 
 
@@ -12,13 +12,15 @@ const Footer = () => {
         <div className='footer_section_padding'>
             <div className='footer-links'>
 
-            <div className='footer-links-div'>
-                <div className='logo'><img src={logo} alt='logo'></img>
-               
+            <div className='logoName' >
+                    <div>
+                     <img src={logo} alt='logo'  className='logoImg'></img>
+                    </div>
+                    <div>
+                     <h2>Green Leaf</h2>
+                    </div>
                 </div>
-                <h2>Green Lreaf</h2>
-                </div>   
-                
+              
 
             <div className='footer-links-div'>
                     <h4>Contact Us</h4>
@@ -60,7 +62,18 @@ const Footer = () => {
             <div className='footer-links-div'>
                     <h4>Follow Us</h4>
                 <div className='socialmedia'>
-                    <fbicon />
+
+                <div> 
+                     <SiFacebook size='24px' />
+                     <a href='/feedback'/>    
+                    </div>
+                    <div> <FaYoutube size='24px' />  
+                    <a href='/feedback'/>
+                    </div>
+                    <div>
+                    <RiInstagramFill  size='24px' />  
+                    <a href='/feedback'/>
+                    </div>
 
                 </div>
             </div>

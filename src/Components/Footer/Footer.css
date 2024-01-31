@@ -36,11 +36,17 @@ body{
     color: white;
 }
 
-.footer-links-div img{
-    width: 30px;
-    height: 30px;
-   filter: brightness(90%);
+.logoImg{
+ height: 80%;
+ width: 80%;
+filter: brightness(90%);
   
+}
+.logoName{
+    width: 150px;
+    margin: 0;
+    
+    color: white;
 }
 
 a{
@@ -48,31 +54,35 @@ a{
     text-decoration:none;
 }
 
-.socialmedio{
+.socialmedia{
     display: flex;
     flex-direction: row;
+
 }
 
-.socialmedia img{
-    width: 80%;
+.socialmedia div{
+    padding-right: 30px;
+    cursor: pointer;
+
 }
+
 
 .footer-links-div h4{
-    font-size: 17px;
+    font-size: 22px;
     line-height: 12px;
     margin-bottom: 0.9rem;
     font-weight: 300;
 }
 
-.footer-links-div h2{
+.logoName h2{
     font-size: 30px;
-   
     font-weight: 300;
+    display: inline;
 }
 
 .footer-links-div p{
-    font-size: 12px;
-    line-height: 15px;
+    font-size: 14px;
+    line-height: 18px;
     margin: 0.5rem 0;
     cursor: pointer;
 }
