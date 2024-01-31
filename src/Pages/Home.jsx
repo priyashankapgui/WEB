@@ -10,6 +10,7 @@ export default function Home() {
     <div>
         <Navbar />
         <Topheader />
+        <Footer/>
         <div className='padding'>
 
         </div>
