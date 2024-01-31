@@ -45,7 +45,7 @@ const Navbar = () => {
                
               <div className='nav_login_profile'>
                  <img src={profile}  alt='profile'/>
-            </div>
+              </div>
                 
               </li>
 

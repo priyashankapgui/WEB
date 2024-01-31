@@ -1,21 +1,46 @@
 
 import './App.css';
-import { BrowserRouter } from 'react-router-dom'
-import Navbar from './Components/Navbar/Navbar';
-import Topheader from './Components/Topheader/Topheader';
-import Footer from './Components/Footer/Footer';
+import { BrowserRouter as Router,Route,Switch } from 'react-router-dom'
+import Home from './Pages/Home';
+import Products from './Pages/Products';
+import About from './Pages/About';
+import Signup from './Pages/Signup';
+import Contact from './Pages/Contact';
 
 function App() {
   return (
     <div className="App">
    
-      <BrowserRouter>
-      <Topheader />
-      <Navbar />
-      <Footer />
-     
-  
-      </BrowserRouter>
+   <Router>
+      <div>
+
+        <Switch>
+
+          <Route exact path="/Home">
+            <Home/>
+          </Route>
+
+          <Route path="/Products">
+            <Products/>
+          </Route>
+
+          <Route path="/About">
+            <About/>
+          </Route>
+
+          <Route path="/Signup">
+            <Signup/>
+          </Route>
+
+          <Route path="/Contact">
+            <Contact/>
+          </Route>
+
+
+        </Switch>
+      </div>
+      </Router>
+
       
     </div>
   );
