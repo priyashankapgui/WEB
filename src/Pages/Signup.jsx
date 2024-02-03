@@ -1,18 +1,15 @@
 import React from 'react'
 
-import './Home.css'
 import Layout from '../Components/Layout/Layout'
 
-
-export default function Home() {
+export default function Signup() {
   return (
     <Layout>
-    <div className='home'>
-
-        
-        <h1>Home Page</h1>
-        
-  
+    <div className='singup'>
+    
+      
+        <h1>Signup Page</h1>
+   
         
     </div>
     </Layout>

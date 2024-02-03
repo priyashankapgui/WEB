@@ -5,6 +5,7 @@ import  carticon from '../../Assets/cart-shopping.svg'
 import logo from '../../Assets/Green Leaf Super.png'
 import  profile from '../../Assets/profile-n.svg'
 import './Navbar.css'
+import { Link } from 'react-router-dom/cjs/react-router-dom.min'
 
 
 const Navbar = () => {
@@ -45,16 +46,17 @@ const Navbar = () => {
                
               <div className='nav_login_profile'>
                  <img src={profile}  alt='profile'/>
-            </div>
-                
+              </div> 
               </li>
 
+              <Link to='/Cart'>
               <li>
               <div className='nav_login_cart'>
                <div className='nav_cart_count'>0</div>
                 <img src={carticon} alt='cart' />
               </div>
               </li>
+              </Link>
              
             </ul>
           </div>

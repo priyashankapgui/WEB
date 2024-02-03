@@ -1,19 +1,14 @@
 import React from 'react'
 
-import './Home.css'
 import Layout from '../Components/Layout/Layout'
 
-
-export default function Home() {
+export default function Products() {
   return (
     <Layout>
-    <div className='home'>
-
+    <div className='products'>
         
-        <h1>Home Page</h1>
-        
-  
-        
+        <h1>Products</h1>
+      
     </div>
     </Layout>
   )

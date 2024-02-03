@@ -36,6 +36,10 @@ body{
     color: white;
 }
 
+.footer-links-div p{
+    color:rgb(198, 196, 196);
+}
+
 .logoImg{
  height: 80%;
  width: 80%;
