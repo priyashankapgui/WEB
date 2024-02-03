@@ -1,15 +1,13 @@
 import React from 'react'
-
 import Layout from '../Components/Layout/Layout'
 
-export default function Products() {
+export default function Cart() {
   return (
     <Layout>
-    <div className='products'>
+        <div>
+         <h1>Cart</h1>
         
-        <h1>Products</h1>
-      
-    </div>
+            </div>
     </Layout>
   )
 }

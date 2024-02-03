@@ -6,6 +6,7 @@ import Products from './Pages/Products';
 import About from './Pages/About';
 import Signup from './Pages/Signup';
 import Contact from './Pages/Contact';
+import Cart from './Pages/Cart';
 
 function App() {
   return (
@@ -34,6 +35,10 @@ function App() {
 
           <Route path="/Contact">
             <Contact/>
+          </Route>
+
+          <Route path="/Cart">
+            <Cart/>
           </Route>
 
 

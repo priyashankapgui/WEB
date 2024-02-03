@@ -1,21 +1,20 @@
 import React from 'react'
-import Navbar from '../Components/Navbar/Navbar'
-import Topheader from '../Components/Topheader/Topheader'
-import Footer from '../Components/Footer/Footer'
+
 import './Home.css'
+import Layout from '../Components/Layout/Layout'
 
 
 export default function Home() {
   return (
-    <div>
+    <Layout>
+    <div className='home'>
 
-        <Topheader />
-        <Navbar />
         
         <h1>Home Page</h1>
-        <Footer/>
+        
   
         
     </div>
+    </Layout>
   )
 }

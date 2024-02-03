@@ -1,17 +1,17 @@
 import React from 'react'
-import Navbar from '../Components/Navbar/Navbar'
-import Topheader from '../Components/Topheader/Topheader'
-import Footer from '../Components/Footer/Footer'
+
+import Layout from '../Components/Layout/Layout'
 
 export default function Signup() {
   return (
-    <div>
-          <Topheader />
-         <Navbar />
+    <Layout>
+    <div className='singup'>
+    
       
         <h1>Signup Page</h1>
-        <Footer />
+   
         
     </div>
+    </Layout>
   )
 }
