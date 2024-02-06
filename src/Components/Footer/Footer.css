@@ -7,13 +7,17 @@ body{
 .footer_section_padding{
     padding: 4rem 4rem;
     padding-top:5%;
+
 }
 
 .footer{
     background-color: black;
     display: flex;
     flex-direction: column;
-  
+    bottom: 0;
+    position: absolute;
+    width: 100%;
+    
 }
 
 .footer-links{
@@ -24,7 +28,7 @@ body{
     flex-wrap: wrap;
     width: 100%;
     text-align: left;
-    margin-bottom:0rem ;
+    margin-bottom:0rem;
 }
 
 .footer-links-div{
