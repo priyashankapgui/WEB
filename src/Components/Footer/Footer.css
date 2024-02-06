@@ -2,6 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
 body{
     font-family: 'Poppins', sans-serif;
+    
 }
 
 .footer_section_padding{
@@ -14,9 +15,7 @@ body{
     background-color: black;
     display: flex;
     flex-direction: column;
-    bottom: 0;
-    position: absolute;
-    width: 100%;
+
     
 }
 
@@ -119,6 +118,15 @@ a{
     .footer-heading h1{
         font-size: 27px;
         line-height: 38px;
+    }
+    
+}
+
+@media screen and (min-width: 550px) {
+    .footer{
+        bottom: 0;
+        position: absolute;
+        width: 100%;
     }
     
 }
