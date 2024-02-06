@@ -8,7 +8,7 @@ import Footer from '../Footer/Footer'
 
 export default function Layout({ children }) {
   return (
-    <div>
+    <div className='layout'>
         <Topheader/>
         <Navbar/>
 
