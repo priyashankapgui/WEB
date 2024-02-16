@@ -5,7 +5,7 @@ import  carticon from '../../Assets/cart-shopping.svg'
 import logo from '../../Assets/Green Leaf Super.png'
 import  profile from '../../Assets/profile-n.svg'
 import './Navbar.css'
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom/cjs/react-router-dom.min'
 
 
 const Navbar = () => {
