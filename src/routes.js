@@ -10,12 +10,12 @@ import Cart from './Pages/Cart';
 
 const createRoutes=() => (
     <Routes>
-        <Route Route exact path="/Home" element={<Home/>} />
-        <Route path="/Products" element={<Products/>} />
-        <Route path="/About" element={<About/>} />
-        <Route path="/Signup" element={<Signup/>} />
-        <Route path="/Contact" element={<Contact/>} />
-        <Route path="/Cart" element={<Cart/>} />
+        <Route path="/" element={<Home/>} />
+        <Route path="/products" element={<Products/>} />
+        <Route path="/about" element={<About/>} />
+        <Route path="/signup" element={<Signup/>} />
+        <Route path="/contact" element={<Contact/>} />
+        <Route path="/cart" element={<Cart/>} />
 
 
     </Routes>
