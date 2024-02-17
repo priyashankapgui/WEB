@@ -1,11 +1,11 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import Home from './Pages/Home';
-import Products from './Pages/Products';
-import About from './Pages/About';
-import Signup from './Pages/Signup';
-import Contact from './Pages/Contact';
-import Cart from './Pages/Cart';
+import Home from './Pages/Home/Home';
+import Products from './Pages/Products/Products';
+import About from './Pages/About/About';
+import Signup from './Pages/Signup/Signup';
+import Contact from './Pages/Contact/Contact';
+import Cart from './Pages/Cart/Cart';
 
 
 const createRoutes=() => (
