@@ -87,6 +87,10 @@ body {
   background-color: #36d06a;
 }
 
+.nav-elements :hover{
+ color: #209146;
+}
+
 .nav_login_cart{
  display: flex;
  align-items: center;
@@ -140,6 +144,8 @@ body {
     height: calc(100vh - 60px);
     transition: all 0.3s ease-in;
     overflow: hidden;
+    z-index: 5;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
   }
 
   .nav-elements.active {
