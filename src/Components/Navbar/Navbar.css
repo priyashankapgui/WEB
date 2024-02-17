@@ -24,8 +24,7 @@ body {
   position: relative;
 }
 
-.logo {
-}
+
 
 .logo img{
   width: 100px;
@@ -49,8 +48,7 @@ body {
   
 }
 
-.nav-elements {
-}
+
 
 .nav-elements ul {
   display: flex;
