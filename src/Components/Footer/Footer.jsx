@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
 import { SiFacebook } from "react-icons/si";
 import { FaYoutube } from "react-icons/fa6";
 import { RiInstagramFill } from "react-icons/ri";
@@ -21,41 +22,25 @@ const Footer = () => {
                     </div>
                 </div>
               
-
+             <Link to='/Contact'>
             <div className='footer-links-div'>
                     <h4>Contact Us</h4>
-                    <a href='/feedback'>
+                 
                         <p>091-365 4576</p>
-                    </a>
-                    <a href='/feedback'>
                         <p>No:83/05 1 Galle Face, <br /> Colombo 2, Sri Lanka</p>
-                    </a>
-                    <a href='/feedback'>
                         <p>greenleaf@gmail.com</p>
-                    </a>
-                </div>
-
-            <div className='footer-links-div'>
-                    <h4>Contact Us</h4>
-                    <a href='/feedback'>
-                        <p>091-365 4576</p>
-                    </a>
-                    <a href='/feedback'>
-                        <p>No:83/05 1 Galle Face, <br /> Colombo 2, Sri Lanka</p>
-                    </a>
-                    <a href='/feedback'>
-                        <p>greenleaf@gamil.com</p>
-                    </a>
-                </div>
+                 
+                   
+             </div>    </Link>
 
             <div className='footer-links-div'>
                     <h4>Account</h4>
                     <a href='/signIn'>
                         <p>My Account</p>
                     </a>
-                    <a href='/signup'>
+                    <Link to='/Signup'>
                         <p>Register</p>
-                    </a>
+                    </Link>
                    
             </div>
 
@@ -63,16 +48,22 @@ const Footer = () => {
                     <h4>Follow Us</h4>
                 <div className='socialmedia'>
 
-                <div> 
-                     <SiFacebook size='24px' />
-                     <a href='/feedback'/>    
+                     <div> 
+                      <a href='https://www.facebook.com/'>    
+                             <SiFacebook size='24px' />
+                      </a>
                     </div>
-                    <div> <FaYoutube size='24px' />  
-                    <a href='/feedback'/>
-                    </div>
+                   
                     <div>
-                    <RiInstagramFill  size='24px' />  
-                    <a href='/feedback'/>
+                        <a href='https://www.youtube.com/'>
+                         <FaYoutube size='24px' />  
+                         </a>
+                    </div>
+
+                    <div>
+                        <a href='https://www.instagram.com/'>
+                         <RiInstagramFill  size='24px' />  
+                       </a>
                     </div>
 
                 </div>

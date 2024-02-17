@@ -5,6 +5,7 @@ import  carticon from '../../Assets/cart-shopping.svg'
 import logo from '../../Assets/Green Leaf Super.png'
 import  profile from '../../Assets/profile-n.svg'
 import './Navbar.css'
+import { Link } from 'react-router-dom'
 
 
 const Navbar = () => {
@@ -29,7 +30,7 @@ const Navbar = () => {
           <div className={`nav-elements  ${showNavbar && 'active'}`}>
             <ul>
               <li>
-                <NavLink to="/home">Home</NavLink>
+                <NavLink to="/">Home</NavLink>
               </li>
               <li>
                 <NavLink to="/products">Products</NavLink>
@@ -45,16 +46,17 @@ const Navbar = () => {
                
               <div className='nav_login_profile'>
                  <img src={profile}  alt='profile'/>
-            </div>
-                
+              </div> 
               </li>
 
+              <Link to='/cart'>
               <li>
               <div className='nav_login_cart'>
                <div className='nav_cart_count'>0</div>
                 <img src={carticon} alt='cart' />
               </div>
               </li>
+              </Link>
              
             </ul>
           </div>

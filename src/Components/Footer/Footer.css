@@ -2,18 +2,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
 body{
     font-family: 'Poppins', sans-serif;
+    
 }
 
 .footer_section_padding{
     padding: 4rem 4rem;
     padding-top:5%;
+
 }
 
 .footer{
     background-color: black;
     display: flex;
     flex-direction: column;
-  
+
+    
 }
 
 .footer-links{
@@ -24,7 +27,7 @@ body{
     flex-wrap: wrap;
     width: 100%;
     text-align: left;
-    margin-bottom:0rem ;
+    margin-bottom:0rem;
 }
 
 .footer-links-div{
@@ -34,6 +37,10 @@ body{
     justify-content:flex-start;
     flex-direction: column;
     color: white;
+}
+
+.footer-links-div p{
+    color:rgb(198, 196, 196);
 }
 
 .logoImg{
@@ -111,6 +118,15 @@ a{
     .footer-heading h1{
         font-size: 27px;
         line-height: 38px;
+    }
+    
+}
+
+@media screen and (min-width: 550px) {
+    .footer{
+        bottom: 0;
+        position: absolute;
+        width: 100%;
     }
     
 }
