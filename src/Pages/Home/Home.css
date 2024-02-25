@@ -1,3 +1,14 @@
-.padding{
-    padding: 10%;
+.productCards{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  
+    flex-wrap: wrap;
+    padding-top: 4vh;
+}
+
+.title{
+    display: flex;
+    justify-content: ;
+
 }

@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { RiSearchLine } from "react-icons/ri";
+
 import './Searchbar.css'; 
+
 
 const Searchbar = ({ onSearch }) => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -23,8 +25,6 @@ const Searchbar = ({ onSearch }) => {
   
 
     <div className="search-container">
-       
-
   
       <div className='drop'>
         <select className="dropdown" value={selectedOption} onChange={handleDropdownChange}>
@@ -51,6 +51,7 @@ const Searchbar = ({ onSearch }) => {
       <div className="horizontal-line"></div>
 
     </div>
+
    
 
    
