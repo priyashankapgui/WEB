@@ -1,13 +1,7 @@
 
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
-body{
-    font-family: 'Poppins', sans-serif;
-    
-}
-
 .footer_section_padding{
     padding: 4rem 4rem;
-    padding-top:5%;
+   
 
 }
 
@@ -15,8 +9,6 @@ body{
     background-color: black;
     display: flex;
     flex-direction: column;
-
-    
 }
 
 .footer-links{
@@ -94,6 +86,10 @@ a{
     cursor: pointer;
 }
 
+.footer-links-div :hover{
+    color: #36d06a;
+}
+
 @media screen and  (max-width:850px) {
     .footer-heading h1{
         font-size: 44px;
@@ -125,7 +121,7 @@ a{
 @media screen and (min-width: 550px) {
     .footer{
         bottom: 0;
-        position: absolute;
+        position: static;
         width: 100%;
     }
     

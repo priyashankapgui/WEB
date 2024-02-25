@@ -1,11 +1,11 @@
 import { NavLink } from 'react-router-dom'
 import { useState } from 'react'
 import { ReactComponent as MenuIcon } from '../../Assets/menu.svg'
-import  carticon from '../../Assets/cart-shopping.svg'
 import logo from '../../Assets/Green Leaf Super.png'
-import  profile from '../../Assets/profile-n.svg'
+import { GoPerson } from "react-icons/go";
 import './Navbar.css'
 import { Link } from 'react-router-dom'
+import CustomizedBadges from '../CartIcon/CartIcon'
 
 
 const Navbar = () => {
@@ -44,17 +44,13 @@ const Navbar = () => {
 
               <li>
                
-              <div className='nav_login_profile'>
-                 <img src={profile}  alt='profile'/>
-              </div> 
+                 <GoPerson   className="icon"/>
+              
               </li>
 
               <Link to='/cart'>
               <li>
-              <div className='nav_login_cart'>
-               <div className='nav_cart_count'>0</div>
-                <img src={carticon} alt='cart' />
-              </div>
+              <CustomizedBadges  className='nav_login_cart'/>
               </li>
               </Link>
              

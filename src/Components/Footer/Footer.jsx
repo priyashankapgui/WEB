@@ -34,11 +34,12 @@ const Footer = () => {
              </div>    </Link>
 
             <div className='footer-links-div'>
+                
                     <h4>Account</h4>
                     <a href='/signIn'>
                         <p>My Account</p>
                     </a>
-                    <Link to='/Signup'>
+                    <Link to='/signup'>
                         <p>Register</p>
                     </Link>
                    
