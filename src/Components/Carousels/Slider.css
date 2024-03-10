@@ -1,0 +1,17 @@
+.mainSlide {
+    padding-top: 2vh;
+}
+
+.carousel .slider-wrapper {
+    width: 80%;
+}
+
+
+
+.carousel .thumbs-wrapper {
+    display: none; 
+}
+
+.carousel {
+    text-align: center;
+}

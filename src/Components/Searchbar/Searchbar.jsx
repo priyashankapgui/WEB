@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { RiSearchLine } from "react-icons/ri";
+import data from '../../data/items.json';
 
 import './Searchbar.css'; 
-
 
 const Searchbar = ({ onSearch }) => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -21,19 +21,18 @@ const Searchbar = ({ onSearch }) => {
   };
 
   return (
-    <div> 
-  
-
     <div className="search-container">
-  
       <div className='drop'>
         <select className="dropdown" value={selectedOption} onChange={handleDropdownChange}>
-        <option value="Category"> Category </option>
-        <option value="option1">Option 1</option>
-        <option value="option2">Option 2</option>
-      </select>
+          <option value="all"> Categories</option>
+          {data.options.map(option => (
+            <option key={option.id} 
+            value={option.categoryName}>{
+              option.categoryName}
+              </option>
+          ))}
+        </select>
       </div>
-
 
       <input
         className="search-input"
@@ -43,18 +42,11 @@ const Searchbar = ({ onSearch }) => {
         onChange={handleInputChange}
       />
       
-    
       <button className="search-button" onClick={handleSearchClick}>
         <RiSearchLine style={{ fontSize: '31px' }} />
       </button>
 
       <div className="horizontal-line"></div>
-
-    </div>
-
-   
-
-   
     </div>
   );
 };

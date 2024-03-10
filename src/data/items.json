@@ -1,0 +1,124 @@
+{
+  "items": [
+    {
+      "id": 1,
+      "price": "Rs : 375.00 LKR",
+      "productName": "Signal Strong Teeth",
+      "weight": "200g",
+      "discount": "-20%",
+      "image": "https://static-01.daraz.lk/p/de4fb4408952b792333f99b33cbad6fd.png"
+    },
+    {
+      "id": 2,
+      "price": "Rs : 450.00 LKR",
+      "productName": "Lifeboy",
+      "weight": "250g",
+      "discount": "-10%",
+       "image": "https://gainmart.lk/cdn/shop/products/Lifebuoy-Care-Soap_1000x1000.jpg?v=1565151475"
+      
+    }
+    
+  ],
+
+  "options":[
+    {
+      "id":1,
+      "categoryName":"Biscuits"
+
+    },
+    {
+      "id":2,
+      "categoryName":"Vegetable"
+    },
+    {
+      "id":3,
+      "categoryName":"Fruits"
+    }
+  ],
+
+  "slide":[
+  
+      {
+        "id": 1,
+        "imageUrl": "https://static.vecteezy.com/system/resources/previews/004/852/278/non_2x/christmas-sale-banner-design-christmas-sale-text-with-holiday-season-offer-for-xmas-seasonal-business-discount-promotion-illustration-vector.jpg"
+      },
+      {
+        "id": 2,
+        "imageUrl": "https://media.gq-magazine.co.uk/photos/5e2987428f4e9e0008b5fdf0/master/pass/20200123-Vegetables.jpg"
+      },
+      {
+        "id": 3,
+        "imageUrl": "https://www.biscuitpeople.com/media/cache/platform_full/4e3667c20a6a847341580381a1f269c8f7195567.jpg"
+      }
+    
+    
+  ],
+
+  "category":[
+    {
+      "id":1,
+      "categoryName":"Biscuits",
+      "image":"https://cdn-icons-png.flaticon.com/512/216/216341.png"
+
+    },
+    {
+      "id":2,
+      "categoryName":"Vegetable",
+      "image":"https://cdn4.iconfinder.com/data/icons/fruits-and-vegetables-66/512/Vegetable_7-512.png"
+    },
+    {
+      "id":3,
+      "categoryName":"Fruits",
+      "image":"https://static.thenounproject.com/png/2501615-200.png"
+    },
+    {
+      "id":4,
+      "categoryName":"A1",
+      "image":"https://cdn-icons-png.flaticon.com/512/216/216341.png"
+
+    },
+    {
+      "id":5,
+      "categoryName":"B1",
+      "image":"https://cdn4.iconfinder.com/data/icons/fruits-and-vegetables-66/512/Vegetable_7-512.png"
+    },
+    {
+      "id":6,
+      "categoryName":"C1",
+      "image":"https://static.thenounproject.com/png/2501615-200.png"
+    },
+    {
+      "id":7,
+      "categoryName":"D1",
+      "image":"https://cdn-icons-png.flaticon.com/512/216/216341.png"
+
+    },
+    {
+      "id":8,
+      "categoryName":"E1",
+      "image":"https://cdn4.iconfinder.com/data/icons/fruits-and-vegetables-66/512/Vegetable_7-512.png"
+    },
+    {
+      "id":9,
+      "categoryName":"F1",
+      "image":"https://static.thenounproject.com/png/2501615-200.png"
+    },
+    {
+      "id":10,
+      "categoryName":"10",
+      "image":"https://static.thenounproject.com/png/2501615-200.png"
+    },
+    {
+      "id":11,
+      "categoryName":"11",
+      "image":"https://static.thenounproject.com/png/2501615-200.png"
+    }
+  ],
+
+    "about": [
+      {
+        "paragraph": "Welcome to Green Leaf, your one-stop destination for sustainable and eco-friendly shopping! At Green Leaf, we are passionate about offering you a curated selection of products that not only meet your needs but also align with our commitment to a greener planet. Our mission is to provide a seamless online shopping experience that empowers you to make conscious choices without compromising on style, quality, or affordability. From organic apparel to environmentally-friendly home goods, every item in our collection reflects our dedication to a sustainable lifestyle.",
+        "image": "https://seeklogo.com/images/G/green-leaf-logo-3DBB8FA5E8-seeklogo.com.png"
+      }
+    ]
+  }

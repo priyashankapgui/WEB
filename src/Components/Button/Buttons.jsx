@@ -2,9 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Button = styled.button`
+  position: relative;
   width: ${(props) => props.btnWidth || '5.125em'};
   height: ${(props) => props.btnHeight || '2em'};
-  border-radius: 0.625em;
+  border-radius:${(props) => props.btnRadius || '0.5em'};
   font-weight: 200;
   font-size: 1em;
   border: none;
@@ -19,22 +20,29 @@ const Button = styled.button`
   }
 `;
 
+const Icon = styled.img`
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+`;
+
 function Buttons(props) {
     return (
-        <div>
-            <Button
-                type={props.type}
-                id={props.id}
-                style={props.style}
-                onClick={props.onClick}
-                alignSelf={props.alignSelf}
-                btnHeight={props.btnHeight}
-                btnWidth={props.btnWidth}
-            >
-                {props.children}
-            </Button>
-        </div>
+        <Button
+            type={props.type}
+            id={props.id}
+            style={props.style}
+            onClick={props.onClick}
+            alignSelf={props.alignSelf}
+            btnHeight={props.btnHeight}
+            btnWidth={props.btnWidth}
+            btnRadius={props.btnRadius}
+        >
+            {props.icon && <Icon src={props.icon} alt="Icon" />}
+            {props.children}
+        </Button>
     );
 }
 
-export default Buttons;
+export default Buttons;

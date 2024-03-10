@@ -26,14 +26,14 @@ body{
     position: relative;
     z-index: 3;
     font-family: 'Poppins';
+    font-size: 15px;
+    line-height: 5;
+    font-weight: 500;
 
    
 }
 
-.dropdown option {
-    font-size: 15px;
-    line-height: 5;
-}
+
 
 
 .search-input {
