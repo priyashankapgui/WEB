@@ -1,14 +1,41 @@
 .productCards{
     display: flex;
-    justify-content: space-between;
+    gap: 5vh;
     align-items: flex-start;
-  
-    flex-wrap: wrap;
+    padding-left: 4vh;
     padding-top: 4vh;
+    padding-right: 4vh;
 }
 
 .title{
     display: flex;
-    justify-content: ;
+    padding-top: 8vh;
+    align-items: flex-end;
+  
+}
 
+.arrowBtn{
+    display: flex;
+    gap: 8vh;
+    align-items: flex-end;
+    justify-content: flex-end;
+}
+.categoryCards {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center; 
+    gap: 15vh;
+    flex-wrap: wrap;
+    padding-left: 4vh;
+    padding-top: 4vh;
+    padding-right: 4vh;
+}
+
+.categoryCards :hover {
+    background-color: #67DE7B;
+}
+
+.icons {
+    font-size: 6vh;
+    text-align: center;
 }
