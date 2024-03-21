@@ -16,6 +16,24 @@
       "discount": "-10%",
        "image": "https://gainmart.lk/cdn/shop/products/Lifebuoy-Care-Soap_1000x1000.jpg?v=1565151475"
       
+    },
+    {
+      "id": 3,
+      "price": "Rs : 450.00 LKR",
+      "productName": "Lifeboy",
+      "weight": "250g",
+      "discount": "-10%",
+       "image": "https://gainmart.lk/cdn/shop/products/Lifebuoy-Care-Soap_1000x1000.jpg?v=1565151475"
+      
+    },
+    {
+      "id": 4,
+      "price": "Rs : 450.00 LKR",
+      "productName": "Lifeboy",
+      "weight": "250g",
+      "discount": "-10%",
+       "image": "https://gainmart.lk/cdn/shop/products/Lifebuoy-Care-Soap_1000x1000.jpg?v=1565151475"
+      
     }
     
   ],
@@ -44,7 +62,7 @@
       },
       {
         "id": 2,
-        "imageUrl": "https://media.gq-magazine.co.uk/photos/5e2987428f4e9e0008b5fdf0/master/pass/20200123-Vegetables.jpg"
+        "imageUrl": "https://www.hindustantimes.com/ht-img/img/2023/12/24/1600x900/merry_christmas_2023_1703398418677_1703398418917.jpg"
       },
       {
         "id": 3,
@@ -58,7 +76,7 @@
     {
       "id":1,
       "categoryName":"Biscuits",
-      "image":"https://cdn-icons-png.flaticon.com/512/216/216341.png"
+      "image":"https://cdn-icons-png.freepik.com/512/440/440262.png"
 
     },
     {
@@ -73,14 +91,14 @@
     },
     {
       "id":4,
-      "categoryName":"A1",
-      "image":"https://cdn-icons-png.flaticon.com/512/216/216341.png"
+      "categoryName":"Cake",
+      "image":"https://www.freeiconspng.com/thumbs/birthday-icon/birthday-cake-icon-1.png"
 
     },
     {
       "id":5,
-      "categoryName":"B1",
-      "image":"https://cdn4.iconfinder.com/data/icons/fruits-and-vegetables-66/512/Vegetable_7-512.png"
+      "categoryName":"Spices",
+      "image":"https://cdn-icons-png.freepik.com/512/4786/4786835.png"
     },
     {
       "id":6,
@@ -120,5 +138,26 @@
         "paragraph": "Welcome to Green Leaf, your one-stop destination for sustainable and eco-friendly shopping! At Green Leaf, we are passionate about offering you a curated selection of products that not only meet your needs but also align with our commitment to a greener planet. Our mission is to provide a seamless online shopping experience that empowers you to make conscious choices without compromising on style, quality, or affordability. From organic apparel to environmentally-friendly home goods, every item in our collection reflects our dedication to a sustainable lifestyle.",
         "image": "https://seeklogo.com/images/G/green-leaf-logo-3DBB8FA5E8-seeklogo.com.png"
       }
+    ],
+    "hoverSlide":[
+  
+      {
+        "id": 1,
+        "imageUrl": "https://static.vecteezy.com/system/resources/previews/004/852/278/non_2x/christmas-sale-banner-design-christmas-sale-text-with-holiday-season-offer-for-xmas-seasonal-business-discount-promotion-illustration-vector.jpg"
+      },
+      {
+        "id": 2,
+        "imageUrl": "https://www.hindustantimes.com/ht-img/img/2023/12/24/1600x900/merry_christmas_2023_1703398418677_1703398418917.jpg"
+      }
+    ],
+    "contact":[
+  
+      {
+        "id": 1,
+        "teleNumber": "091- 365 2214 / 077- 649 1483",
+        "email1": "greenleaf@gmail.com",
+        "email2": "Green@gamil.com"
+      }
+      
     ]
   }

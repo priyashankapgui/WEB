@@ -10,8 +10,9 @@ const Input = styled.input`
   margin-bottom: 0.313em;
   font-size: 0.75em;
   padding: 0.625em;
+  text-align: left;
+  background-color: #eaeaea;
   opacity: ${(props) => (props.editable ? 1 : 0.5)};
-  pointer-events: ${(props) => (props.editable ? 'auto' : 'none')};
 `;
 
 function InputField(props) {
@@ -24,6 +25,7 @@ function InputField(props) {
                 style={props.style}
                 placeholder={props.placeholder}
                 onChange={props.onChange}
+                value={props.value} // Make sure to include value prop
                 editable={props.editable}
             />
         </div>

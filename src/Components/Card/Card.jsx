@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
-// Import CustomRating and Buttons components
 import CustomRating from '../CustomRating/CustomRating';
 import Buttons from '../Button/Buttons';
 import InputLabel from '../InputLable/InputLable';
@@ -13,7 +12,8 @@ const HoverCard = styled(Card)`
   transition: transform 0.3s ease-in-out;
 
   &:hover {
-    transform: scale(1.05); 
+    transform: scale(1.05);
+    background-color: ${(props) => props.hoverColor || 'none'}; /* Change to desired hover color */
   }
 `;
 
@@ -45,7 +45,8 @@ export default function ItemCard({
   showButton = true,
   showRating = true,
   showQuarter = true,
-  quarterCircleProps 
+  quarterCircleProps,
+  hoverColor // New prop for hover color
 }) {
   const [value, setValue] = useState(1);
 
@@ -62,8 +63,10 @@ export default function ItemCard({
         borderRadius: '8px',
         boxShadow: '0 9px 10px rgba(0,0,0,0.5)',
         textAlign: 'center',
+        paddingBottom:'0',
         ...cardStyles
       }}
+      hoverColor={hoverColor} // Pass hover color prop to HoverCard styled component
     >
 
       <CardMedia 
@@ -72,11 +75,9 @@ export default function ItemCard({
         alt="Product"
         width={width}  
         height={height}
-        
-
       />
       
-       {showQuarter && (
+      {showQuarter && (
         <QuarterCircle {...quarterCircleProps}>
           <InputLabel
             htmlFor="example"
@@ -108,7 +109,8 @@ export default function ItemCard({
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          paddingTop: '0vh'
+          paddingTop: '0vh',
+          paddingBottom:'0vh'
         }}
       >
         <InputLabel
@@ -133,7 +135,6 @@ export default function ItemCard({
           lineHeight="1.5"
           marginTop="10px"
           marginBottom="20px"
-          
         >
           {LableProductName}
         </InputLabel>
@@ -151,7 +152,7 @@ export default function ItemCard({
           {LabelProductWeight}
         </InputLabel>
 
-        {showRating && <CustomRating value={value} onChange={handleChange} legend="reviews :" sx={{ fontSize: '5px' }} />}
+        {showRating && <CustomRating value={value} onChange={handleChange} legend="reviews :" sx={{ fontSize: '5px' ,paddingBottom:'2vh'}} />}
 
         {showButton && <Buttons  {...buttonProps}>{buttonLabel}</Buttons>}
       </CardContent>

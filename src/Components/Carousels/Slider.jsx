@@ -10,7 +10,7 @@ export default function Slider() {
       <Carousel className='mainSlide' autoPlay={true} interval={3000} showArrows={false} showThumbs={false} infiniteLoop={true}>
         {items.slide.map(item => (
           <div key={item.id}>
-            <img src={item.imageUrl} height='450px' width='400px' alt={`img${item.id}`} />
+            <img src={item.imageUrl} height='450px' width='500px' alt={`img${item.id}`} />
           </div>
         ))}
       </Carousel>
