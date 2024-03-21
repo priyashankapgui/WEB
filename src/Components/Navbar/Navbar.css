@@ -85,13 +85,15 @@ body {
   background-color: #36d06a;
 }
 
+.iconPerson {
+  font-size: 24px; 
+}
+
+
 .nav-elements :hover{
  color: #209146;
 }
 
-.icon {
-  font-size: 24px; 
-}
 
 @media (max-width: 768px) {
   .nav-elements ul li:not(:last-child) {
