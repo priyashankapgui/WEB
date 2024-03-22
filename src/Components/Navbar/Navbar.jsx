@@ -44,7 +44,7 @@ const Navbar = () => {
 
               <li>
                
-                 <GoPerson   className="icon"/>
+                 <GoPerson   className="iconPerson"/>
               
               </li>
 

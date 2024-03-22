@@ -1,0 +1,32 @@
+.content{
+   display: flex; 
+   flex-direction: row;
+   gap: 30vh;
+}
+
+
+.details{
+    display: grid;
+   gap: 2vh;
+   width: 50vh;
+   height: 30vh;
+   text-align: justify;
+   border-radius: 2px;
+
+}
+
+.heading1{
+    display: flex;
+    flex-direction: row;
+    gap: 2vh;
+}
+
+.horizontalLine {
+    position:relative;
+    width: auto;
+    height: 0.5px;
+    background-color: black;
+    margin-top: 5vh;
+    margin-bottom: 5vh;
+   
+}
