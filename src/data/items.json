@@ -10,7 +10,7 @@
     },
     {
       "id": 2,
-      "price": "Rs : 450.00 LKR",
+      "price": "33 LKR",
       "productName": "Lifeboy",
       "weight": "250g",
       "discount": "-10%",
@@ -19,8 +19,8 @@
     },
     {
       "id": 3,
-      "price": "Rs : 450.00 LKR",
-      "productName": "Lifeboy",
+      "price": "11LKR",
+      "productName": "12",
       "weight": "250g",
       "discount": "-10%",
        "image": "https://gainmart.lk/cdn/shop/products/Lifebuoy-Care-Soap_1000x1000.jpg?v=1565151475"
@@ -28,11 +28,11 @@
     },
     {
       "id": 4,
-      "price": "Rs : 450.00 LKR",
-      "productName": "Lifeboy",
+      "price": "555 LKR",
+      "productName": "45",
       "weight": "250g",
       "discount": "-10%",
-       "image": "https://gainmart.lk/cdn/shop/products/Lifebuoy-Care-Soap_1000x1000.jpg?v=1565151475"
+       "image": "https://rakanaa.pk/cdn/shop/products/134354_0.jpg?v=1628285228"
       
     }
     
@@ -159,5 +159,13 @@
         "email2": "Green@gamil.com"
       }
       
+    ],
+
+    "endImage":[
+      {
+        "id":1,
+        "image1":"https://static.vecteezy.com/system/resources/previews/025/480/738/non_2x/vegetables-set-and-spices-for-cooking-on-dark-background-ai-generated-free-photo.jpg",
+        "image2":"https://static.vecteezy.com/system/resources/previews/025/272/701/non_2x/selection-of-fresh-herbs-and-spices-on-a-wooden-background-top-view-free-photo.jpg"
+      }
     ]
   }

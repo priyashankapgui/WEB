@@ -1,64 +1,72 @@
-import React, { useState } from 'react';
-import axios from 'axios'; 
+import React, { useRef } from 'react';
 import InputField from '../InputField/InputField'; 
 import Buttons from '../Button/Buttons'; 
+import emailjs from '@emailjs/browser';
 import './FeedbackForm.css';
+import axios from 'axios';
 
-function FeedbackForm() {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    message: '',
-    feedbackType: 'Select the feedback type',
-  });
+export const FeedbackForm = () => {
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+  const form = useRef();
 
-  const handleSubmit = async (e) => {
+  const sendEmail = (e) => {
     e.preventDefault();
-    try {
-      const response = await axios.post('/api/feedback', formData);
-      console.log(response.data);
-    } catch (error) {
-      console.error('Error submitting feedback:', error);
-      
-    }
+
+
+    emailjs
+      .sendForm('service_s3vt08f', 'template_f7grc7g', form.current, {
+        publicKey: 'qhvSCN--3mRnX-neP',
+      })
+      .then(
+        () => {
+         
+          axios.post("http://localhost:8080/feedback", {
+            name : new FormData(form.current).get('from_name'),
+            email : new FormData(form.current).get('email'),
+            phone : new FormData(form.current).get('phone'),
+            feedbackType : new FormData(form.current).get('feedback_type'),
+            message : new FormData(form.current).get('message'),
+        })
+        .then(() => {
+            console.log('SUCCESS!');
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+        
+        },
+        (error) => {
+          console.log('FAILED...', error.text);
+        },
+      );
   };
+
 
   return (
     
    
-    <form onSubmit={handleSubmit} className='feedbackForm'>
+    <form ref={form} onSubmit={sendEmail} className='feedbackForm'>
         
       <InputField
         id="name"
-        name="name"
+        name="from_name"
         placeholder="Your Name"
-        onChange={handleChange}
-        value={formData.name}
+        type="text"
       />
       <InputField
         id="email"
         name="email"
         placeholder="Email"
-        onChange={handleChange}
-        value={formData.email}
+        type="email"
       />
       <InputField
         id="phone"
         name="phone"
         placeholder="Phone Number"
-        onChange={handleChange}
-        value={formData.phone}
       /> 
       
        <select
-      name="feedbackType"
-      value={formData.feedbackType}
-      onChange={handleChange}
+      name="feedback_type"
       className="selectFeedback"
           >
       <option value="all">Select the feedback type</option>
@@ -67,16 +75,11 @@ function FeedbackForm() {
       <option value="Feature Request">Feature Request</option>
       </select>
 
-      <InputField
-        id="message"
-        name="message"
-        placeholder="Message"
-        onChange={handleChange}
-        value={formData.message}
-        style={{ width: '100vh', height: '50vh',textAlign: 'center' }} 
-      />
+     
+      <textarea name="message"   style={{ width: '100vh', height: '50vh',textAlign: 'left' ,fontFamily:'Poppins',fontSize:'1em',backgroundColor:'#eaeaea' ,borderRadius: '0.625em',border: '1px solid rgba(141, 144, 147, 0.5)'}}  />
           
-      <Buttons type="submit"    style={{ width: '20vh', height: '7vh', backgroundColor: '#51B541',color:'white'  }} >Send</Buttons>
+      <Buttons type="submit"    style={{ width: '20vh', height: '7vh', backgroundColor: '#51B541',color:'white'  }} value='send'>Send</Buttons>
+    
    
     </form>
 

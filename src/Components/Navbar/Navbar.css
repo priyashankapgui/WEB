@@ -8,12 +8,11 @@ body {
 }
 
 .container {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 0 15px;
+  max-width:100%;
+  margin: 0 ;
+  padding: 0 10vh;
   padding-top: 15px;
   display: flex;
-  justify-content: space-between;
   align-items: center;
   height: 100%;
 }
@@ -24,13 +23,18 @@ body {
   position: relative;
 }
 
+.Logo_content{
+  display: flex;
+  align-items: center;
+
+}
 
 
 .logo img{
   width: 100px;
   height: 100px;
  filter: brightness(90%);
- padding-left: 15%;
+ margin-left: -10px;
  
 }
 
@@ -39,8 +43,14 @@ body {
   font-size: 28px;
   font-weight: 600;
   display: inline;
-  font-style: italic;  
+  font-style: italic;
+  padding-right: 2vh;  
   
+}
+
+.navbar_p>p{
+  margin-left: 1rem;
+
 }
 
 .menu-icon {
@@ -50,13 +60,38 @@ body {
 
 
 
-.nav-elements ul {
+.navbar_cart_person{
+  display: flex;
+  list-style-type: none;
+  justify-content: space-between;
+
+  align-items: center;
+  width: 7vw;
+  padding-left: 11vw;
+
+ 
+}
+
+
+.nav-elements{
+  display: flex;
+  justify-content: space-between; 
+  flex: 1;
+  align-items: center;
+  margin-left: 12vw;
+}
+
+
+
+.nav-elements .nav_item1 {
   display: flex;
   justify-content: space-between;
   list-style-type: none;
-  padding-right: 10%;
+  padding-right: 0;
   align-items: center;
 }
+
+
 
 .nav-elements ul li:not(:last-child) {
   margin-right: 60px;
