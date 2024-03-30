@@ -2,8 +2,10 @@
     padding-top: 2vh;
 }
 
-.carousel .slider-wrapper {
-    width: 80%;
+.carousel.slider-wrapper {
+    width: 500px;
+   
+   
 }
 
 .carousel .thumbs-wrapper {
@@ -14,3 +16,10 @@
     text-align: center;
 }
 
+.carousel-status{
+    display: none;
+}
+
+.control-dots{
+    display: none;
+}

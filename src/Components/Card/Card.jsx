@@ -21,7 +21,7 @@ const QuarterCircle = styled.div`
   position: absolute;
   top: 0;
   right: 0;
-  width: 50px; 
+  width: 50px !improten; 
   height: 50px; 
   background-color: ${(props) => props.bgColor || '#2fc763e8'}; 
   border-top-left-radius: 60%;
@@ -32,8 +32,8 @@ const QuarterCircle = styled.div`
 
 export default function ItemCard({
   image,
-  width,
-  height,
+  imageWidth,
+  imageHeight,
   cardStyles,
   LablePrice,
   LableProductName,
@@ -73,8 +73,9 @@ export default function ItemCard({
         component="img"
         image={image}
         alt="Product"
-        width={width}  
-        height={height}
+        width={imageWidth} 
+        height={imageHeight}
+        
       />
       
       {showQuarter && (
