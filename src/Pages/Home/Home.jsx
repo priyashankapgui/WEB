@@ -10,7 +10,7 @@ import Slick from '../../Components/Slick/Slick';
 import PauseOnHover from '../../Components/productCards/productCards';
 
 export default function Home() {
-  const { items, category } = itemsData; 
+  const { category } = itemsData; 
   const [categoryPosition, setCategoryPosition] = useState(0);
   const categoryLength = category.length;
   
@@ -30,10 +30,13 @@ export default function Home() {
     <div className="home">
       <Layout>
         <Body>
+
+          <div >
           
 
           <Carousel/>
-          
+          </div>
+
           <div className="title">
             <Square size={5} color="#62C96D" marginRight={2.5} />
             <InputLabel
@@ -62,7 +65,7 @@ export default function Home() {
           </div>
 
 
-          <div className=''>
+          <div >
           <Slick 
           
                         handlePrevious={handlePreviousCategory}
@@ -70,6 +73,19 @@ export default function Home() {
                    />
 
           </div>
+
+          
+          <div className='endImage'>
+          
+            {itemsData.endImage.map((endImg, index) => (
+              <div key={index}>
+                <img src={endImg.image1} alt="Background" className='end1' />
+                <img src={endImg.image2} alt="Overlay" className='end2' />
+              </div>
+            ))}
+          </div>
+
+         
 
         </Body>
       </Layout>

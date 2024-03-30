@@ -3,9 +3,9 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import itemsData from '../../data/items.json';
 import ItemCard from "../Card/Card";
-import React, { Component } from "react";
+import React from "react";
 import Slider from "react-slick";
-import { Row } from "react-bootstrap";
+
 
 function PauseOnHover() {
   var settings = {
@@ -47,8 +47,8 @@ function PauseOnHover() {
 
   const { items } = itemsData; 
   return (
-    <div className="slider-container">
-      <Slider {...settings}>
+    <div className="slider-container" >
+      <Slider {...settings} style={{paddingTop:'1%'}}>
       
             {items.map(item => (
               <div  style={{ margin: '0 9px'}}>
@@ -60,18 +60,20 @@ function PauseOnHover() {
                 quarterLabel={item.discount}
                 productLable={'Product :'}
                 image={item.image}
-                width="100vh"
-                height="100vh"
+                imageHeight="180vh"
+                imageWidth="40vw"
+                
+              
                 buttonProps={{
                   type: 'submit',
                   id: 'AddtoCartbtn',
-                  btnHeight: '2.5em',
+                  btnHeight: '2.0em',
                   btnWidth: '10em',
                   alignSelf: 'center',
                   style: { backgroundColor: '#2EB072', color: '#EBEBEB' }
                 }}
                 buttonLabel="Add to Cart"
-                cardStyles={{ width: '30vh', height: '50vh', backgroundColor: '#FFFFFF', paddingTop: '1.5vh' }}
+                cardStyles={{ width: '16vw', height: '55vh', backgroundColor: '#FFFFFF', paddingTop: '0.5vh',paddingBottom: '0.8vh' }}
               />
               </div>
             ))}

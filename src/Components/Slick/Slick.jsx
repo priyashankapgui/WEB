@@ -4,7 +4,7 @@ import itemsData from '../../data/items.json';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import ItemCard from "../Card/Card";
-import { MdOutlineKeyboardArrowLeft, MdOutlineKeyboardArrowRight } from 'react-icons/md';
+import { IoIosArrowBack,IoIosArrowForward } from "react-icons/io";
 
 export default function Slick({ handlePrevious, handleNext }) {
     const sliderRef = useRef(null); 
@@ -57,11 +57,11 @@ export default function Slick({ handlePrevious, handleNext }) {
     return (
         <div>
           <div className="arrowBtn">
-                <button type="button" onClick={handleClickPrevious} style={{borderRadius: '50%',border:'none',width:'8vh',height:'8vh',boxShadow:'0 5px 7px rgba(0,0,0,0.5)',marginBottom:'6vh'}}>
-                    <MdOutlineKeyboardArrowLeft className="icons" style={{fontSize:'8vh'}}/>
+                <button type="button" onClick={handleClickPrevious} style={{marginBottom:'6vh',background:'none',border:'none'}}>
+                    <IoIosArrowBack className="icons" style={{fontSize:'7vh'}}/>
                 </button>
-                <button type="button" onClick={handleClickNext} style={{borderRadius: '50%',border:'none',width:'8vh',height:'8vh',boxShadow:'0 5px 7px rgba(0,0,0,0.5)',marginBottom:'6vh'}}>
-                    <MdOutlineKeyboardArrowRight className="icons" style={{fontSize:'8vh'}} />
+                <button type="button" onClick={handleClickNext} style={{marginBottom:'6vh',background:'none',border:'none'}}>
+                    <IoIosArrowForward className="icons" style={{fontSize:'7vh'}} />
                 </button>
             </div>
             <Slider {...settings} ref={sliderRef} >
