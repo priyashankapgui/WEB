@@ -56,7 +56,7 @@ filter: brightness(90%);
     color: white;
 }
 
-a{
+.footer a{
     color:rgb(175, 175, 179);
     text-decoration:none;
 }

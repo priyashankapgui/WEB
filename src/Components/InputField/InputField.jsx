@@ -9,6 +9,7 @@ const Input = styled.input`
   margin-top: 0.313em;
   margin-bottom: 0.313em;
   font-size: 0.75em;
+  font-family: 'Poppins', sans-serif;
   padding: 0.625em;
   opacity: ${(props) => (props.editable ? 1 : 0.5)};
   pointer-events: ${(props) => (props.editable ? 'auto' : 'none')};
@@ -22,6 +23,7 @@ function InputField(props) {
                 id={props.id}
                 name={props.name}
                 style={props.style}
+                type={props.type}
                 placeholder={props.placeholder}
                 onChange={props.onChange}
                 editable={props.editable}
