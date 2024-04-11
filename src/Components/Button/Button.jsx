@@ -1,5 +1,5 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
 const Button = styled.button`
   width: 5.125em;
@@ -13,15 +13,24 @@ const Button = styled.button`
   padding: 0.125em;
   text-transform: none;
   text-align: center;
-  
+  font-family: "Poppins", sans-serif;
+
 `;
 
 function Buttons(props) {
-    return (
-        <div>
-            <Button type={props.type} id={props.id} style={props.style} onClick={props.onClick} alignSelf={props.alignSelf}>{props.children}</Button>
-        </div>
-    );
+  return (
+    <div>
+      <Button
+        type={props.type}
+        id={props.id}
+        style={props.style}
+        onClick={props.onClick}
+        alignSelf={props.alignSelf}
+      >
+        {props.children}
+      </Button>
+    </div>
+  );
 }
 
 export default Buttons;
