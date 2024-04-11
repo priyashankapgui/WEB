@@ -9,20 +9,11 @@ import Typography from '@mui/material/Typography';
 
 
 export default function Popup(props) {
-    const [open, setOpen] = React.useState(false);
-
-    const openPopup = () => {
-        setOpen(true);
-    };
-
-    const closePopup = () => {
-        setOpen(false);
-    };
-
+   
     return (
         <>
 
-            <IconButton
+            {/* <IconButton
                 onClick={openPopup}
                 sx={{
                     '&:hover': {
@@ -33,14 +24,15 @@ export default function Popup(props) {
                 }}
             >
                 {props.popIcon}
-            </IconButton>
+            </IconButton> */}
 
             <Dialog
-                open={open}
-                onClose={closePopup}
+                open={props.open}
+                onClose={props.onClose}
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
-                sx={{ marginLeft: `${props.popupPosition}` }}
+                sx={{ marginLeft: `${props.popupPosition}`
+                 } }
             >
                 <DialogTitle 
                     id="alert-dialog-title" 
@@ -56,19 +48,20 @@ export default function Popup(props) {
                     </Typography>
                     <IconButton
                         aria-label="close"
-                        onClick={closePopup}
+                        onClick={props.onClose}
                         sx={{
                             position: 'absolute',
                             right: 8,
-                            top: 6,
+                            top: 4,
                             color: `${props.closeIconColor}`,
                         }}
                     >
                         <CloseIcon />
                     </IconButton>
                 </DialogTitle>
-                <DialogContent sx={{ display: 'flex', flexDirection: 'column', backgroundColor: '#fafafa' }}>
+                <DialogContent sx={{ display: 'flex', flexDirection: 'column', backgroundColor: '#ffffff',borderRadius:'40px' }}>
                     <DialogContentText id="alert-dialog-description" sx={{ fontSize: '16px', fontFamily: 'Poppins', marginTop:'8px'}}>
+                        
                         {props.bodyContent}
                     </DialogContentText>
                 </DialogContent>
