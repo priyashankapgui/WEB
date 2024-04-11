@@ -9,6 +9,7 @@ const Input = styled.input`
   margin-top: 0.313em;
   margin-bottom: 0.313em;
   font-size: 0.75em;
+  font-family: 'Poppins', sans-serif;
   padding: 0.625em;
   text-align: left;
   background-color: #eaeaea;
@@ -16,20 +17,20 @@ const Input = styled.input`
 `;
 
 function InputField(props) {
-  return (
-    <div>
-      <Input
-        htmlFor={props.for}
-        id={props.id}
-        name={props.name}
-        style={props.style}
-        placeholder={props.placeholder}
-        onChange={props.onChange}
-        value={props.value}
-        editable={props.editable}
-      />
-    </div>
-  );
+    return (
+        <div>
+            <Input
+                htmlFor={props.for}
+                id={props.id}
+                name={props.name}
+                style={props.style}
+                type={props.type}
+                placeholder={props.placeholder}
+                onChange={props.onChange}
+                editable={props.editable}
+            />
+        </div>
+    );
 }
 
 export default InputField;
