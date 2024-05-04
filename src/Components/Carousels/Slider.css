@@ -4,22 +4,22 @@
 
 .carousel.slider-wrapper {
     width: 500px;
-   
-   
+
+
 }
 
 .carousel .thumbs-wrapper {
-    display: none; 
+    display: none;
 }
 
 .carousel {
     text-align: center;
 }
 
-.carousel-status{
+.carousel-status {
     display: none;
 }
 
-.control-dots{
+.control-dots {
     display: none;
 }

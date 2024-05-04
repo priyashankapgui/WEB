@@ -1,10 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
-body{
+
+body {
     font-family: 'Poppins';
 }
 
 .search-container {
-   
+
     display: flex;
     align-items: center;
     justify-content: center;
@@ -13,15 +14,15 @@ body{
     padding-top: 2%;
 }
 
-.dropdown{
+.dropdown {
 
     width: 120px;
     height: 50px;
-    max-width: 500px; 
+    max-width: 500px;
     border: 1px solid #dbdbdb;
     background-color: #fafafa;
     border-radius: 7px;
-    box-shadow:  0 2px 4px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
     text-align: center;
     position: relative;
     z-index: 3;
@@ -30,7 +31,7 @@ body{
     line-height: 5;
     font-weight: 500;
 
-   
+
 }
 
 .search-input {
@@ -42,8 +43,8 @@ body{
 
 .search-input {
     padding: 16px;
-    width: 100%; 
-    max-width: 500px; 
+    width: 100%;
+    max-width: 500px;
     max-height: 15px;
     border: 1px solid #dbdbdb;
     background-color: #fafafa;
@@ -74,29 +75,30 @@ body{
 }
 
 .horizontal-line {
-    position:absolute;
+    position: absolute;
     width: 100%;
     height: 2px;
     background-color: black;
-   
+
 }
 
 
 @media only screen and (max-width: 768px) {
 
-    .search-container{
+    .search-container {
         height: 20hv;
         width: 30hv;
     }
+
     .search-container {
         padding: 5%;
         flex-direction: row;
     }
-  
+
     .search-input {
         width: auto;
         border-radius: 7px;
-       
+
     }
 
     .search-button {

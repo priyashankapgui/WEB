@@ -1,34 +1,35 @@
-import React from 'react'
-import Layout from '../../Components/Layout/Layout'
-import Body from '../../Components/Body/Body'
-import Card from '../../Components/Card/Card'
-import itemsData from '../../data/items.json'
+import React from "react";
+import Layout from "../../Components/Layout/Layout";
+import Body from "../../Components/Body/Body";
+import itemsData from "../../data/items.json";
 
 export default function About() {
-  const {about} = itemsData;
+  const { about } = itemsData;
 
   return (
     <Layout>
-    <div className='about'>
-
-      <Body>
-
-      {about.map(about => (
-        <Card
-       LableProductName={about.paragraph}
-        image={about.image}
-        cardStyles={{ width: '40vh', height: 'fix-content', backgroundColor: '#FFFFFF' ,paddingTop:'0'}}
-        width="50vh"
-        height="auto"
-       showButton={false} 
-       showRating={false}
-        showQuarter={false}
-        
-         />
-      ))}
-      </Body>
+      <div className="about">
+        <Body> 
+          <div>
+          {about.map((about) => (
+       
+       <img
       
-    </div>
+       src={about.imageLogo}
+       alt={about.altText} 
+       className="aboutImage"
+     />
+           
+          ))}
+
+{about.map((about) => (
+       
+       <p  className="aboutParagraph">{about.paragraph}</p>
+      
+     ))}
+     </div>
+        </Body>
+      </div>
     </Layout>
-  )
+  );
 }
