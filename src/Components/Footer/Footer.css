@@ -1,17 +1,16 @@
-
-.footer_section_padding{
+.footer_section_padding {
     padding: 4rem 4rem;
-   
+
 
 }
 
-.footer{
+.footer {
     background-color: black;
     display: flex;
     flex-direction: column;
 }
 
-.footer-links{
+.footer-links {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
@@ -19,110 +18,111 @@
     flex-wrap: wrap;
     width: 100%;
     text-align: left;
-    margin-bottom:0rem;
+    margin-bottom: 0rem;
 }
 
-.footer-links-div{
+.footer-links-div {
     width: 150px;
     margin: 1rem;
     display: flex;
-    justify-content:flex-start;
+    justify-content: flex-start;
     flex-direction: column;
     color: white;
 }
 
-.footer-links-div p{
-    color:rgb(198, 196, 196);
+.footer-links-div p {
+    color: rgb(198, 196, 196);
 }
 
-.logoImg{
- height: 80%;
- width: 80%;
-filter: brightness(90%);
-  
+.logoImg {
+    height: 80%;
+    width: 80%;
+    filter: brightness(90%);
+
 }
-.logoName{
+
+.logoName {
     width: 150px;
     margin: 0;
-    
+
     color: white;
 }
 
-a{
-    color:rgb(175, 175, 179);
-    text-decoration:none;
+a {
+    color: rgb(175, 175, 179);
+    text-decoration: none;
 }
 
-.socialmedia{
+.socialmedia {
     display: flex;
     flex-direction: row;
 
 }
 
-.socialmedia div{
+.socialmedia div {
     padding-right: 30px;
     cursor: pointer;
 
 }
 
 
-.footer-links-div h4{
+.footer-links-div h4 {
     font-size: 22px;
     line-height: 12px;
     margin-bottom: 0.9rem;
     font-weight: 300;
 }
 
-.logoName h2{
+.logoName h2 {
     font-size: 30px;
     font-weight: 300;
     display: inline;
 }
 
-.footer-links-div p{
+.footer-links-div p {
     font-size: 14px;
     line-height: 18px;
     margin: 0.5rem 0;
     cursor: pointer;
 }
 
-.footer-links-div :hover{
+.footer-links-div :hover {
     color: #36d06a;
 }
 
-@media screen and  (max-width:850px) {
-    .footer-heading h1{
+@media screen and (max-width:850px) {
+    .footer-heading h1 {
         font-size: 44px;
         line-height: 50px;
     }
 }
 
 @media screen and (max-width: 550px) {
-    .footer-heading h1{
+    .footer-heading h1 {
         font-size: 34px;
         line-height: 42px;
     }
-    
-    .footer-links div{
+
+    .footer-links div {
         margin: 1rem 0;
     }
 
-    
+
 }
 
 @media screen and (max-width: 400px) {
-    .footer-heading h1{
+    .footer-heading h1 {
         font-size: 27px;
         line-height: 38px;
     }
-    
+
 }
 
 @media screen and (min-width: 550px) {
-    .footer{
+    .footer {
         bottom: 0;
         position: static;
         width: 100%;
     }
-    
+
 }

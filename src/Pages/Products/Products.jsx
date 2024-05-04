@@ -1,15 +1,13 @@
-import React from 'react'
+import React from "react";
 
-import Layout from '../../Components/Layout/Layout'
+import Layout from "../../Components/Layout/Layout";
 
 export default function Products() {
   return (
     <Layout>
-    <div className='products'>
-        
+      <div className="products">
         <h1>Products</h1>
-      
-    </div>
+      </div>
     </Layout>
-  )
+  );
 }
