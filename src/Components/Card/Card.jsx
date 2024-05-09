@@ -54,6 +54,10 @@ export default function ItemCard({
     setValue(newValue);
   };
 
+  const handleAddToCart = () => {
+    console.log('added')
+  };
+
   return (
     <HoverCard
       sx={{
@@ -155,7 +159,8 @@ export default function ItemCard({
 
         {showRating && <CustomRating value={value} onChange={handleChange} legend="reviews :" sx={{ fontSize: '5px' ,paddingBottom:'2vh'}} />}
 
-        {showButton && <Buttons  {...buttonProps}>{buttonLabel}</Buttons>}
+        {showButton && <Buttons onClick={handleAddToCart} {...buttonProps}>{buttonLabel}</Buttons>}
+
       </CardContent>
     </HoverCard>
   );
