@@ -1,12 +1,8 @@
-import React from 'react'
-import './Body.css'
+import React from "react";
+import "./Body.css";
 
 const Body = (props) => {
-  return (
-    <div className="body-content">
-    {props.children}
-  </div>
-  )
-}
+  return <div className="body-content">{props.children}</div>;
+};
 
-export default Body
+export default Body;

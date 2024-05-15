@@ -64,5 +64,5 @@ export default function Cart() {
         </Box>
       </div>
     </Layout>
-  )
+  );
 }

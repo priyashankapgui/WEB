@@ -8,8 +8,8 @@ body {
 }
 
 .container {
-  max-width:100%;
-  margin: 0 ;
+  max-width: 100%;
+  margin: 0;
   padding: 0 10vh;
   padding-top: 15px;
   display: flex;
@@ -19,48 +19,48 @@ body {
 
 .navbar {
   height: 60px;
-  background-color:#ffffff;
+  background-color: #ffffff;
   position: relative;
 }
 
-.Logo_content{
+.Logo_content {
   display: flex;
   align-items: center;
 
 }
 
 
-.logo img{
+.logo img {
   width: 100px;
   height: 100px;
- filter: brightness(90%);
- margin-left: -10px;
- 
+  filter: brightness(90%);
+  margin-left: -10px;
+
 }
 
-.navbar_p{
+.navbar_p {
   color: #171717;
   font-size: 28px;
   font-weight: 600;
   display: inline;
   font-style: italic;
-  padding-right: 2vh;  
-  
+  padding-right: 2vh;
+
 }
 
-.navbar_p>p{
+.navbar_p>p {
   margin-left: 1rem;
 
 }
 
 .menu-icon {
   display: none;
-  
+
 }
 
 
 
-.navbar_cart_person{
+.navbar_cart_person {
   display: flex;
   list-style-type: none;
   justify-content: space-between;
@@ -69,13 +69,13 @@ body {
   width: 7vw;
   padding-left: 11vw;
 
- 
+
 }
 
 
-.nav-elements{
+.nav-elements {
   display: flex;
-  justify-content: space-between; 
+  justify-content: space-between;
   flex: 1;
   align-items: center;
   margin-left: 12vw;
@@ -121,12 +121,12 @@ body {
 }
 
 .iconPerson {
-  font-size: 24px; 
+  font-size: 24px;
 }
 
 
-.nav-elements :hover{
- color: #209146;
+.nav-elements :hover {
+  color: #209146;
 }
 
 
@@ -134,7 +134,7 @@ body {
   .nav-elements ul li:not(:last-child) {
     margin-right: 30px;
   }
-  
+
 }
 
 @media (max-width: 600px) {
@@ -165,15 +165,14 @@ body {
   .nav-elements ul {
     display: flex;
     flex-direction: column;
-  
+
   }
 
   .nav-elements ul li {
     margin-right: unset;
     margin-top: 22px;
-   
+
   }
 
-  
-}
 
+}
