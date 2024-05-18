@@ -10,7 +10,7 @@
     },
     {
       "id": 2,
-      "price": "33 LKR",
+      "price": "150 LKR",
       "productName": "Lifeboy",
       "weight": "250g",
       "discount": "-10%",
@@ -19,8 +19,8 @@
     },
     {
       "id": 3,
-      "price": "11LKR",
-      "productName": "12",
+      "price": "110LKR",
+      "productName": "Lifeboy Soap",
       "weight": "250g",
       "discount": "-10%",
        "image": "https://gainmart.lk/cdn/shop/products/Lifebuoy-Care-Soap_1000x1000.jpg?v=1565151475"
@@ -29,7 +29,7 @@
     {
       "id": 4,
       "price": "555 LKR",
-      "productName": "45",
+      "productName": "Lifeboy Shampoo",
       "weight": "250g",
       "discount": "-10%",
        "image": "https://rakanaa.pk/cdn/shop/products/134354_0.jpg?v=1628285228"
