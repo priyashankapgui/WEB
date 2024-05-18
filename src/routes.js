@@ -9,6 +9,7 @@ import Cart from './Pages/Cart/Cart';
 import Login from './Pages/Login/Login';
 import ForgotPw from './Pages/Login/ForgotPw/ForgotPw';
 import ResetPw from './Pages/Login/ResetPw/ResetPw';
+import MyAccount from './Pages/MyAccount/MyAccount';
 
 
 const createRoutes=() => (
@@ -19,6 +20,7 @@ const createRoutes=() => (
         <Route path="/signup" element={<Signup/>} />
         <Route path="/contact" element={<Contact/>} />
         <Route path="/cart" element={<Cart/>} />
+        <Route path="/my-account" element={<MyAccount/>}/>
         <Route path='/login' element={<Login/>}/>
         <Route path="/login/forgotpw" element={<ForgotPw/>} />
         <Route path="/login/forgotpw/resetpw" element={<ResetPw/>}/>
