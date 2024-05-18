@@ -3,13 +3,17 @@ import { useState } from 'react'
 import { ReactComponent as MenuIcon } from '../../Assets/menu.svg'
 import  carticon from '../../Assets/cart-shopping.svg'
 import logo from '../../Assets/Green Leaf Super.png'
-import  profile from '../../Assets/profile-n.svg'
+//import  profile from '../../Assets/profile-n.svg'
 import './Navbar.css'
 import { Link } from 'react-router-dom'
+import UserProfileDetails from '../Popup/UserProfileDetails'
 
 
 const Navbar = () => {
     const [showNavbar, setShowNavbar] = useState(false)
+    const [UserProfileDetailsOpen, setUserProfileDetailsOpen] = useState(false);
+
+    const closeUserProfileDetails = () => setUserProfileDetailsOpen(false);
   
     const handleShowNavbar = () => {
       setShowNavbar(!showNavbar)
@@ -39,13 +43,14 @@ const Navbar = () => {
                 <NavLink to="/about">About</NavLink>
               </li>
               <li>
-                <NavLink to="/signup">SignUp</NavLink>
+                <NavLink to="/login">SignUp/Login</NavLink>
               </li>
 
               <li>
                
               <div className='nav_login_profile'>
-                 <img src={profile}  alt='profile'/>
+                  <UserProfileDetails open={UserProfileDetailsOpen} onClose={closeUserProfileDetails} />
+                 {/* <NavLink to="/userProfile"><img src={profile}  alt='profile'/></NavLink> */}
               </div> 
               </li>
 

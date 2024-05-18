@@ -4,8 +4,8 @@ import styled from 'styled-components';
 const Input = styled.input`
   border-radius: 0.625em;
   border: 1px solid #8D9093;
-  height: 2.25em;
-  width: 27em;
+  height: 1.50em;
+  width: 20em;
   margin-top: 0.313em;
   margin-bottom: 0.313em;
   font-size: 0.75em;
@@ -28,6 +28,7 @@ function InputField(props) {
                 onChange={props.onChange}
                 editable={props.editable}
             />
+            
         </div>
     );
 }
