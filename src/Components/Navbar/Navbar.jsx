@@ -30,25 +30,24 @@ const Navbar = () => {
         </div>
         <div className={`nav-elements  ${showNavbar && "active"}`}>
           <div>
-          <ul className="nav_item1">
-            <li>
-              <NavLink to="/">Home</NavLink>
-            </li>
-            <li>
-              <NavLink to="/products">Products</NavLink>
-            </li>
-            <li>
-              <NavLink to="/about">About</NavLink>
-            </li>
-            <li>
-              <NavLink to="/contact">Contact</NavLink>
-            </li>
-          </ul>
-
+            <ul className="nav_item1">
+              <li>
+                <NavLink to="/">Home</NavLink>
+              </li>
+              <li>
+                <NavLink to="/products">Products</NavLink>
+              </li>
+              <li>
+                <NavLink to="/about">About</NavLink>
+              </li>
+              <li>
+                <NavLink to="/contact">Contact</NavLink>
+              </li>
+            </ul>
           </div>
-        
-        <div>
-          <ul className="navbar_cart_person">
+
+          <div>
+            <ul className="navbar_cart_person">
               <li>
                 <GoPerson className="iconPerson" />
               </li>
@@ -59,7 +58,7 @@ const Navbar = () => {
                 </Link>
               </li>
             </ul>
-        </div>
+          </div>
         </div>
       </div>
     </nav>

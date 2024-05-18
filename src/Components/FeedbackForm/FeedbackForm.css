@@ -1,24 +1,35 @@
 .selectFeedback {
-    width: 220px;
-    height: 50px;
-    max-width: 500px;
-    border: none;
-    background-color: #eaeaea;
-    border-radius: 7px;
-    text-align: center;
-    font-family: 'Poppins';
-    font-size: 14px;
-    line-height: 5;
-    font-weight: 500;
-  }
+  width: 220px;
+  height: 50px;
+  max-width: 500px;
+  border: none;
+  background-color: #eaeaea;
+  border-radius: 7px;
+  text-align: center;
+  font-family: 'Poppins';
+  font-size: 14px;
+  line-height: 5;
+  font-weight: 500;
+}
 
-  .feedbackForm{
-    display: grid;
-    grid-column: auto;
-   gap: 2vh;
-   width: 50vh;
-   align-items: end;
-  }
-  
-  
-  
+.selectBranch {
+  width: 150px;
+  height: 40px;
+  max-width: 500px;
+  border: none;
+  background-color: #eaeaea;
+  border-radius: 7px;
+  text-align: center;
+  font-family: 'Poppins';
+  font-size: 14px;
+  line-height: 5;
+  font-weight: 500;
+}
+
+.feedbackForm {
+  display: grid;
+  grid-column: auto;
+  gap: 2vh;
+  width: 50vh;
+  align-items: end;
+}

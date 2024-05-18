@@ -1,19 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import { RiSearchLine } from "react-icons/ri";
-import data from '../../data/items.json';
+import data from "../../data/items.json";
 
-import './Searchbar.css'; 
+import "./Searchbar.css";
 
 const Searchbar = ({ onSearch }) => {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [selectedOption, setSelectedOption] = useState('all'); 
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedOption, setSelectedOption] = useState("all");
 
   const handleInputChange = (event) => {
     setSearchTerm(event.target.value);
   };
 
   const handleSearchClick = () => {
-    onSearch(searchTerm, selectedOption); 
+    onSearch(searchTerm, selectedOption);
   };
 
   const handleDropdownChange = (event) => {
@@ -22,14 +22,17 @@ const Searchbar = ({ onSearch }) => {
 
   return (
     <div className="search-container">
-      <div className='drop'>
-        <select className="dropdown" value={selectedOption} onChange={handleDropdownChange}>
+      <div className="drop">
+        <select
+          className="dropdown"
+          value={selectedOption}
+          onChange={handleDropdownChange}
+        >
           <option value="all"> Categories</option>
-          {data.options.map(option => (
-            <option key={option.id} 
-            value={option.categoryName}>{
-              option.categoryName}
-              </option>
+          {data.options.map((option) => (
+            <option key={option.id} value={option.categoryName}>
+              {option.categoryName}
+            </option>
           ))}
         </select>
       </div>
@@ -41,9 +44,9 @@ const Searchbar = ({ onSearch }) => {
         value={searchTerm}
         onChange={handleInputChange}
       />
-      
+
       <button className="search-button" onClick={handleSearchClick}>
-        <RiSearchLine style={{ fontSize: '31px' }} />
+        <RiSearchLine style={{ fontSize: "31px" }} />
       </button>
 
       <div className="horizontal-line"></div>
