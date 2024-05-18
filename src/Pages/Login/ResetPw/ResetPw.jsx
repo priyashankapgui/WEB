@@ -16,13 +16,15 @@ const ResetPw = () => {
 
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
+    setError("");
   };
 
   const handleConfirmPasswordChange = (e) => {
     setConfirmPassword(e.target.value);
+    setError("");
   };
 
-  const handleResetPassword = (e) => {
+  const handleResetPassword = async (e) => {
     e.preventDefault();
 
     if (!password || !confirmPassword) {
@@ -34,13 +36,45 @@ const ResetPw = () => {
       setError("Passwords do not match.");
       return;
     }
+    const urlParams = new URLSearchParams(window.location.search);
+    const token = urlParams.get("token");
 
-    setShowPopup(true);
+   
+
+    // If token is not present, redirect to login page
+    if (!token) {
+      window.location.href = "/login";
+    } else {
+      const response = await fetch("http://localhost:8080/api/customers/login/forgotpw/resetpw", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          resetToken: token,
+          newPassword: password,
+          confirmPassword: confirmPassword,
+        }),
+      }).catch((error) => console.error("Error:", error));
+
+      if (response.ok) {
+        const data = await response.json();
+        setShowPopup(true);
+        
+        console.log("Response data:", data);
+      } else {
+        const data = await response.json();
+        setError(data.message);
+      }
+    }
+
+    
   };
 
   const handleOkButtonClick = () => {
+
     // Navigate back to login page
-    window.location.href = "/";
+    window.location.href = "/login";
   };
 
   const toggleShowPassword = () => {
@@ -53,7 +87,7 @@ const ResetPw = () => {
 
   const handleClose=()=> {
     setShowPopup(false);
-    window.location.href="/";
+    window.location.href="/login";
 
   }
 

@@ -25,7 +25,7 @@ function Buttons(props) {
         id={props.id}
         style={props.style}
         onClick={props.onClick}
-        alignSelf={props.alignSelf}
+        alignSelf={props.$alignSelf}
       >
         {props.children}
       </Button>

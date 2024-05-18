@@ -29,6 +29,7 @@ function InputField(props) {
                 onChange={props.onChange}
                 editable={props.editable}
             />
+            
         </div>
     );
 }

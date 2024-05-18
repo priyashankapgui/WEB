@@ -1,22 +1,24 @@
-import { NavLink } from "react-router-dom";
-import { useState } from "react";
-import { ReactComponent as MenuIcon } from "../../Assets/menu.svg";
-import logo from "../../Assets/Green Leaf Super.png";
-import { GoPerson } from "react-icons/go";
-import "./Navbar.css";
-import { Link } from "react-router-dom";
-import CustomizedBadges from "../CartIcon/CartIcon";
+import { NavLink } from 'react-router-dom'
+import { useState } from 'react'
+import { ReactComponent as MenuIcon } from '../../Assets/menu.svg'
+import { ReactComponent as GoPerson } from '../../Assets/person.svg'
+import CustomizedBadges from '../Badge/Badge'
+import  carticon from '../../Assets/cart-shopping.svg'
+import logo from '../../Assets/Green Leaf Super.png'
+import  profile from '../../Assets/profile-n.svg'
+import './Navbar.css'
+import { Link } from 'react-router-dom'
+
 
 const Navbar = () => {
-  const [showNavbar, setShowNavbar] = useState(false);
-
-  const handleShowNavbar = () => {
-    setShowNavbar(!showNavbar);
-  };
-
-  return (
-    <nav className="navbar">
-      <div className="container">
+    const [showNavbar, setShowNavbar] = useState(false)
+    const handleShowNavbar = () => {
+      setShowNavbar(!showNavbar)
+    }
+  
+    return (
+      <nav className="navbar">
+        <div className="container">
         <div className="Logo_content">
           <div className="logo">
             <img src={logo} alt="logo"></img>
@@ -43,6 +45,7 @@ const Navbar = () => {
               <li>
                 <NavLink to="/contact">Contact</NavLink>
               </li>
+
             </ul>
           </div>
 
@@ -55,6 +58,7 @@ const Navbar = () => {
               <li>
                 <Link to="/cart">
                   <CustomizedBadges className="nav_login_cart" />
+
                 </Link>
               </li>
             </ul>

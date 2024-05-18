@@ -17,7 +17,7 @@ const ForgotPw = () => {
     setError("");
   };
 
-  const handleOpen = (e) => {
+  const handleOpen = async (e) => {
     e.preventDefault(); // Prevent default form submission
     // Validate if the email is empty
     if (!email) {
@@ -36,11 +36,31 @@ const ForgotPw = () => {
     }
     // If email is valid, show the SubPopup
     console.log("Email is valid. Setting showSubPopup to true...");
-    setshowPopup(true);
+
+    const response = await fetch("http://localhost:8080/api/customers/login/forgotpw", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ 
+        email: email 
+      }),
+    }).catch((error) => console.error("Error:", error));
+    
+    if (response.ok) {
+      setshowPopup(true);
+    } else {
+      const data = await response.json();
+      setError(data.message);
+    }
   };
   const handleClose = () => {
     setshowPopup(false);
-    window.location.href = "/login/resetpw";
+    //window.location.href = "/login/resetpw";
+  };
+
+  const handleOkButtonClick = () => {
+    setshowPopup(false);
   };
   return (
     <div className="s-fp-container">
@@ -88,9 +108,9 @@ const ForgotPw = () => {
           bodyContent={(
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
               <p>Your password has been sent to your email</p>
-              <Link to="/login/forgotpw/resetpw">
-                <Buttons type="button" id="ok-btn" style={{ backgroundColor: "green", color: "white" }}>Ok </Buttons>
-              </Link>
+              
+                <Buttons type="button" id="ok-btn" style={{ backgroundColor: "green", color: "white" }} onClick={handleOkButtonClick}>Ok </Buttons>
+              
             </div>
           )}
         />
