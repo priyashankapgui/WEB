@@ -5,16 +5,18 @@
 }
 .checkoutContainer{
     margin-left: 64%;
-}
-.checkoutTable{
     font-family: 'Poppins';
-    font-size: 16px;
+    font-size: 1em;
+}
+.checkoutTable {
+    font-family: 'Poppins';
+    font-size: 1em;
     color: black;
 }
 .checkoutButton{
     background-color: #2FAA3C;
     color: #fafafa;
-    font-size: 16px;
+    font-size: 1em;
     font-family: 'Poppins';
     margin: 15%;
     margin-left: 30%;

@@ -67,15 +67,15 @@ export default function Cart({ cart }) {
               <TableBody>
                 <TableRow>
                   <TableCell className="checkoutTable" component="th" scope="row">Subtotal:</TableCell>
-                  <TableCell>{'Rs.' + totals.subtotal.toFixed(2)}</TableCell>
+                  <TableCell className="checkoutTable">{'Rs.' + totals.subtotal.toFixed(2)}</TableCell>
                 </TableRow>
                 <TableRow>
                   <TableCell className="checkoutTable" component="th" scope="row">Discount:</TableCell>
-                  <TableCell>{'Rs.' + totals.discount.toFixed(2)}</TableCell>
+                  <TableCell className="checkoutTable">{'Rs.' + totals.discount.toFixed(2)}</TableCell>
                 </TableRow>
                 <TableRow>
                   <TableCell className="checkoutTable" component="th" scope="row">Total:</TableCell>
-                  <TableCell>{'Rs.' + totals.total.toFixed(2)}</TableCell>
+                  <TableCell className="checkoutTable">{'Rs.' + totals.total.toFixed(2)}</TableCell>
                 </TableRow>
               </TableBody>
             </Table>
