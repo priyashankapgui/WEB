@@ -21,7 +21,7 @@ const QuarterCircle = styled.div`
   position: absolute;
   top: 0;
   right: 0;
-  width: 50px !improten;
+  width: 50px !important;
   height: 50px;
   background-color: ${(props) => props.bgColor || "#2fc763e8"};
   border-top-left-radius: 60%;
@@ -47,15 +47,12 @@ export default function ItemCard({
   showQuarter = true,
   quarterCircleProps,
   hoverColor, 
+  onAddToCart, // Receive the function as a prop
 }) {
   const [value, setValue] = useState(1);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
-  };
-
-  const handleAddToCart = () => {
-    console.log('added')
   };
 
   return (
@@ -164,8 +161,11 @@ export default function ItemCard({
           />
         )}
 
-        {showButton && <Buttons onClick={handleAddToCart} {...buttonProps}>{buttonLabel}</Buttons>}
-
+        {showButton && (
+          <Buttons onClick={onAddToCart} {...buttonProps}>
+            {buttonLabel}
+          </Buttons>
+        )}
       </CardContent>
     </HoverCard>
   );

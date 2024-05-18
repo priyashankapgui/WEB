@@ -6,6 +6,10 @@ import React from "react";
 import Slider from "react-slick";
 
 function PauseOnHover() {
+  const handleAddToCart = (item) => {
+    console.log('added', item);
+  };
+
   var settings = {
     dots: true,
     infinite: true,
@@ -48,9 +52,8 @@ function PauseOnHover() {
     <div className="slider-container">
       <Slider {...settings} style={{ paddingTop: "1%" }}>
         {items.map((item) => (
-          <div style={{ margin: "0 9px" }}>
+          <div style={{ margin: "0 9px" }} key={item.id}>
             <ItemCard
-              key={item.id}
               LablePrice={item.price}
               LableProductName={item.productName}
               LabelProductWeight={item.weight}
@@ -75,6 +78,7 @@ function PauseOnHover() {
                 paddingTop: "0.5vh",
                 paddingBottom: "0.8vh",
               }}
+              onAddToCart={() => handleAddToCart(item)}
             />
           </div>
         ))}

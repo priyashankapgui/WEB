@@ -7,14 +7,14 @@ import Signup from "./Pages/Signup/Signup";
 import Contact from "./Pages/Contact/Contact";
 import Cart from "./Pages/Cart/Cart";
 
-const createRoutes = () => (
+const createRoutes = ({ cart, addToCart }) => (
   <Routes>
     <Route path="/" element={<Home />} />
-    <Route path="/products" element={<Products />} />
+    <Route path="/products" element={<Products addToCart={addToCart} />} />
     <Route path="/about" element={<About />} />
     <Route path="/signup" element={<Signup />} />
     <Route path="/contact" element={<Contact />} />
-    <Route path="/cart" element={<Cart />} />
+    <Route path="/cart" element={<Cart cart={cart} />} />
   </Routes>
 );
 
