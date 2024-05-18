@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom'
-import { useState } from 'react'
+import { useState,useEffect } from 'react'
 import { ReactComponent as MenuIcon } from '../../Assets/menu.svg'
 import  carticon from '../../Assets/cart-shopping.svg'
 import logo from '../../Assets/Green Leaf Super.png'
@@ -12,9 +12,20 @@ import UserProfileDetails from '../Popup/UserProfileDetails'
 const Navbar = () => {
     const [showNavbar, setShowNavbar] = useState(false)
     const [UserProfileDetailsOpen, setUserProfileDetailsOpen] = useState(false);
-
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    
+    useEffect(() => {
+      // Check if the JWT token is present in session storage
+      const token = sessionStorage.getItem('accessToken');
+      if (token) {
+        setIsLoggedIn(true);
+      } else {
+        setIsLoggedIn(false);
+      }
+    }, []);
+    
     const closeUserProfileDetails = () => setUserProfileDetailsOpen(false);
-  
+
     const handleShowNavbar = () => {
       setShowNavbar(!showNavbar)
     }
@@ -42,18 +53,20 @@ const Navbar = () => {
               <li>
                 <NavLink to="/about">About</NavLink>
               </li>
+              {isLoggedIn ? (
+              <li>
+                <div className='nav_login_profile'>
+                  <UserProfileDetails open={UserProfileDetailsOpen} onClose={closeUserProfileDetails} />
+                </div>
+                <NavLink to="/my-account">MyAccount</NavLink>
+              </li>
+            ) : (
               <li>
                 <NavLink to="/login">SignUp/Login</NavLink>
               </li>
+            )}
 
-              <li>
-               
-              <div className='nav_login_profile'>
-                  <UserProfileDetails open={UserProfileDetailsOpen} onClose={closeUserProfileDetails} />
-                 {/* <NavLink to="/userProfile"><img src={profile}  alt='profile'/></NavLink> */}
-              </div> 
-              </li>
-
+             
               <Link to='/cart'>
               <li>
               <div className='nav_login_cart'>
