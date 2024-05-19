@@ -3,7 +3,7 @@ import { Icon } from "@iconify/react";
 import styled from 'styled-components';
 import SubPopup from './SubPopup';
 import Buttons from '../Button/Button';
-import InputLabel from '../Lable/InputLable';
+import InputLabel from '../InputLable/InputLable';
 import InputField from '../InputField/InputField';
 import InputDropdown from '../InputDropDown/InputDropDown';
 import { useDropzone } from 'react-dropzone';

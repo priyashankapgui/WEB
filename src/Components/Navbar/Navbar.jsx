@@ -1,13 +1,11 @@
-import { NavLink } from 'react-router-dom'
-import { useState,useEffect } from 'react'
-import { ReactComponent as MenuIcon } from '../../Assets/menu.svg'
-import { ReactComponent as GoPerson } from '../../Assets/person.svg'
-import CustomizedBadges from '../Badge/Badge'
-import  carticon from '../../Assets/cart-shopping.svg'
-import logo from '../../Assets/Green Leaf Super.png'
-import  profile from '../../Assets/profile-n.svg'
-import './Navbar.css'
-import { Link } from 'react-router-dom'
+import { NavLink } from "react-router-dom";
+import { useState,useEffect } from "react";
+import { ReactComponent as MenuIcon } from "../../Assets/menu.svg";
+import logo from "../../Assets/Green Leaf Super.png";
+import { GoPerson } from "react-icons/go";
+import "./Navbar.css";
+import { Link } from "react-router-dom";
+import CustomizedBadges from "../CartIcon/CartIcon";
 import UserProfileDetails from '../Popup/UserProfileDetails'
 
 const Navbar = () => {
@@ -73,11 +71,17 @@ const Navbar = () => {
                 
               </li>
             )}
+               <ul className="navbar_cart_person">
+              <li>
+                <GoPerson className="iconPerson" />
+              </li>
+
               <li>
                 <Link to="/cart">
                   <CustomizedBadges className="nav_login_cart" />
                 </Link>
               </li>
+            </ul>
             </ul>
           </div>
         </div>
