@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "proxy": "http://localhost:8080",
+  "proxy": "http://localhost:8080",
   "dependencies": {
     "@emailjs/browser": "^4.3.3",
     "@emotion/react": "^11.11.3",
