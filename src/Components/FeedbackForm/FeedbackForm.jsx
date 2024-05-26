@@ -1,16 +1,47 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import InputField from "../InputField/InputField";
 import Buttons from "../Button/Buttons";
-import emailjs from "@emailjs/browser";
+import LoaderComponent from "../../Components/Spiner/HashLoader";
 import "./FeedbackForm.css";
 import axios from "axios";
+import emailjs from "@emailjs/browser";
+import ConnectionWarning from "../../Components/Alerts/ConnectionWarning";
 
 export const FeedbackForm = () => {
   const feedbackApiUrl = process.env.REACT_APP_FEEDBACK_API;
   const form = useRef();
+  const [email, setEmail] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [phone, setPhone] = useState("");
+  const [phoneError, setPhoneError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [successMessage, setSuccessMessage] = useState(""); 
+  const [errorMessage, setErrorMessage] = useState(""); 
+
+  const validateEmail = (email) => {
+    const re = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return re.test(String(email).toLowerCase());
+  };
+
+  const validatePhone = (phone) => {
+    const re = /^\d{10}$/;
+    return re.test(String(phone));
+  };
 
   const sendEmail = (e) => {
     e.preventDefault();
+
+    if (!validateEmail(email)) {
+      setEmailError("Please enter a valid email address.");
+      return;
+    }
+
+    if (!validatePhone(phone)) {
+      setPhoneError("Please enter a valid 10-digit phone number.");
+      return;
+    }
+
+    setLoading(true); 
 
     emailjs
       .sendForm("service_s3vt08f", "template_f7grc7g", form.current, {
@@ -19,7 +50,7 @@ export const FeedbackForm = () => {
       .then(
         () => {
           axios
-            .post(feedbackApiUrl , {
+            .post(feedbackApiUrl, {
               name: new FormData(form.current).get("from_name"),
               email: new FormData(form.current).get("email"),
               phone: new FormData(form.current).get("phone"),
@@ -29,68 +60,114 @@ export const FeedbackForm = () => {
             })
             .then(() => {
               console.log("SUCCESS!");
+              form.current.reset();
+              setEmailError("");
+              setEmail("");
+              setPhoneError("");
+              setPhone("");
+              setLoading(false);
+              setSuccessMessage("Your feedback has been sent successfully!"); 
+              setErrorMessage(""); 
+              setTimeout(() => setSuccessMessage(""), 3000); 
             })
             .catch((error) => {
               console.log(error);
+              setLoading(false);
+              setErrorMessage("Failed to send feedback. Please try again later."); 
             });
         },
         (error) => {
           console.log("FAILED...", error.text);
+          setLoading(false);
+          setErrorMessage("Failed to send feedback. Please try again later."); 
         }
       );
   };
 
   return (
-    <form ref={form} onSubmit={sendEmail} className="feedbackForm">
-      <InputField
-        id="name"
-        name="from_name"
-        placeholder="Your Name"
-        type="text"
-      />
-      <InputField id="email" name="email" placeholder="Email" type="email" />
-      <InputField id="phone" name="phone" placeholder="Phone Number" />
+    <div>
+      {loading && (
+        <div className="loader-wrapper">
+          <LoaderComponent />
+        </div>
+      )}
+      {successMessage && (
+        <div className="success-message">
+          {successMessage}
+        </div>
+      )}
+      {errorMessage && (
+        <div className="error-message">
+          {errorMessage}
+        </div>
+      )}
+      <ConnectionWarning /> {/* Add ConnectionWarning */}
+      <form ref={form} onSubmit={sendEmail} className="feedbackForm">
+        <InputField
+          id="name"
+          name="from_name"
+          placeholder="Your Name"
+          type="text"
+        />
+        <InputField
+          id="email"
+          name="email"
+          placeholder="Email"
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        {emailError && <span className="error">{emailError}</span>}
+        <InputField
+          id="phone"
+          name="phone"
+          placeholder="Phone Number"
+          value={phone}
+          onChange={(e) => setPhone(e.target.value)}
+        />
+        {phoneError && <span className="error">{phoneError}</span>}
 
-      <select name="feedback_type" className="selectFeedback">
-        <option value="">Select the feedback type</option>
-        <option value="General">General</option>
-        <option value="Bug Report">Bug Report</option>
-        <option value="Feature Request">Feature Request</option>
-      </select>
+        <select name="feedback_type" className="selectFeedback">
+          <option value="">Select the feedback type</option>
+          <option value="General">General</option>
+          <option value="Bug Report">Bug Report</option>
+          <option value="Feature Request">Feature Request</option>
+        </select>
 
-      <select name="branch_name" className="selectBranch">
-        <option value="">Select the Branch</option>
-        <option value="Galle">Galle</option>
-        <option value="Matara">Matara</option>
-      </select>
+        <select name="branch_name" className="selectBranch">
+          <option value="">Select the Branch</option>
+          <option value="Galle">Galle</option>
+          <option value="Matara">Matara</option>
+        </select>
 
-      <textarea
-        name="message"
-        style={{
-          width: "100vh",
-          height: "50vh",
-          textAlign: "left",
-          fontFamily: "Poppins",
-          fontSize: "1em",
-          backgroundColor: "#eaeaea",
-          borderRadius: "0.625em",
-          border: "1px solid rgba(141, 144, 147, 0.5)",
-        }}
-      />
+        <textarea
+          name="message"
+          style={{
+            width: "100vh",
+            height: "50vh",
+            textAlign: "left",
+            fontFamily: "Poppins",
+            fontSize: "1em",
+            backgroundColor: "#eaeaea",
+            borderRadius: "0.625em",
+            border: "1px solid rgba(141, 144, 147, 0.5)",
+          }}
+        />
 
-      <Buttons
-        type="submit"
-        style={{
-          width: "20vh",
-          height: "7vh",
-          backgroundColor: "#51B541",
-          color: "white",
-        }}
-        value="send"
-      >
-        Send
-      </Buttons>
-    </form>
+        <Buttons
+          type="submit"
+          style={{
+            width: "20vh",
+            height: "7vh",
+            backgroundColor: "#51B541",
+            color: "white",
+          }}
+          value="send"
+        >
+          Send
+        </Buttons>
+      </form>
+    </div>
   );
 };
 
