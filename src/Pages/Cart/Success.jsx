@@ -1,8 +1,11 @@
-// src/Success.js
-import React from 'react';
+import React from 'react'
 
-const Success = () => {
-  return <h1>Payment Successful!</h1>;
-};
+function Success() {
+  return (
+    <div>
+      <h1>Success</h1>
+    </div>
+  )
+}
 
-export default Success;
+export default Success

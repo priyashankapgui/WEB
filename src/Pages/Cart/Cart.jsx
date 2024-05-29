@@ -83,7 +83,7 @@ const checkoutButton = {
     marginLeft: "30%",
 };
 
-const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_KEY); // Replace with your Stripe publishable key
+const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_KEY);
 
 export default function Cart() {
     const [rows, setRows] = useState(initialRows);

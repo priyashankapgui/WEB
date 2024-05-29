@@ -1,8 +1,11 @@
-// src/Cancel.js
-import React from 'react';
+import React from 'react'
 
-const Cancel = () => {
-  return <h1>Payment Cancelled</h1>;
-};
+function Cancel() {
+  return (
+    <>
+    <h1>copy</h1>
+    </>
+  )
+}
 
-export default Cancel;
+export default Cancel

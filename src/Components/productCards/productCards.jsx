@@ -1,16 +1,54 @@
+import React, { useState, useEffect } from "react";
+import Slider from "react-slick";
+import ItemCard from "../Card/Card";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import itemsData from "../../data/items.json";
-import ItemCard from "../Card/Card";
-import React from "react";
-import Slider from "react-slick";
+import axios from 'axios';
 
 function PauseOnHover() {
-  const handleAddToCart = (item) => {
-    console.log('added', item);
+  const [items, setItems] = useState([]);
+  const [price, setPrice] = useState([]);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await axios.get('http://localhost:8080/product');
+        setItems(response.data);
+      } catch (error) {
+        console.error('Failed to fetch products:', error);
+      }
+    };
+
+    fetchProducts();
+  }, []);
+
+  useEffect(() => {
+    const fetchPrice = async () => {
+      try {
+        const response = await axios.get('http://localhost:8080/product-GRN');
+        setPrice(response.data);
+      } catch (error) {
+        console.error('Failed to fetch prices:', error);
+      }
+    };
+
+    fetchPrice();
+  }, []);
+
+  const handleAddToCart = async (item) => {
+    try {
+      const response = await axios.post('http://localhost:8080/cartProducts', {
+        customerId: 1, // Replace with the actual customer ID
+        productId: item.productId,
+        quantity: 1, // Replace with the actual quantity if needed
+      });
+      console.log('Product added to cart:', response.data);
+    } catch (error) {
+      console.error('Failed to add product to cart:', error);
+    }
   };
 
-  var settings = {
+  const settings = {
     dots: true,
     infinite: true,
     slidesToShow: 4,
@@ -47,16 +85,15 @@ function PauseOnHover() {
     ],
   };
 
-  const { items } = itemsData;
   return (
     <div className="slider-container">
       <Slider {...settings} style={{ paddingTop: "1%" }}>
         {items.map((item) => (
-          <div style={{ margin: "0 9px" }} key={item.id}>
+          <div style={{ margin: "0 9px" }} key={item.productId}>
             <ItemCard
               LablePrice={item.price}
               LableProductName={item.productName}
-              LabelProductWeight={item.weight}
+              // LabelProductWeight={item.weight}
               quarterLabel={item.discount}
               productLable={"Product :"}
               image={item.image}
