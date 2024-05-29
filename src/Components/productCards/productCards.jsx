@@ -5,47 +5,50 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import axios from 'axios';
 
+
+
 function PauseOnHover() {
+  
+    const handleAddToCart = (item) => {
+      console.log('added', item);
+    };
   const [items, setItems] = useState([]);
-  const [price, setPrice] = useState([]);
 
   useEffect(() => {
-    const fetchProducts = async () => {
+    const fetchItems = async () => {
       try {
-        const response = await axios.get('http://localhost:8080/product');
-        setItems(response.data);
+        const productResponse = await axios.get('http://localhost:8080/productweb');
+        const productData = productResponse.data;
+
+        // Fetch selling prices from productGRN
+        const priceResponse = await axios.get('http://localhost:8080/api/productGRNweb');
+        const priceData = priceResponse.data;
+
+        // Combine product data with selling prices
+        const combinedData = productData.map(item => {
+          const price = priceData.find(priceItem => priceItem.productId === item.productId);
+          return {
+            ...item,
+            sellingPrice: price ? price.sellingPrice : null
+          };
+        });
+
+        setItems(combinedData);
       } catch (error) {
-        console.error('Failed to fetch products:', error);
+        console.error('Failed to fetch data:', error);
       }
     };
 
-    fetchProducts();
+    fetchItems();
   }, []);
 
-  useEffect(() => {
-    const fetchPrice = async () => {
-      try {
-        const response = await axios.get('http://localhost:8080/product-GRN');
-        setPrice(response.data);
-      } catch (error) {
-        console.error('Failed to fetch prices:', error);
-      }
-    };
-
-    fetchPrice();
-  }, []);
-
-  const handleAddToCart = async (item) => {
-    try {
-      const response = await axios.post('http://localhost:8080/cartProducts', {
-        customerId: 1, // Replace with the actual customer ID
-        productId: item.productId,
-        quantity: 1, // Replace with the actual quantity if needed
-      });
-      console.log('Product added to cart:', response.data);
-    } catch (error) {
-      console.error('Failed to add product to cart:', error);
-    }
+  const formatPrice = (price) => {
+    return new Intl.NumberFormat('en-LK', {
+      style: 'currency',
+      currency: 'LKR',
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    }).format(price);
   };
 
   const settings = {
@@ -56,7 +59,6 @@ function PauseOnHover() {
     autoplay: true,
     autoplaySpeed: 2000,
     pauseOnHover: true,
-
     responsive: [
       {
         breakpoint: 1024,
@@ -91,9 +93,9 @@ function PauseOnHover() {
         {items.map((item) => (
           <div style={{ margin: "0 9px" }} key={item.productId}>
             <ItemCard
-              LablePrice={item.price}
+              LablePrice={item.sellingPrice ? formatPrice(item.sellingPrice) : "N/A"}
               LableProductName={item.productName}
-              // LabelProductWeight={item.weight}
+              // LabelProductWeight={item.weight} // Uncomment if you have weight data
               quarterLabel={item.discount}
               productLable={"Product :"}
               image={item.image}
@@ -115,6 +117,7 @@ function PauseOnHover() {
                 paddingTop: "0.5vh",
                 paddingBottom: "0.8vh",
               }}
+              // onAddToCart={() => handleAddToCart(item)}
               onAddToCart={() => handleAddToCart(item)}
             />
           </div>
