@@ -1,37 +1,60 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from 'react';
 import { RiSearchLine } from "react-icons/ri";
-import data from "../../data/items.json";
+import './Searchbar.css'; 
+const url = "http://localhost:8080/categories";
+const product_url = "http://localhost:8080/products";
 
-import "./Searchbar.css";
 
-const Searchbar = ({ onSearch }) => {
+const Searchbar = ({ setResults }) => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [selectedOption, setSelectedOption] = useState("all");
+  // const [selectedOption, setSelectedOption] = useState('all');
+  const [categories, setCategories] = useState([]);
 
-  const handleInputChange = (event) => {
-    setSearchTerm(event.target.value);
+  useEffect(() => {
+    fetchCategories();
+  }, []); // Empty dependency array ensures useEffect runs only once
+
+  const fetchCategories = async () => {
+    try {
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error('Failed to fetch categories');
+      }
+      const data = await response.json();
+      setCategories(data);
+    } catch (error) {
+      console.error('Error fetching categories:', error);
+    }
   };
 
-  const handleSearchClick = () => {
-    onSearch(searchTerm, selectedOption);
-  };
+  const fetchData = (value) => {
+    fetch(product_url)
+    .then((res)=>res.json())
+    .then((json)=>{
+      const results = json.filter((product)=>{
+        return (
+          value && 
+          product && 
+          product.productName && 
+          product.productName.toLowerCase().includes(value));
+      });
+      setResults(results);
+    });
+  }
 
-  const handleDropdownChange = (event) => {
-    setSelectedOption(event.target.value);
-  };
+  const handleChange = (value)=>{
+    setSearchTerm(value)
+    fetchData(value)
+  }
 
   return (
     <div className="search-container">
-      <div className="drop">
-        <select
-          className="dropdown"
-          value={selectedOption}
-          onChange={handleDropdownChange}
-        >
+      <div className='drop'>
+        <select className="dropdown" value={''} onChange={''}>
           <option value="all"> Categories</option>
-          {data.options.map((option) => (
-            <option key={option.id} value={option.categoryName}>
-              {option.categoryName}
+          {categories.map(category => (
+            <option key={category.id} value={category.name}>
+              {category.categoryName}
             </option>
           ))}
         </select>
@@ -42,11 +65,13 @@ const Searchbar = ({ onSearch }) => {
         type="text"
         placeholder="Search..."
         value={searchTerm}
-        onChange={handleInputChange}
+        onChange={(e)=>handleChange(e.target.value)}
       />
-
-      <button className="search-button" onClick={handleSearchClick}>
-        <RiSearchLine style={{ fontSize: "31px" }} />
+      
+      
+      
+      <button className="search-button" /*onClick={handleSearchClick}*/>
+        <RiSearchLine style={{ fontSize: '31px' }} />
       </button>
 
       <div className="horizontal-line"></div>
