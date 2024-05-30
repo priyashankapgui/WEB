@@ -5,13 +5,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import axios from 'axios';
 
-
-
 function PauseOnHover() {
-  
-    const handleAddToCart = (item) => {
-      console.log('added', item);
-    };
   const [items, setItems] = useState([]);
 
   useEffect(() => {
@@ -20,11 +14,9 @@ function PauseOnHover() {
         const productResponse = await axios.get('http://localhost:8080/productweb');
         const productData = productResponse.data;
 
-        // Fetch selling prices from productGRN
         const priceResponse = await axios.get('http://localhost:8080/api/productGRNweb');
         const priceData = priceResponse.data;
 
-        // Combine product data with selling prices
         const combinedData = productData.map(item => {
           const price = priceData.find(priceItem => priceItem.productId === item.productId);
           return {
@@ -41,6 +33,19 @@ function PauseOnHover() {
 
     fetchItems();
   }, []);
+
+  const handleAddToCart = (item) => {
+    const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+    const itemIndex = cartItems.findIndex(cartItem => cartItem.productId === item.productId);
+
+    if (itemIndex > -1) {
+      cartItems[itemIndex].quantity += 1;
+    } else {
+      cartItems.push({ ...item, quantity: 1 });
+    }
+
+    localStorage.setItem('cartItems', JSON.stringify(cartItems));
+  };
 
   const formatPrice = (price) => {
     return new Intl.NumberFormat('en-LK', {
@@ -95,7 +100,6 @@ function PauseOnHover() {
             <ItemCard
               LablePrice={item.sellingPrice ? formatPrice(item.sellingPrice) : "N/A"}
               LableProductName={item.productName}
-              // LabelProductWeight={item.weight} // Uncomment if you have weight data
               quarterLabel={item.discount}
               productLable={"Product :"}
               image={item.image}
@@ -110,14 +114,6 @@ function PauseOnHover() {
                 style: { backgroundColor: "#2EB072", color: "#EBEBEB" },
               }}
               buttonLabel="Add to Cart"
-              cardStyles={{
-                width: "16vw",
-                height: "55vh",
-                backgroundColor: "#FFFFFF",
-                paddingTop: "0.5vh",
-                paddingBottom: "0.8vh",
-              }}
-              // onAddToCart={() => handleAddToCart(item)}
               onAddToCart={() => handleAddToCart(item)}
             />
           </div>
