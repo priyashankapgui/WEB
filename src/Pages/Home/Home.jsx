@@ -12,16 +12,16 @@ import MainSpiner from "../../Components/Spiner/MainSpiner/MainSpiner";
 
 export default function Home() {
   const { category } = itemsData;
-  // eslint-disable-next-line
+ 
   const [categoryPosition, setCategoryPosition] = useState(0);
   const [loading, setLoading] = useState(true);
   const categoryLength = category.length;
 
   useEffect(() => {
-    // Simulate loading delay
+    
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 2000); // Adjust the delay as needed
+    }, 2000); 
 
     return () => clearTimeout(timer);
   }, []);

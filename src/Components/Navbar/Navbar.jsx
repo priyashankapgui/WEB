@@ -1,14 +1,22 @@
 import { NavLink } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ReactComponent as MenuIcon } from "../../Assets/menu.svg";
 import logo from "../../Assets/Green Leaf Super.png";
 import { GoPerson } from "react-icons/go";
 import "./Navbar.css";
 import { Link } from "react-router-dom";
 import CustomizedBadges from "../CartIcon/CartIcon";
+import InputDropdown from "../Dropdawon/Dropdawon";
 
 const Navbar = () => {
   const [showNavbar, setShowNavbar] = useState(false);
+  const [branches, setBranches] = useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:8080/branches")
+      .then((response) => response.json())
+      .then((data) => setBranches(data));
+  }, []);
 
   const handleShowNavbar = () => {
     setShowNavbar(!showNavbar);
@@ -42,6 +50,15 @@ const Navbar = () => {
               </li>
               <li>
                 <NavLink to="/contact">Contact</NavLink>
+              </li>
+              <li>
+                <InputDropdown
+                  id="branchDropdown"
+                  name="branchDropdown"
+                  options={branches.map((branch) => branch.branchName)}
+                  editable={true}
+                  onChange={(e) => console.log("Selected option:", e.target.value)}
+                />
               </li>
             </ul>
           </div>
