@@ -1,7 +1,7 @@
 import React from "react";
 
 import Layout from "../../Components/Layout/Layout";
-import LoaderComponent from "../../Components/Spiner/HashLoader";
+
 
 export default function Products() {
   return (
@@ -11,7 +11,7 @@ export default function Products() {
 
         
       </div>
-      <LoaderComponent/>
+      
     </Layout>
   );
 }

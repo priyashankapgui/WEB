@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import InputField from "../InputField/InputField";
 import Buttons from "../Button/Buttons";
-import LoaderComponent from "../../Components/Spiner/HashLoader";
+import LoaderComponent from "../Spiner/HashLoder/HashLoader";
 import "./FeedbackForm.css";
 import axios from "axios";
 import emailjs from "@emailjs/browser";
@@ -55,7 +55,7 @@ export const FeedbackForm = () => {
               email: new FormData(form.current).get("email"),
               phone: new FormData(form.current).get("phone"),
               feedbackType: new FormData(form.current).get("feedback_type"),
-              branchName: new FormData(form.current).get("branch_name"),
+              branch: new FormData(form.current).get("branch_name"),
               message: new FormData(form.current).get("message"),
             })
             .then(() => {
