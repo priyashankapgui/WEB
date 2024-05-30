@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import "./MyAccount.css";
-//import Layout from '../../Components/Layout/Layout';
+import Layout from '../../Components/Layout/Layout';
+import InputField from '../../Components/InputField/InputField';
+import InputLable from '../../Components/InputLable/InputLable';
+import Buttons from '../../Components/Button/Button';
+
 
 const MyAccount = () => {
     const [activeTab, setActiveTab] = useState('myDetails');
@@ -14,31 +18,71 @@ const MyAccount = () => {
                         <h3>Personal Information</h3>
                         <hr></hr>
                         <form>
-                            <label>
-                                First Name:
-                                <input type="text" name="firstName" />
-                            </label>
-                            <label>
+                                <InputLable htmlFor="firstName" color="#000">
+                                            First Name:
+                                </InputLable>
+                                <InputField
+                                    type="text"
+                                    name="firstName"
+                                    editable={true}
+                                    placeholder="Enter First Name"
+                                />
+                            <InputLable htmlFor="lastName" color="#000">
                                 Last Name:
-                                <input type="text" name="lastName" />
-                            </label>
-                            <label>
+                            </InputLable>
+                                <InputField
+                                    type="text"
+                                    name="lastName"
+                                    editable={true}
+                                    placeholder="Enter Last Name"
+                                />
+                            
+                            <InputLable htmlFor="mobile" color="#000">
                                 Mobile:
-                                <input type="text" name="mobile" />
-                            </label>
-                            <label>
+                            </InputLable>
+                                <InputField
+                                    type="text"
+                                    name="mobile"
+                                    editable={true}
+                                    placeholder="Enter Mobile Number"
+                                />
+                            
+                            <InputLable htmlFor="birthday" color="#000">
                                 Birthday:
-                                <input type="date" name="birthday" />
-                            </label>
+                                <InputField
+                                    type="date"
+                                    name="birthday"
+                                    editable={true}
+                                />
+                            </InputLable>
                         </form>
-                        <h3>Email Info</h3>
+                        <h3>Email Information</h3>
                         <hr></hr>
                         <form>
-                            <label>
+                            <InputLable htmlFor="email" color="#000">
                                 Email:
-                                <input type="email" name="email" />
-                            </label>
+                            </InputLable>
+                                <InputField
+                                    type="email"
+                                    name="email"
+                                    editable={true}
+                                    placeholder="Enter Email"
+                                />
+                            
                         </form>
+
+                        <Buttons
+                            type="submit"
+                            style={{
+                            width: "20vh",
+                            height: "7vh",
+                            backgroundColor: "#51B541",
+                            color: "white",
+                            }}
+                            value="Save"
+                        >
+                            Save
+                        </Buttons>
                     </div>
                 );
             case 'orders':
@@ -55,14 +99,37 @@ const MyAccount = () => {
                         <h3>Change Password</h3>
                         <hr></hr>
                         <form>
-                            <label>
+                            <InputLable  htmlFor="password" color="#000">
                                 Password:
-                                <input type="password" name="password" />
-                            </label>
-                            <label>
+                            </InputLable>
+                                <InputField
+                                    type="password"
+                                    name="password"
+                                    editable={true}
+                                    placeholder="Enter Password"
+                                />
+                            
+                            <InputLable  htmlFor="password" color="#000">
                                 Confirm Password:
-                                <input type="password" name="confirmPassword" />
-                            </label>
+                            </InputLable>
+                                <InputField
+                                    type="password"
+                                    name="confirmPassword"
+                                    editable={true}
+                                    placeholder="Confirm Password"
+                                />
+                            <Buttons
+                                type="submit"
+                                style={{
+                                width: "20vh",
+                                height: "7vh",
+                                backgroundColor: "#51B541",
+                                color: "white",
+                                }}
+                                value="Save"
+                            >
+                                Save
+                        </Buttons>
                         </form>
                     </div>
                 );
@@ -78,7 +145,7 @@ const MyAccount = () => {
     };
 
     return (
-        
+        <Layout>
             <div className="my-account">
                 <h1 className="heading">My Account</h1>
                 <div className="my-account-container">
@@ -116,7 +183,7 @@ const MyAccount = () => {
                     </div>
                 </div>
             </div>
-        
+        </Layout> 
     );
 };
 

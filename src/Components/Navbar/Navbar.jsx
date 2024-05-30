@@ -6,11 +6,11 @@ import { GoPerson } from "react-icons/go";
 import "./Navbar.css";
 import { Link } from "react-router-dom";
 import CustomizedBadges from "../CartIcon/CartIcon";
-import UserProfileDetails from '../Popup/UserProfileDetails'
+// import UserProfileDetails from '../Popup/UserProfileDetails'
 
 const Navbar = () => {
     const [showNavbar, setShowNavbar] = useState(false)
-    const [UserProfileDetailsOpen, setUserProfileDetailsOpen] = useState(false);
+    // const [UserProfileDetailsOpen, setUserProfileDetailsOpen] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     
     useEffect(() => {
@@ -23,7 +23,7 @@ const Navbar = () => {
       }
     }, []);
     
-    const closeUserProfileDetails = () => setUserProfileDetailsOpen(false);
+    // const closeUserProfileDetails = () => setUserProfileDetailsOpen(false);
 
     const handleShowNavbar = () => {
       setShowNavbar(!showNavbar)
@@ -58,23 +58,26 @@ const Navbar = () => {
               <li>
                 <NavLink to="/contact">Contact</NavLink>
               </li>
+            </ul>
+          </div>
+          <div>
+            <ul className="navbar_cart_person">
               {isLoggedIn ? (
               <li>
-                <div className='nav_login_profile'>
+                {/* <div className='nav_login_profile'>
                   <UserProfileDetails open={UserProfileDetailsOpen} onClose={closeUserProfileDetails} />
-                </div>
-                <NavLink to="/my-account">MyAccount</NavLink>
+                </div> */}
+                <NavLink to="/my-account">
+                  <GoPerson className="iconPerson" />
+                </NavLink>
               </li>
             ) : (
               <li>
-                <NavLink to="/login">SignUp/Login</NavLink>
+                <NavLink to="/login">Login</NavLink>
                 
               </li>
             )}
-               <ul className="navbar_cart_person">
-              <li>
-                <GoPerson className="iconPerson" />
-              </li>
+              
 
               <li>
                 <Link to="/cart">
@@ -82,10 +85,10 @@ const Navbar = () => {
                 </Link>
               </li>
             </ul>
-            </ul>
+          </div>
           </div>
         </div>
-      </div>
+      
     </nav>
   );
 };

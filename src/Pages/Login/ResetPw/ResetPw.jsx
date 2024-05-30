@@ -115,7 +115,7 @@ const ResetPw = () => {
               className="toggle-password-button"
               style={{ border: "none", background: "none", cursor: "pointer", padding: 0 }}
             >
-              {showPassword ? <FaEyeSlash /> : <FaEye />}
+              {showPassword ? <FaEye /> : <FaEyeSlash />}
             </button>
           </InputField>
           <p>Confirm New Password:</p>
@@ -135,7 +135,7 @@ const ResetPw = () => {
               className="toggle-password-button"
               style={{ border: "none", background: "none", cursor: "pointer", padding: 0 }}
             >
-              {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
+              {showConfirmPassword ? <FaEye /> : <FaEyeSlash />}
             </button>
           </InputField>
 

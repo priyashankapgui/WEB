@@ -1,22 +1,29 @@
 .my-account {
     display: flex;
     flex-direction: column;
+    margin-top: 20px;
 }
 
 .heading {
     text-align: left;
-    margin: 20px;
+    margin-left: 10%;
+    margin-top:5%;
+    margin-bottom:3%;
 }
 
 .my-account-container {
     display: flex;
+    height: 100%;
 }
 
 .sidebar {
     width: 25%;
-    background-color: #f0f0f0;
+    background-color: #ffffff; /* Set the sidebar to white */
     padding: 20px;
     border-right: 1px solid #ccc;
+    position: sticky;
+    top: 0;
+    
 }
 
 .sidebar ul {
@@ -27,17 +34,23 @@
 .sidebar ul li {
     padding: 10px 0;
     cursor: pointer;
+    margin-left:34%;
 }
 
 .sidebar ul li.active {
     font-weight: bold;
-    color: #0377A8;
+    color: #51B541;
 }
 
 .content {
     width: 75%;
-    background-color: #ffffff;
+    background-color: #f7f7f7; /* A bit dark white */
     padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adding shadow to the right container */
+    border-radius: 8px;
+    margin: 20px; /* Adding margin to create space around the form */
+    flex: 1;
+    overflow-y: auto; /* Allows scrolling if content goes beyond the full height of the page */
 }
 
 .content-section {
@@ -69,11 +82,11 @@
     border-radius: 4px;
 }
 
-button {
+/* .button {
     padding: 10px 20px;
     background-color: #0377A8;
     color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-}
+} */

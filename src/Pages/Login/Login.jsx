@@ -106,7 +106,7 @@ export default function Login(props) {
               <InputField
                 id="password"
                 name="password"
-                type="password"
+                type={showPassword ? "text" : "password"}
                 placeholder="Password"
                 onChange={handlePasswordChange}
                 editable={true}
