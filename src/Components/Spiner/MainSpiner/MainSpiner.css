@@ -1,0 +1,16 @@
+
+
+.SpinnerSystem {
+  line-height: 0;
+  margin-bottom: 2vh;
+}
+
+.spinerImage {
+  width: 10vw;
+  height: auto;
+  margin: 0 auto;
+}
+
+.barLoader {
+  border-radius: 10px; 
+}

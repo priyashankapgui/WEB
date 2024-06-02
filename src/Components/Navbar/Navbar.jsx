@@ -1,37 +1,30 @@
 import { NavLink } from "react-router-dom";
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import { ReactComponent as MenuIcon } from "../../Assets/menu.svg";
 import logo from "../../Assets/Green Leaf Super.png";
 import { GoPerson } from "react-icons/go";
 import "./Navbar.css";
 import { Link } from "react-router-dom";
 import CustomizedBadges from "../CartIcon/CartIcon";
-// import UserProfileDetails from '../Popup/UserProfileDetails'
+import InputDropdown from "../Dropdawon/Dropdawon";
 
 const Navbar = () => {
-    const [showNavbar, setShowNavbar] = useState(false)
-    // const [UserProfileDetailsOpen, setUserProfileDetailsOpen] = useState(false);
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
-    
-    useEffect(() => {
-      // Check if the JWT token is present in session storage
-      const token = sessionStorage.getItem('accessToken');
-      if (token) {
-        setIsLoggedIn(true);
-      } else {
-        setIsLoggedIn(false);
-      }
-    }, []);
-    
-    // const closeUserProfileDetails = () => setUserProfileDetailsOpen(false);
+  const [showNavbar, setShowNavbar] = useState(false);
+  const [branches, setBranches] = useState([]);
 
-    const handleShowNavbar = () => {
-      setShowNavbar(!showNavbar)
-    }
-  
-    return (
-      <nav className="navbar">
-        <div className="container">
+  useEffect(() => {
+    fetch("http://localhost:8080/branches")
+      .then((response) => response.json())
+      .then((data) => setBranches(data));
+  }, []);
+
+  const handleShowNavbar = () => {
+    setShowNavbar(!showNavbar);
+  };
+
+  return (
+    <nav className="navbar">
+      <div className="container">
         <div className="Logo_content">
           <div className="logo">
             <img src={logo} alt="logo"></img>
@@ -58,26 +51,23 @@ const Navbar = () => {
               <li>
                 <NavLink to="/contact">Contact</NavLink>
               </li>
+              <li>
+                <InputDropdown
+                  id="branchDropdown"
+                  name="branchDropdown"
+                  options={branches.map((branch) => branch.branchName)}
+                  editable={true}
+                  onChange={(e) => console.log("Selected option:", e.target.value)}
+                />
+              </li>
             </ul>
           </div>
+
           <div>
             <ul className="navbar_cart_person">
-              {isLoggedIn ? (
               <li>
-                {/* <div className='nav_login_profile'>
-                  <UserProfileDetails open={UserProfileDetailsOpen} onClose={closeUserProfileDetails} />
-                </div> */}
-                <NavLink to="/my-account">
-                  <GoPerson className="iconPerson" />
-                </NavLink>
+                <GoPerson className="iconPerson" />
               </li>
-            ) : (
-              <li>
-                <NavLink to="/login">Login</NavLink>
-                
-              </li>
-            )}
-              
 
               <li>
                 <Link to="/cart">
@@ -86,9 +76,8 @@ const Navbar = () => {
               </li>
             </ul>
           </div>
-          </div>
         </div>
-      
+      </div>
     </nav>
   );
 };
