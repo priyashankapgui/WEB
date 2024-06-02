@@ -1,23 +1,55 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Cart.css";
-import Layout from "../../Components/Layout/Layout";
-import CartTable from "../../Components/CartTable/CartTable";
+import { styled } from '@mui/material/styles';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell, { tableCellClasses } from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+import { TiDelete } from "react-icons/ti";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableRow from "@mui/material/TableRow";
-import TableCell from "@mui/material/TableCell";
+import Layout from '../../Components/Layout/Layout';
 import { loadStripe } from "@stripe/stripe-js";
+import axios from 'axios';
 
-const getStripe = () => {
-  let stripePromise = '';
-  if (!stripePromise) {
-    stripePromise = loadStripe(process.env.REACT_APP_STRIPE_KEY);
-  }
-  console.log(stripePromise);
-  return stripePromise;
-}
+const style = { color: "red", fontSize: "1.8em", cursor: "pointer" };
+
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+  [`&.${tableCellClasses.head}`]: {
+    backgroundColor: 'white',
+    color: 'black',
+    fontFamily: 'Poppins',
+    fontSize: 20,
+  },
+  [`&.${tableCellClasses.body}`]: {
+    fontSize: 16,
+    fontFamily: 'Poppins',
+  },
+}));
+
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
+  '&:last-child td, &:last-child th': {
+    border: 0,
+  },
+}));
+
+const buttonStyle = {
+  padding: '1px 6px',
+  fontSize: '16px',
+  border: 'none',
+  borderRadius: '4px',
+  backgroundColor: 'gray',
+  color: 'white',
+  cursor: 'pointer',
+  marginRight: '4px',
+};
+
+const qty = {
+  padding: '8px 12px',
+};
 
 const returnButton = {
   marginLeft: "4%",
@@ -38,17 +70,108 @@ const checkoutButton = {
   marginLeft: "30%",
 };
 
-export default function Cart({ cart }) {
+const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_KEY);
+
+export default function Cart() {
+  const [rows, setRows] = useState([]);
   const [totals, setTotals] = useState({ subtotal: 0, discount: 0, total: 0 });
 
-  const updateTotals = (newTotals) => {
-    setTotals(newTotals);
+  useEffect(() => {
+    const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+    setRows(cartItems);
+  }, []);
+
+  useEffect(() => {
+    const calculateTotals = () => {
+      let subtotal = 0;
+      let totalDiscount = 0;
+
+      rows.forEach(row => {
+        const price = row.sellingPrice || 0;
+        const rowSubtotal = price * row.quantity;
+        subtotal += rowSubtotal;
+        totalDiscount += (rowSubtotal * (row.discount / 100));
+      });
+
+      const total = subtotal - totalDiscount;
+
+      setTotals({ subtotal, discount: totalDiscount, total });
+    };
+
+    calculateTotals();
+  }, [rows]);
+
+  const handleIncrement = (index) => {
+    const updatedRows = [...rows];
+    updatedRows[index].quantity += 1;
+    setRows(updatedRows);
+    localStorage.setItem('cartItems', JSON.stringify(updatedRows));
+  };
+
+  const handleDecrement = (index) => {
+    const updatedRows = [...rows];
+    if (updatedRows[index].quantity > 1) {
+      updatedRows[index].quantity -= 1;
+      setRows(updatedRows);
+      localStorage.setItem('cartItems', JSON.stringify(updatedRows));
+    }
+  };
+
+  const handleDelete = (index) => {
+    const updatedRows = rows.filter((_, i) => i !== index);
+    setRows(updatedRows);
+    localStorage.setItem('cartItems', JSON.stringify(updatedRows));
+  };
+
+  const handleCheckout = async () => {
+    try {
+      const response = await axios.post('http://localhost:8080/create-checkout-session', {
+        items: rows,
+      });
+
+      const { sessionId } = response.data;
+      const stripe = await stripePromise;
+      await stripe.redirectToCheckout({ sessionId });
+    } catch (error) {
+      console.error('Error during checkout:', error);
+    }
   };
 
   return (
     <Layout>
       <div className="CartContainer">
-        <CartTable updateTotals={updateTotals} />
+        <TableContainer component={Paper}>
+          <Table sx={{ minWidth: 700, '& .MuiTableCell-sizeMedium': { padding: '20px 16px' } }} aria-label="customized table">
+            <TableHead>
+              <TableRow>
+                <StyledTableCell>{}</StyledTableCell>
+                <StyledTableCell>Product</StyledTableCell>
+                <StyledTableCell align="right">Price</StyledTableCell>
+                <StyledTableCell align="right">Quantity</StyledTableCell>
+                <StyledTableCell align="right">Subtotal</StyledTableCell>
+                <StyledTableCell align="right">Discount</StyledTableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {rows.map((row, index) => (
+                <StyledTableRow key={row.productId}>
+                  <StyledTableCell>
+                    <TiDelete style={style} onClick={() => handleDelete(index)} />
+                  </StyledTableCell>
+                  <StyledTableCell component="th" scope="row">{row.productName}</StyledTableCell>
+                  <StyledTableCell align="right">{row.sellingPrice ? 'Rs.' + row.sellingPrice.toFixed(2) : 'N/A'}</StyledTableCell>
+                  <StyledTableCell align="right">
+                    <button style={buttonStyle} onClick={() => handleDecrement(index)}>-</button>
+                    <label style={qty} htmlFor="qty">{row.quantity}</label>
+                    <button style={buttonStyle} onClick={() => handleIncrement(index)}>+</button>
+                  </StyledTableCell>
+                  <StyledTableCell align="right">{row.sellingPrice ? (row.sellingPrice * row.quantity).toFixed(2) : 'N/A'}</StyledTableCell>
+                  <StyledTableCell align="right">{row.discount + '%'}</StyledTableCell>
+                </StyledTableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
       </div>
       <Button
         style={returnButton}
@@ -80,7 +203,14 @@ export default function Cart({ cart }) {
               </TableBody>
             </Table>
           </div>
-          <Button style={checkoutButton} variant="contained">Proceed to checkout</Button>
+          <Button
+            style={checkoutButton}
+            variant="contained"
+            onClick={handleCheckout}
+          >
+            Proceed to checkout
+          </Button>
+          <h3>Please note that once an online order is placed, it cannot be canceled.</h3>
         </Box>
       </div>
     </Layout>

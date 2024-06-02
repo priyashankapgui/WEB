@@ -1,0 +1,104 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200&family=Princess+Sofia&display=swap');
+.sales-receipt {
+    width: 80mm;
+    height: fit-content;
+    margin: 0 auto;
+    padding: 2.6vh; /* Converted from 20px */
+    border: 1px solid #ddd;
+    background-color: #fafafa;
+    font-family: Poppins;
+}
+
+.sales-receipt-sys-logo {
+    width: 80px;
+    height: auto;
+}
+
+.sales-receipt-header {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+}
+
+.sales-receipt-store-details {
+    margin-top: 1.3vh; /* Converted from 10px */
+}
+
+.payment-Ereceipt-Txt {
+    text-align: center;
+    padding: 5px 5px;
+}
+
+.branchAddress,
+.branchPhone,
+.branchEmail {
+    font-size: 1.6vh; /* Converted from 12px */
+}
+
+.receipt-details-table {
+    width: 100%;
+    font-size: 1.6vh; /* Converted from 12px */
+    margin: 0 auto;
+    padding: 5px 5px;
+}
+
+.receipt-details-table .receipt-details-label {
+    font-weight: 500;
+}
+
+.receipt-details-table .receipt-details-value {
+    text-align: right;
+}
+
+.items table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.3vh 0; /* Converted from 10px */
+}
+
+.items th,
+.items td {
+    padding: 0.3vh; /* Converted from 2px */
+    text-align: left;
+    font-size: 1.6vh; /* Converted from 12px */
+}
+
+.items thead th {
+    background-color: #ececec;
+}
+
+hr.invoice-line-top {
+    border-top: 1px solid black;
+}
+
+hr.invoice-line {
+    border-top: 1px dashed;
+}
+
+.total-table td {
+    padding: 0.3vh; /* Converted from 2px */
+}
+
+.total-table {
+    width: 100%;
+    font-size: 1.6vh; /* Converted from 12px */
+    padding: 5px 5px;
+}
+
+.ebil_footer {
+    margin-top: 1.3vh; /* Converted from 10px */
+    text-align: center;
+}
+
+.ebil_footer p {
+    font-size: 1.3vh; /* Converted from 10px */
+    margin-bottom: 1.3vh; /* Converted from 10px */
+}
+
+.ebil_footer .special-note {
+    margin-top: 1vh; /* Converted from 8px */
+}
+
+.thankyou{
+    text-align: center;
+}
