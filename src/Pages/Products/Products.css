@@ -1,0 +1,11 @@
+.Products-title {
+    display: flex;
+    padding-top: 8vh;
+    align-items: flex-end;
+    width: 100%;
+  }
+  
+  .Products-title a.products_ViewAll {
+    margin-left: auto;
+    align-self: flex-end;
+  }
