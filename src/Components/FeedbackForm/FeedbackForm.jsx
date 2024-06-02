@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import InputField from "../InputField/InputField";
 import Buttons from "../Button/Buttons";
 import LoaderComponent from "../Spiner/HashLoder/HashLoader";
@@ -17,6 +17,21 @@ export const FeedbackForm = () => {
   const [loading, setLoading] = useState(false);
   const [successMessage, setSuccessMessage] = useState(""); 
   const [errorMessage, setErrorMessage] = useState(""); 
+  const [branches, setBranches] = useState([]);
+
+  useEffect(() => {
+    fetchBranches();
+  }, []);
+
+  const fetchBranches = () => {
+    axios.get("http://localhost:8080/branches")
+      .then(response => {
+        setBranches(response.data);
+      })
+      .catch(error => {
+        console.error("Error fetching branches:", error);
+      });
+  };
 
   const validateEmail = (email) => {
     const re = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -136,8 +151,9 @@ export const FeedbackForm = () => {
 
         <select name="branch_name" className="selectBranch">
           <option value="">Select the Branch</option>
-          <option value="Galle">Galle</option>
-          <option value="Matara">Matara</option>
+          {branches.map(branch => (
+            <option key={branch.branchName} value={branch.branchName}>{branch.branchName}</option>
+          ))}
         </select>
 
         <textarea
