@@ -1,19 +1,7 @@
-.selectFeedback {
-  width: 220px;
-  height: 50px;
-  max-width: 500px;
-  border: none;
-  background-color: #eaeaea;
-  border-radius: 7px;
-  text-align: center;
-  font-family: 'Poppins';
-  font-size: 14px;
-  line-height: 5;
-  font-weight: 500;
-}
-
+/* Base styles */
+.selectFeedback,
 .selectBranch {
-  width: 170px;
+  width: 40%;
   height: 50px;
   max-width: 500px;
   border: none;
@@ -22,54 +10,41 @@
   text-align: center;
   font-family: 'Poppins';
   font-size: 14px;
-  line-height: 5;
+  line-height: 1.5; /* Changed from 5 to 1.5 for better spacing */
   font-weight: 500;
 }
 
 .feedbackForm {
   display: grid;
-  grid-column: auto;
+  grid-template-columns: auto; /* Changed from grid-column to grid-template-columns */
   gap: 2vh;
-  width: 50vh;
-  align-items: end;
+  width: 90%; /* Changed from 50vh to percentage for responsiveness */
+  max-width: 500px; /* Added max-width for better scaling on larger screens */
+  margin: 0 auto; /* Center the form horizontally */
 }
-
 
 .error {
   color: red;
   font-size: 0.875em;
 }
 
-
-
-.success-message {
-  position: fixed;
-  top: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: #51b541;
-  color: white;
-  padding: 10px 20px;
-  border-radius: 5px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  z-index: 1000;
-  font-family: Poppins, sans-serif;
-}
-
+/* Message styles */
+.success-message,
 .error-message {
   position: fixed;
   top: 20px;
   left: 50%;
   transform: translateX(-50%);
-  background-color: #d9534f;
-  color: white;
   padding: 10px 20px;
   border-radius: 5px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   z-index: 1000;
-  font-family: Poppins, sans-serif;
+  font-family: 'Poppins', sans-serif;
+  width: 90%; /* Added width for responsiveness */
+  max-width: 400px; /* Added max-width for better scaling on larger screens */
 }
 
+/* Loader styles */
 .loader-wrapper {
   position: fixed;
   top: 0;
@@ -83,8 +58,20 @@
   z-index: 9999;
 }
 
+/* Error message within feedbackForm */
 .feedbackForm .error {
   color: red;
   font-size: 0.875em;
 }
 
+/* Media Query for smaller screens */
+@media screen and (max-width: 768px) {
+  .feedbackForm {
+    width: 80%; /* Adjust width for smaller screens */
+  }
+
+  .success-message,
+  .error-message {
+    width: 80%; /* Adjust width for smaller screens */
+  }
+}

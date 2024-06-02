@@ -11,8 +11,8 @@ export default function Contact() {
   return (
     <Layout>
       <Body>
-        <div className="content">
-          <div className="details">
+        <div className="Contact_content">
+          <div className="Contact_details">
             <div className="heading1">
               <Icon
                 icon="el:phone-alt"
