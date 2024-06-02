@@ -210,6 +210,7 @@ export default function Cart() {
           >
             Proceed to checkout
           </Button>
+          <h3>Please note that once an online order is placed, it cannot be canceled.</h3>
         </Box>
       </div>
     </Layout>

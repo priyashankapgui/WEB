@@ -11,17 +11,23 @@ function PauseOnHover() {
   useEffect(() => {
     const fetchItems = async () => {
       try {
-        const productResponse = await axios.get('http://localhost:8080/productweb');
-        const productData = productResponse.data;
+        const [productResponse, priceResponse, discountResponse] = await Promise.all([
+          axios.get('http://localhost:8080/product'),
+          axios.get('http://localhost:8080/api/productGRNweb'),
+          axios.get('http://localhost:8080/productdiscount'),
+        ]);
 
-        const priceResponse = await axios.get('http://localhost:8080/api/productGRNweb');
+        const productData = productResponse.data;
         const priceData = priceResponse.data;
+        const discountData = discountResponse.data;
 
         const combinedData = productData.map(item => {
           const price = priceData.find(priceItem => priceItem.productId === item.productId);
+          const discount = discountData.find(discountItem => discountItem.productId === item.productId);
           return {
             ...item,
-            sellingPrice: price ? price.sellingPrice : null
+            sellingPrice: price ? price.sellingPrice : null,
+            discount: discount ? discount.discount : null
           };
         });
 
@@ -98,10 +104,10 @@ function PauseOnHover() {
         {items.map((item) => (
           <div style={{ margin: "0 9px" }} key={item.productId}>
             <ItemCard
-              LablePrice={item.sellingPrice ? formatPrice(item.sellingPrice) : "N/A"}
+              LablePrice={item.sellingPrice ? formatPrice(item.sellingPrice) : "LKR 000.00"}
               LableProductName={item.productName}
-              quarterLabel={item.discount}
-              productLable={"Product :"}
+              quarterLabel={item.discount +'%'}
+              // productLable={"Product :"}
               image={item.image}
               imageHeight="180vh"
               imageWidth="40vw"
