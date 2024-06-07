@@ -1,7 +1,8 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Home from './Pages/Home/Home';
-import Products from './Pages/Products/Products';
+import Products from './Pages/Products/Products_Main/Products';
+import ProductsAll from './Pages/Products/ProductsAll/ProductsAll';
 import About from './Pages/About/About';
 import Signup from './Pages/Signup/Signup';
 import Contact from './Pages/Contact/Contact';
@@ -30,6 +31,7 @@ const createRoutes=() => (
         <Route path="/login/forgotpw" element={<ForgotPw/>} />
         <Route path="/login/forgotpw/resetpw" element={<ResetPw/>}/>
         <Route path="/bill" element={<Bill/>}/>
+        <Route path="/productsall" element={<ProductsAll/>} />
 
 
     </Routes>
