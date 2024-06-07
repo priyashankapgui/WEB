@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { RiSearchLine } from "react-icons/ri";
 import './Searchbar.css'; 
 const url = "http://localhost:8080/categories";
-const product_url = "http://localhost:8080/products";
+const product_url = "http://localhost:8080/product";
 
 
 const Searchbar = ({ setResults }) => {
