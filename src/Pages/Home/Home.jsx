@@ -7,7 +7,7 @@ import Square from "../../Components/Square/Square";
 import itemsData from "../../data/items.json";
 import Carousel from "../../Components/Carousels/Slider";
 import Slick from "../../Components/Slick/Slick";
-import PauseOnHover from "../../Components/productCards/productCards";
+import ProductCards from "../../Components/productCards/productCards";
 import MainSpiner from "../../Components/Spiner/MainSpiner/MainSpiner";
 
 export default function Home() {
@@ -64,7 +64,7 @@ export default function Home() {
             </div>
 
             <div className="itemsCards">
-              <PauseOnHover />
+              <ProductCards/>
             </div>
 
             <div className="title">

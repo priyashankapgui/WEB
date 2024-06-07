@@ -5,7 +5,7 @@ import ItemCard from "../Card/Card";
 import React from "react";
 import Slider from "react-slick";
 
-function PauseOnHover() {
+function ProductCards() {
   const handleAddToCart = (item) => {
     console.log('added', item);
   };
@@ -87,4 +87,4 @@ function PauseOnHover() {
   );
 }
 
-export default PauseOnHover;
+export default ProductCards;
