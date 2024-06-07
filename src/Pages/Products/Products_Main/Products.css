@@ -5,7 +5,9 @@
     width: 100%;
   }
   
-  .Products-title a.products_ViewAll {
+  .Products-title .products_ViewAll {
     margin-left: auto;
     align-self: flex-end;
   }
+
+  
