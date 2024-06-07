@@ -1,20 +1,18 @@
-.content {
+.Contact_content {
     display: flex;
     flex-direction: row;
-    gap: 30vh;
-    overflow: hidden;
-    
+    gap: 25%; 
+    overflow-x: auto; 
 }
 
-
-.details {
+.Contact_details {
     display: grid;
     gap: 2vh;
-    width: 50vh;
-    height: 30vh;
+    width: 100%; 
+    max-width: 20vw; 
+    height: fit-content; 
     text-align: justify;
     border-radius: 2px;
-
 }
 
 .heading1 {
@@ -25,10 +23,23 @@
 
 .horizontalLine {
     position: relative;
-    width: auto;
+    width: 100%; /* Adjust width */
+    max-width: 100%; /* Ensure it doesn't overflow */
     height: 0.5px;
     background-color: black;
     margin-top: 5vh;
     margin-bottom: 5vh;
+}
 
+
+@media only screen and (max-width: 768px) {
+    .content {
+        flex-direction: column;
+        align-items: center;
+        overflow-x: hidden; 
+    }
+    .details {
+        max-width: 100%; 
+        width: 90%; 
+    }
 }

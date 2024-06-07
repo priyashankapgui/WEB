@@ -1,4 +1,3 @@
-//productCards.jsx
 import React, { useState, useEffect } from "react";
 import Slider from "react-slick";
 import ItemCard from "../Card/Card";
@@ -6,57 +5,24 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import axios from 'axios';
 
-function PauseOnHover() {
+const ProductCards = ({ fetchItems }) => {
   const [items, setItems] = useState([]);
 
   useEffect(() => {
-    const fetchItems = async () => {
+    const fetchData = async () => {
       try {
-        const [productResponse, priceResponse, discountResponse] = await Promise.all([
-          axios.get('http://localhost:8080/products'),
-          axios.get('http://localhost:8080/api/productGRNweb'),
-          axios.get('http://localhost:8080/productdiscount'),
-        ]);
-
-        const productData = productResponse.data;
-        const priceData = priceResponse.data;
-        const discountData = discountResponse.data;
-
-        const combinedData = productData.map(item => {
-          const price = priceData.find(priceItem => priceItem.productId === item.productId);
-          const discount = discountData.find(discountItem => discountItem.productId === item.productId);
-          return {
-            ...item,
-            sellingPrice: price ? price.sellingPrice : null,
-            discount: discount ? discount.discount : null
-          };
-        });
-
-        setItems(combinedData);
+        const data = await fetchItems();
+        setItems(data);
       } catch (error) {
         console.error('Failed to fetch data:', error);
       }
     };
 
-    fetchItems();
-  }, []);
-
-  // const handleAddToCart = (item) => {
-  //   const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-  //   const itemIndex = cartItems.findIndex(cartItem => cartItem.productId === item.productId);
-
-  //   if (itemIndex > -1) {
-  //     cartItems[itemIndex].quantity += 1;
-  //   } else {
-  //     cartItems.push({ ...item, quantity: 1 });
-  //   }
-
-  //   localStorage.setItem('cartItems', JSON.stringify(cartItems));
-  // };
+    fetchData();
+  }, [fetchItems]);
 
   const handleAddToCart = async (item) => {
     try {
-      // Update cart items in localStorage
       const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
       const itemIndex = cartItems.findIndex(cartItem => cartItem.productId === item.productId);
   
@@ -68,19 +34,17 @@ function PauseOnHover() {
   
       localStorage.setItem('cartItems', JSON.stringify(cartItems));
   
-      // Save item in backend
       await axios.post('http://localhost:8080/cart', {
         productId: item.productId,
         productName: item.productName,
         sellingPrice: item.sellingPrice,
-        quantity: 1, // Default quantity
+        quantity: 1,
         discount: item.discount
       });
     } catch (error) {
       console.error('Failed to add to cart:', error);
     }
   };
-  
 
   const formatPrice = (price) => {
     return new Intl.NumberFormat('en-LK', {
@@ -135,8 +99,7 @@ function PauseOnHover() {
             <ItemCard
               LablePrice={item.sellingPrice ? formatPrice(item.sellingPrice) : "LKR 000.00"}
               LableProductName={item.productName}
-              quarterLabel={item.discount +'%'}
-              // productLable={"Product :"}
+              quarterLabel={item.discount ? `${item.discount}%` : "No Discount"}
               image={item.image}
               imageHeight="180vh"
               imageWidth="40vw"
@@ -158,4 +121,4 @@ function PauseOnHover() {
   );
 }
 
-export default PauseOnHover;
+export default ProductCards;
