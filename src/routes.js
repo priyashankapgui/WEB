@@ -13,6 +13,7 @@ import ForgotPw from './Pages/Login/ForgotPw/ForgotPw';
 import ResetPw from './Pages/Login/ResetPw/ResetPw';
 import MyAccount from './Pages/MyAccount/MyAccount';
 import Bill from './Pages/Ebill/Ebill'
+import SingleProduct from './Pages/Products/SingleProduct/SingleProduct';
 
 
 const createRoutes=() => (
@@ -30,7 +31,7 @@ const createRoutes=() => (
         <Route path="/login/forgotpw" element={<ForgotPw/>} />
         <Route path="/login/forgotpw/resetpw" element={<ResetPw/>}/>
         <Route path="/bill" element={<Bill/>}/>
-
+        <Route path="/single-product" element={<SingleProduct/>}/>
 
     </Routes>
 

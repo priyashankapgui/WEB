@@ -1,3 +1,4 @@
+//productCards.jsx
 import React, { useState, useEffect } from "react";
 import Slider from "react-slick";
 import ItemCard from "../Card/Card";
@@ -12,7 +13,7 @@ function PauseOnHover() {
     const fetchItems = async () => {
       try {
         const [productResponse, priceResponse, discountResponse] = await Promise.all([
-          axios.get('http://localhost:8080/product'),
+          axios.get('http://localhost:8080/products'),
           axios.get('http://localhost:8080/api/productGRNweb'),
           axios.get('http://localhost:8080/productdiscount'),
         ]);
@@ -40,18 +41,46 @@ function PauseOnHover() {
     fetchItems();
   }, []);
 
-  const handleAddToCart = (item) => {
-    const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-    const itemIndex = cartItems.findIndex(cartItem => cartItem.productId === item.productId);
+  // const handleAddToCart = (item) => {
+  //   const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+  //   const itemIndex = cartItems.findIndex(cartItem => cartItem.productId === item.productId);
 
-    if (itemIndex > -1) {
-      cartItems[itemIndex].quantity += 1;
-    } else {
-      cartItems.push({ ...item, quantity: 1 });
+  //   if (itemIndex > -1) {
+  //     cartItems[itemIndex].quantity += 1;
+  //   } else {
+  //     cartItems.push({ ...item, quantity: 1 });
+  //   }
+
+  //   localStorage.setItem('cartItems', JSON.stringify(cartItems));
+  // };
+
+  const handleAddToCart = async (item) => {
+    try {
+      // Update cart items in localStorage
+      const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+      const itemIndex = cartItems.findIndex(cartItem => cartItem.productId === item.productId);
+  
+      if (itemIndex > -1) {
+        cartItems[itemIndex].quantity += 1;
+      } else {
+        cartItems.push({ ...item, quantity: 1 });
+      }
+  
+      localStorage.setItem('cartItems', JSON.stringify(cartItems));
+  
+      // Save item in backend
+      await axios.post('http://localhost:8080/cart', {
+        productId: item.productId,
+        productName: item.productName,
+        sellingPrice: item.sellingPrice,
+        quantity: 1, // Default quantity
+        discount: item.discount
+      });
+    } catch (error) {
+      console.error('Failed to add to cart:', error);
     }
-
-    localStorage.setItem('cartItems', JSON.stringify(cartItems));
   };
+  
 
   const formatPrice = (price) => {
     return new Intl.NumberFormat('en-LK', {
