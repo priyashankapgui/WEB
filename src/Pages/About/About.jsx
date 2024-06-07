@@ -2,34 +2,34 @@ import React from "react";
 import Layout from "../../Components/Layout/Layout";
 import Body from "../../Components/Body/Body";
 import itemsData from "../../data/items.json";
+import AboutImage from "../../Assets/Grean Leaf Art Pic.png"
+import "./About.css";
 
 export default function About() {
   const { about } = itemsData;
 
   return (
     <Layout>
-      <div className="about">
-        <Body> 
-          <div>
-          {about.map((about) => (
-       
-       <img
       
-       src={about.imageLogo}
-       alt={about.altText} 
-       className="aboutImage"
-     />
-           
-          ))}
+        <Body>
+          <div className="aboutContent">
+            <div className="aboutImage">
+             
+                <img
+                  src={AboutImage}
+                  alt="logo"
+                />
+            
+              </div>
 
-{about.map((about) => (
-       
-       <p  className="aboutParagraph">{about.paragraph}</p>
-      
-     ))}
-     </div>
+            <div className="aboutPhara">
+
+              {about.map((about) => (
+                <p className="aboutParagraph">{about.paragraph}</p>
+              ))}
+            </div>
+          </div>
         </Body>
-      </div>
     </Layout>
   );
 }

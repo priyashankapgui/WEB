@@ -37,7 +37,7 @@ export default function Contact() {
               color="black"
               fontFamily="Poppins"
               fontSize="2.6vh"
-              fontWeight={300}
+              fontWeight={400}
               lineHeight="2"
               marginTop="20px"
               marginBottom="20px"
@@ -52,7 +52,7 @@ export default function Contact() {
                 color="black"
                 fontFamily="Poppins"
                 fontSize="2.6vh"
-                fontWeight={300}
+                fontWeight={400}
                 lineHeight="2"
                 marginTop="2vh"
                 marginBottom="20px"
@@ -88,7 +88,7 @@ export default function Contact() {
               color="black"
               fontFamily="Poppins"
               fontSize="2.6vh"
-              fontWeight={300}
+              fontWeight={400}
               lineHeight="2"
               marginTop="20px"
               marginBottom="20px"
@@ -103,7 +103,7 @@ export default function Contact() {
                 color="black"
                 fontFamily="Poppins"
                 fontSize="2.6vh"
-                fontWeight={300}
+                fontWeight={400}
                 lineHeight="2"
                 marginTop="2vh"
                 marginBottom="20px"
