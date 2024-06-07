@@ -47,36 +47,36 @@ const Searchbar = ({ setResults }) => {
     fetchData(value)
   }
 
-  return (
-    <div className="search-container">
-      <div className='drop'>
-        <select className="dropdown" value={''} onChange={''}>
-          <option value="all"> Categories</option>
-          {categories.map(category => (
-            <option key={category.id} value={category.name}>
-              {category.categoryName}
-            </option>
-          ))}
-        </select>
-      </div>
+  // return (
+  //   <div className="search-container">
+  //     <div className='drop'>
+  //       <select className="dropdown" value={''} onChange={''}>
+  //         <option value="all"> Categories</option>
+  //         {categories.map(category => (
+  //           <option key={category.id} value={category.name}>
+  //             {category.categoryName}
+  //           </option>
+  //         ))}
+  //       </select>
+  //     </div>
 
-      <input
-        className="search-input"
-        type="text"
-        placeholder="Search..."
-        value={searchTerm}
-        onChange={(e)=>handleChange(e.target.value)}
-      />
+  //     <input
+  //       className="search-input"
+  //       type="text"
+  //       placeholder="Search..."
+  //       value={searchTerm}
+  //       onChange={(e)=>handleChange(e.target.value)}
+  //     />
       
       
       
-      <button className="search-button" /*onClick={handleSearchClick}*/>
-        <RiSearchLine style={{ fontSize: '31px' }} />
-      </button>
+  //     <button className="search-button" /*onClick={handleSearchClick}*/>
+  //       <RiSearchLine style={{ fontSize: '31px' }} />
+  //     </button>
 
-      <div className="horizontal-line"></div>
-    </div>
-  );
+  //     <div className="horizontal-line"></div>
+  //   </div>
+  // );
 };
 
 export default Searchbar;
