@@ -15,13 +15,35 @@ export default function Home() {
   const { category } = itemsData;
   const [categoryPosition, setCategoryPosition] = useState(0);
   const [loading, setLoading] = useState(true);
+  const [combinedData, setCombinedData] = useState([]);
   const categoryLength = category.length;
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchHomePageItems = async () => {
       try {
         setLoading(true);
-        await fetchHomePageItems();
+
+        const [productResponse, priceResponse, discountResponse] = await Promise.all([
+          axios.get('http://localhost:8080/products'),
+          axios.get('http://localhost:8080/product-batch-sum'),
+          axios.get('http://localhost:8080/product-batch-sum'),
+        ]);
+
+        const productData = productResponse.data.data;
+        const priceData = priceResponse.data;
+        const discountData = discountResponse.data;
+
+        const combinedData = productData.map(item => {
+          const price = priceData.find(priceItem => priceItem.productId === item.productId);
+          const discount = discountData.find(discountItem => discountItem.productId === item.productId);
+          return {
+            ...item,
+            sellingPrice: price ? price.sellingPrice : null,
+            discount: discount ? discount.discount : null
+          };
+        });
+
+        setCombinedData(combinedData);
         setLoading(false);
       } catch (error) {
         console.error('Failed to fetch data:', error);
@@ -29,45 +51,17 @@ export default function Home() {
       }
     };
 
-    fetchData();
+    fetchHomePageItems();
   }, []);
 
-  // Function to handle previous category navigation
   const handlePreviousCategory = () => {
     setCategoryPosition(
       (prevPosition) => (prevPosition - 1 + categoryLength) % categoryLength
     );
   };
 
-  // Function to handle next category navigation
   const handleNextCategory = () => {
     setCategoryPosition((prevPosition) => (prevPosition + 1) % categoryLength);
-    console.log("2");
-  };
-
-  // ProductCards useEffect
-  const fetchHomePageItems = async () => {
-    const [productResponse, priceResponse, discountResponse] = await Promise.all([
-      axios.get('http://localhost:8080/products'),
-      axios.get('http://localhost:8080/productGRNweb'),
-      axios.get('http://localhost:8080/productdiscount'),
-    ]);
-
-    const productData = productResponse.data.data;
-    const priceData = priceResponse.data.data;
-    const discountData = discountResponse.data.data;
-
-    const combinedData = productData.map(item => {
-      const price = priceData.find(priceItem => priceItem.productId === item.productId);
-      const discount = discountData.find(discountItem => discountItem.productId === item.productId);
-      return {
-        ...item,
-        sellingPrice: price ? price.sellingPrice : null,
-        discount: discount ? discount.discount : null
-      };
-    });
-
-    return combinedData;
   };
 
   return (
@@ -95,8 +89,7 @@ export default function Home() {
             </div>
 
             <div className="itemsCards">
-              {/* Pass fetchHomePageItems as a prop to ProductCards */}
-              <ProductCards fetchItems={fetchHomePageItems} />
+              <ProductCards items={combinedData} />
             </div>
 
             <div className="title">
