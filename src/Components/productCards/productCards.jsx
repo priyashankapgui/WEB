@@ -1,28 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Slider from "react-slick";
 import ItemCard from "../Card/Card";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import axios from 'axios';
 
-const ProductCards = ({ fetchItems }) => {
-  const [items, setItems] = useState([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const data = await fetchItems();
-        setItems(data);
-      } catch (error) {
-        console.error('Failed to fetch data:', error);
-      }
-    };
-
-    fetchData();
-  }, [fetchItems]);
+const ProductCards = ({ items }) => {
 
   const handleAddToCart = async (item) => {
     try {
+      // Update cart items in localStorage
       const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
       const itemIndex = cartItems.findIndex(cartItem => cartItem.productId === item.productId);
   
@@ -34,11 +21,12 @@ const ProductCards = ({ fetchItems }) => {
   
       localStorage.setItem('cartItems', JSON.stringify(cartItems));
   
+      // Save item in backend
       await axios.post('http://localhost:8080/cart', {
         productId: item.productId,
         productName: item.productName,
         sellingPrice: item.sellingPrice,
-        quantity: 1,
+        quantity: 1, // Default quantity
         discount: item.discount
       });
     } catch (error) {

@@ -26,7 +26,7 @@ export default function Products() {
             </InputLabel>
            
 
-            <Link to="/productsall" className="products_ViewAll">View All..</Link>
+            <Link to="/all-product" className="products_ViewAll">View All..</Link>
           </div>
         </div>
       </Body>
