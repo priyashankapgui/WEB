@@ -1,44 +1,55 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./Products.css";
 import axios from "axios";
-import { BrowserRouter as Route, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import InputLabel from "../../../Components/InputLable/InputLable";
 import Square from "../../../Components/Square/Square";
 import Layout from "../../../Components/Layout/Layout";
 import Body from "../../../Components/Body/Body";
 import ProductCards from "../../../Components/productCards/productCards";
 
-
-//Discount Fetch Data 
-const fetchProductsPageDiscuntItems = async () => {
-  const [productResponse, priceResponse, discountResponse] = await Promise.all([
-    axios.get('http://localhost:8080/products'),
-    axios.get('http://localhost:8080/productGRNweb'),
-    axios.get('http://localhost:8080/productdiscount'),
-  ]);
-
-  const productData = productResponse.data.data;
-  const priceData = priceResponse.data.data;
-  const discountData = discountResponse.data.data;
-
-  const combinedData = productData.map(item => {
-    const price = priceData.find(priceItem => priceItem.productId === item.productId);
-    const discount = discountData.find(discountItem => discountItem.productId === item.productId);
-    return {
-      ...item,
-      sellingPrice: price ? price.sellingPrice : null,
-      discount: discount ? discount.discount : null
-    };
-  });
-
-  return combinedData;
-};
-
-
-
-
 export default function Products() {
-  
+  const [loading, setLoading] = useState(true);
+  const [discountedProducts, setDiscountedProducts] = useState([]);
+
+  // Fetch products with discounts
+  const fetchProductsPageDiscuntItems = async () => {
+    try {
+      setLoading(true);
+
+      const [productResponse, priceResponse, discountResponse] = await Promise.all([
+        axios.get('http://localhost:8080/products'),
+        axios.get('http://localhost:8080/product-batch-sum'),
+        axios.get('http://localhost:8080/product-batch-sum'),
+      ]);
+
+      const productData = productResponse.data.data;
+      const priceData = priceResponse.data;
+      const discountData = discountResponse.data;
+
+      const combinedData = productData.map(item => {
+        const price = priceData.find(priceItem => priceItem.productId === item.productId);
+        const discount = discountData.find(discountItem => discountItem.productId === item.productId);
+        return {
+          ...item,
+          sellingPrice: price ? price.sellingPrice : null,
+          discount: discount ? discount.discount : null
+        };
+      });
+
+      const discountedProducts = combinedData.filter(item => item.discount !== null);
+
+      setDiscountedProducts(discountedProducts);
+      setLoading(false);
+    } catch (error) {
+      console.error('Failed to fetch data:', error);
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchProductsPageDiscuntItems();
+  }, []);
 
   return (
     <Layout>
@@ -55,16 +66,13 @@ export default function Products() {
             >
               Discounts
             </InputLabel>
-           
-
             <Link to="/all-product" className="products_ViewAll">View All..</Link>
           </div>
           <div className="itemsCardsProducts">
-              {/* Pass fetchHomePageItems as a prop to ProductCards */}
-              <ProductCards fetchItems={fetchProductsPageDiscuntItems} />
-            </div>
+            <ProductCards items={discountedProducts} />
+          </div>
 
-            <div className="Products-title">
+          <div className="Products-title">
             <Square size={5} color="#62C96D" marginRight={2.5} />
             <InputLabel
               htmlFor="example"
@@ -73,16 +81,13 @@ export default function Products() {
               fontWeight={500}
               lineHeight="1.5"
             >
-             New Arival
+              New Arrival
             </InputLabel>
-           
-
             <Link to="/productsall" className="products_ViewAll">View All..</Link>
           </div>
           <div className="itemsCardsProducts">
-              {/* Pass fetchHomePageItems as a prop to ProductCards */}
-              <ProductCards fetchItems={fetchProductsPageDiscuntItems} />
-            </div>
+            <ProductCards items={discountedProducts} />
+          </div>
         </div>
       </Body>
     </Layout>
