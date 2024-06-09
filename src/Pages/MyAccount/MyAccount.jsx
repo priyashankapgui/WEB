@@ -6,14 +6,25 @@ import InputLable from '../../Components/InputLable/InputLable';
 import Buttons from '../../Components/Button/Button';
 
 
+
+
 const MyAccount = () => {
     const [activeTab, setActiveTab] = useState('myDetails');
+
+    let user = JSON.parse(sessionStorage.getItem('user'));
+    console.log(user);
+    const firstName = user.firstName;
+    console.log(firstName);
+    const lastName = user.lastName;
+    const phone = user.phone;
+    const email = user.email;
+
 
     const renderContent = () => {
         switch (activeTab) {
             case 'myDetails':
                 return (
-                    <div className="content-section">
+                    <div className="content-section-ma">
                         <h2>My Details</h2>
                         <h3>Personal Information</h3>
                         <hr></hr>
@@ -25,7 +36,7 @@ const MyAccount = () => {
                                     type="text"
                                     name="firstName"
                                     editable={true}
-                                    placeholder="Enter First Name"
+                                    value={firstName}
                                 />
                             <InputLable htmlFor="lastName" color="#000">
                                 Last Name:
@@ -34,7 +45,7 @@ const MyAccount = () => {
                                     type="text"
                                     name="lastName"
                                     editable={true}
-                                    placeholder="Enter Last Name"
+                                    value={lastName}
                                 />
                             
                             <InputLable htmlFor="mobile" color="#000">
@@ -44,17 +55,17 @@ const MyAccount = () => {
                                     type="text"
                                     name="mobile"
                                     editable={true}
-                                    placeholder="Enter Mobile Number"
+                                    value={phone}
                                 />
                             
-                            <InputLable htmlFor="birthday" color="#000">
+                            {/* <InputLable htmlFor="birthday" color="#000">
                                 Birthday:
                                 <InputField
                                     type="date"
                                     name="birthday"
                                     editable={true}
                                 />
-                            </InputLable>
+                            </InputLable> */}
                         </form>
                         <h3>Email Information</h3>
                         <hr></hr>
@@ -66,7 +77,7 @@ const MyAccount = () => {
                                     type="email"
                                     name="email"
                                     editable={true}
-                                    placeholder="Enter Email"
+                                    value={email}
                                 />
                             
                         </form>
@@ -87,14 +98,14 @@ const MyAccount = () => {
                 );
             case 'orders':
                 return (
-                    <div className="content-section">
+                    <div className="content-section-ma">
                         <h2>Orders</h2><hr></hr>
                         <p>No orders yet.</p>
                     </div>
                 );
             case 'accountSettings':
                 return (
-                    <div className="content-section">
+                    <div className="content-section-ma">
                         <h2>Account Settings</h2>
                         <h3>Change Password</h3>
                         <hr></hr>
@@ -135,7 +146,7 @@ const MyAccount = () => {
                 );
             case 'Logout':
                 return (
-                    <div className="content-section">
+                    <div className="content-section-ma">
                         <h2>Logout</h2>
                     </div>
                 );
@@ -147,9 +158,9 @@ const MyAccount = () => {
     return (
         <Layout>
             <div className="my-account">
-                <h1 className="heading">My Account</h1>
+                <h1 className="heading-ma">My Account</h1>
                 <div className="my-account-container">
-                    <div className="sidebar">
+                    <div className="sidebar-my-account">
                         <ul>
                             <li
                                 className={activeTab === 'myDetails' ? 'active' : ''}
