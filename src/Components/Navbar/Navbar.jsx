@@ -11,8 +11,15 @@ import InputDropdown from "../Dropdawon/Dropdawon";
 const Navbar = () => {
   const [showNavbar, setShowNavbar] = useState(false);
   const [branches, setBranches] = useState([]);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
+    const token = sessionStorage.getItem('accessToken');
+      if (token) {
+        setIsLoggedIn(true);
+      } else {
+        setIsLoggedIn(false);
+      }
     fetch("http://localhost:8080/branches")
       .then((response) => response.json())
       .then((data) => setBranches(data));
@@ -65,9 +72,18 @@ const Navbar = () => {
 
           <div>
             <ul className="navbar_cart_person">
+            {isLoggedIn ? (
               <li>
-                <GoPerson className="iconPerson" />
+                <NavLink to="/my-account">
+                  <GoPerson className="iconPerson" />
+                </NavLink>
               </li>
+            ) : (
+              <li>
+                <NavLink to="/login">Login</NavLink>
+                
+              </li>
+            )}
 
               <li>
                 <Link to="/cart">
