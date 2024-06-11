@@ -4,7 +4,7 @@
     margin-top: 20px;
 }
 
-.heading {
+.heading-ma {
     text-align: left;
     margin-left: 10%;
     margin-top:5%;
@@ -16,7 +16,7 @@
     height: 100%;
 }
 
-.sidebar {
+.sidebar-my-account {
     width: 25%;
     background-color: #ffffff; /* Set the sidebar to white */
     padding: 20px;
@@ -26,18 +26,18 @@
     
 }
 
-.sidebar ul {
+.sidebar-my-account ul {
     list-style-type: none;
     padding: 0;
 }
 
-.sidebar ul li {
+.sidebar-my-account ul li {
     padding: 10px 0;
     cursor: pointer;
     margin-left:34%;
 }
 
-.sidebar ul li.active {
+.sidebar-my-account ul li.active {
     font-weight: bold;
     color: #51B541;
 }
@@ -53,28 +53,28 @@
     overflow-y: auto; /* Allows scrolling if content goes beyond the full height of the page */
 }
 
-.content-section {
+.content-section-ma {
     padding: 20px;
 }
 
-.content-section h2 {
+.content-section-ma h2 {
     margin-top: 0;
 }
 
-.content-section h3 {
+.content-section-ma h3 {
     margin-top: 20px;
 }
 
-.content-section form {
+.content-section-ma form {
     display: flex;
     flex-direction: column;
 }
 
-.content-section form label {
+.content-section-ma form label {
     margin-bottom: 10px;
 }
 
-.content-section form input {
+.content-section-ma form input {
     padding: 8px;
     margin-top: 5px;
     margin-bottom: 15px;
