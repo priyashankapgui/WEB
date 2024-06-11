@@ -12,7 +12,7 @@
 
 
   .itemsCardsProducts {
-    padding-top: 2vh;
+    display: flexbox;
   
   
   }
