@@ -1,20 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import './ConnectionWarning.css';
 
-const ConnectionWarning = () => {
+const ConnectionWarning = ({ message }) => {
   const [online, setOnline] = useState(navigator.onLine);
   const [showOnlineMessage, setShowOnlineMessage] = useState(false);
+  const [customMessage, setCustomMessage] = useState(message);
 
   useEffect(() => {
     const handleOnline = () => {
       setOnline(true);
       setShowOnlineMessage(true);
-      setTimeout(() => setShowOnlineMessage(false), 3000); 
+      setTimeout(() => setShowOnlineMessage(false), 3000);
     };
 
     const handleOffline = () => {
       setOnline(false);
-      setShowOnlineMessage(false); 
+      setShowOnlineMessage(false);
     };
 
     window.addEventListener('online', handleOnline);
@@ -26,6 +27,14 @@ const ConnectionWarning = () => {
     };
   }, []);
 
+  useEffect(() => {
+    if (message) {
+      setCustomMessage(message);
+      setShowOnlineMessage(true);
+      setTimeout(() => setShowOnlineMessage(false), 3000);
+    }
+  }, [message]);
+
   return (
     <>
       {!online && (
@@ -33,9 +42,9 @@ const ConnectionWarning = () => {
           You are offline. Please check your internet connection.
         </div>
       )}
-      {online && showOnlineMessage && (
-        <div className="connection-warning online">
-          You are online now.
+      {online && showOnlineMessage && customMessage && (
+        <div className="connection-warning custom-message">
+          {customMessage}
         </div>
       )}
     </>

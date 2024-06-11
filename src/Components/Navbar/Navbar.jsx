@@ -15,7 +15,18 @@ const Navbar = () => {
   useEffect(() => {
     fetch("http://localhost:8080/branches")
       .then((response) => response.json())
-      .then((data) => setBranches(data));
+      .then((data) => {
+        if (Array.isArray(data)) {
+          setBranches(data);
+        } else {
+          console.error("Expected an array but got:", data);
+          setBranches([]);
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching branches:", error);
+        setBranches([]);
+      });
   }, []);
 
   const handleShowNavbar = () => {

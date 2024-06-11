@@ -1,36 +1,42 @@
-import React from "react";
+import React, { useState } from "react";
 import Slider from "react-slick";
 import ItemCard from "../Card/Card";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import axios from 'axios';
+import ConnectionWarning from '../Alerts/ConnectionWarning';
 
 const ProductCards = ({ items }) => {
+  const [alertMessage, setAlertMessage] = useState("");
 
   const handleAddToCart = async (item) => {
     try {
       // Update cart items in localStorage
       const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
       const itemIndex = cartItems.findIndex(cartItem => cartItem.productId === item.productId);
-  
+
       if (itemIndex > -1) {
         cartItems[itemIndex].quantity += 1;
       } else {
         cartItems.push({ ...item, quantity: 1 });
       }
-  
+
       localStorage.setItem('cartItems', JSON.stringify(cartItems));
-  
+
       // Save item in backend
       await axios.post('http://localhost:8080/cart', {
         productId: item.productId,
         productName: item.productName,
         sellingPrice: item.sellingPrice,
-        quantity: 1, // Default quantity
+        quantity: 1,
         discount: item.discount
       });
+
+      // Show alert on success
+      setAlertMessage('Item added to cart!');
     } catch (error) {
       console.error('Failed to add to cart:', error);
+      setAlertMessage('Failed to add item to cart.');
     }
   };
 
@@ -81,6 +87,7 @@ const ProductCards = ({ items }) => {
 
   return (
     <div className="slider-container">
+      <ConnectionWarning message={alertMessage} />
       <Slider {...settings} style={{ paddingTop: "1%" }}>
         {items.map((item) => (
           <div style={{ margin: "0 9px" }} key={item.productId}>

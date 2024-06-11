@@ -117,7 +117,15 @@ export default function Cart() {
     }
   };
 
-  const handleDelete = (index) => {
+  const handleDelete = async (index) => {
+    const productId = rows[index].productId; 
+
+    try {
+      await axios.delete(`http://localhost:8080/cart/${productId}`);
+    } catch (error) {
+      console.error('Error deleting cart item:', error);
+    }
+
     const updatedRows = rows.filter((_, i) => i !== index);
     setRows(updatedRows);
     localStorage.setItem('cartItems', JSON.stringify(updatedRows));
