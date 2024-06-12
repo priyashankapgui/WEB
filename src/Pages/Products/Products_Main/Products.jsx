@@ -8,6 +8,7 @@ import Layout from "../../../Components/Layout/Layout";
 import Body from "../../../Components/Body/Body";
 import ProductCards from "../../../Components/productCards/productCards";
 
+
 export default function Products() {
   const [loading, setLoading] = useState(true);
   const [discountedProducts, setDiscountedProducts] = useState([]);
@@ -85,9 +86,9 @@ export default function Products() {
             </InputLabel>
             <Link to="/productsall" className="products_ViewAll">View All..</Link>
           </div>
-          <div className="itemsCardsProducts">
+          {/* <div className="itemsCardsProducts">
             <ProductCards items={discountedProducts} />
-          </div>
+          </div> */}
         </div>
       </Body>
     </Layout>
