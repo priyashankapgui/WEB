@@ -1,6 +1,7 @@
 .Products-title {
     display: flex;
     padding-top: 8vh;
+    padding-bottom: 2vh;
     align-items: flex-end;
     width: 100%;
   }

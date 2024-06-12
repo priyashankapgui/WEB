@@ -6,24 +6,39 @@ import { GoPerson } from "react-icons/go";
 import "./Navbar.css";
 import { Link } from "react-router-dom";
 import CustomizedBadges from "../CartIcon/CartIcon";
+import axios from "axios";
 import InputDropdown from "../Dropdawon/Dropdawon";
 
 const Navbar = () => {
   const [showNavbar, setShowNavbar] = useState(false);
-  const [branches, setBranches] = useState([]);
+  const [branches, setBranchData] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
+  const branchesApiUrl = "http://localhost:8080/branchesWeb";
+
   useEffect(() => {
-    const token = sessionStorage.getItem('accessToken');
-      if (token) {
-        setIsLoggedIn(true);
-      } else {
-        setIsLoggedIn(false);
-      }
-    fetch("http://localhost:8080/branches")
-      .then((response) => response.json())
-      .then((data) => setBranches(data));
-  }, []);
+    const fetchBranchData = async () => {
+        try {
+            const token = sessionStorage.getItem("accessToken");
+            const response = await axios.get(branchesApiUrl, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+    
+            setBranchData(Array.isArray(response.data) ? response.data : response.data.branchesList || []);
+          
+        } catch (error) {
+            console.error('Error fetching branches:', error);
+            
+        }
+    };
+
+    fetchBranchData();
+
+    }
+);
+
 
   const handleShowNavbar = () => {
     setShowNavbar(!showNavbar);
@@ -72,19 +87,17 @@ const Navbar = () => {
 
           <div>
             <ul className="navbar_cart_person">
-            {isLoggedIn ? (
-              <li>
-                <NavLink to="/my-account">
-                  <GoPerson className="iconPerson" />
-                </NavLink>
-              </li>
-            ) : (
-              <li>
-                <NavLink to="/login">Login</NavLink>
-                
-              </li>
-            )}
-
+              {isLoggedIn ? (
+                <li>
+                  <NavLink to="/my-account">
+                    <GoPerson className="iconPerson" />
+                  </NavLink>
+                </li>
+              ) : (
+                <li>
+                  <NavLink to="/login">Login</NavLink>
+                </li>
+              )}
               <li>
                 <Link to="/cart">
                   <CustomizedBadges className="nav_login_cart" />
