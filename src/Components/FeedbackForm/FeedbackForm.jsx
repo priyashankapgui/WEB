@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import InputField from "../InputField/InputField";
 import Buttons from "../Button/Buttons";
-import LoaderComponent from "../Spiner/HashLoder/HashLoader";
+import LoaderComponent from "../Spiner/HashLoader/HashLoader";
 import "./FeedbackForm.css";
 import axios from "axios";
 import emailjs from "@emailjs/browser";

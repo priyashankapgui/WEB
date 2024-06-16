@@ -5,11 +5,14 @@ import "./ForgotPw.css";
 import InputField from "../../../Components/InputField/InputField";
 import Buttons from "../../../Components/Button/Button";
 import Popup from "../../../Components/Popup/Popup";
+import LoaderComponent from "../../../Components/Spiner/HashLoader/HashLoader";
+
 
 const ForgotPw = () => {
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
   const [showPopup, setshowPopup] = useState(false); // State to control the visibility of SubPopup
+  const [loading, setLoading] = useState(false);
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -19,7 +22,7 @@ const ForgotPw = () => {
 
   const handleOpen = async (e) => {
     e.preventDefault(); // Prevent default form submission
-    // Validate if the email is empty
+    setLoading(true);
     if (!email) {
       setError("Please enter your email address.");
       return;
@@ -34,9 +37,7 @@ const ForgotPw = () => {
         setError("Please enter a valid email address.");
         return;
     }
-    // If email is valid, show the SubPopup
-    console.log("Email is valid. Setting showSubPopup to true...");
-
+    
     const response = await fetch("http://localhost:8080/api/customers/login/forgotpw", {
       method: "POST",
       headers: {
@@ -48,8 +49,10 @@ const ForgotPw = () => {
     }).catch((error) => console.error("Error:", error));
     
     if (response.ok) {
+      setLoading(false);  
       setshowPopup(true);
     } else {
+      setLoading(false);
       const data = await response.json();
       setError(data.message);
     }
@@ -82,7 +85,13 @@ const ForgotPw = () => {
           required>
             <FaEnvelope className="s-fp-icon" />
           </InputField>
-          <Buttons type="submit" id="confirm-btn" style={{ backgroundColor: "green", color: "white" }} onClick={handleOpen}> Confirm </Buttons>
+          {loading ? (
+                <div className='loading-container'>
+                    <LoaderComponent size={50} />
+                </div>
+            ) : (
+             <Buttons type="submit" id="confirm-btn" style={{ backgroundColor: "green", color: "white" }} onClick={handleOpen}> Confirm </Buttons>
+          )}
         </div>
 
         {error && <p className="fp-error">{error}</p>}
@@ -108,9 +117,13 @@ const ForgotPw = () => {
           bodyContent={(
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
               <p>Your password has been sent to your email</p>
-              
-                <Buttons type="button" id="ok-btn" style={{ backgroundColor: "green", color: "white" }} onClick={handleOkButtonClick}>Ok </Buttons>
-              
+                {loading ? (
+                  <div className='loading-container'>
+                      <LoaderComponent size={50} />
+                  </div>
+                ) : (
+                  <Buttons type="button" id="ok-btn" style={{ backgroundColor: "green", color: "white" }} onClick={handleOkButtonClick}>Ok </Buttons>
+                )}
             </div>
           )}
         />

@@ -7,6 +7,7 @@ import "./Navbar.css";
 import { Link } from "react-router-dom";
 import CustomizedBadges from "../CartIcon/CartIcon";
 import InputDropdown from "../Dropdawon/Dropdawon";
+import secureLocalStorage from "react-secure-storage";
 
 const Navbar = () => {
   const [showNavbar, setShowNavbar] = useState(false);
@@ -14,13 +15,13 @@ const Navbar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    const token = sessionStorage.getItem('accessToken');
+    const token = secureLocalStorage.getItem('accessToken');
       if (token) {
         setIsLoggedIn(true);
       } else {
         setIsLoggedIn(false);
       }
-    fetch("http://localhost:8080/branches")
+    fetch("http://localhost:8080/branchesWeb")
       .then((response) => response.json())
       .then((data) => setBranches(data));
   }, []);

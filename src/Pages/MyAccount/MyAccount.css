@@ -7,23 +7,25 @@
 .heading-ma {
     text-align: left;
     margin-left: 10%;
-    margin-top:5%;
-    margin-bottom:3%;
+    margin-bottom: 20px;
 }
 
 .my-account-container {
     display: flex;
     height: 100%;
+    margin-bottom: 50px;
 }
 
 .sidebar-my-account {
-    width: 25%;
-    background-color: #ffffff; /* Set the sidebar to white */
-    padding: 20px;
-    border-right: 1px solid #ccc;
-    position: sticky;
-    top: 0;
-    
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    gap: 30px;
+    width: fit-content;
+    border-right:  #ccc;
+    margin-left: 10%;
+    border-radius: 15px;
+    padding-bottom: 20px;
 }
 
 .sidebar-my-account ul {
@@ -32,24 +34,34 @@
 }
 
 .sidebar-my-account ul li {
-    padding: 10px 0;
+    padding: 10px;
     cursor: pointer;
-    margin-left:34%;
+    margin-bottom: 5px;
+    background-color: #ffffff;
+    border-radius: 15px;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.sidebar-my-account ul li:hover {
+    background-color: #f1f2f1;
 }
 
 .sidebar-my-account ul li.active {
+    padding: 10px;
     font-weight: bold;
     color: #51B541;
+    background-color: #c5efbe;
+    border-radius: 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.MyAccount_content {
-    width: 75%;
+.myaccount-content {
+    width: 50%;
     background-color: #f7f7f7; /* A bit dark white */
     padding: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adding shadow to the right container */
     border-radius: 8px;
-    margin: 20px; /* Adding margin to create space around the form */
-    flex: 1;
+    margin-left: 8%; /* Adding margin to create space around the form */
     overflow-y: auto; /* Allows scrolling if content goes beyond the full height of the page */
 }
 
