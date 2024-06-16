@@ -128,7 +128,7 @@ export default function Cart() {
 
     const updatedRows = rows.filter((_, i) => i !== index);
     setRows(updatedRows);
-    localStorage.setItem('cartItems', JSON.stringify(updatedRows));
+    localStorage.setItem('cartItems', JSON.stringify(updatedRows)); 
   };
 
   const handleCheckout = async () => {
@@ -136,6 +136,7 @@ export default function Cart() {
       const response = await axios.post('http://localhost:8080/create-checkout-session', {
         items: rows,
       });
+      
 
       const { sessionId } = response.data;
       const stripe = await stripePromise;

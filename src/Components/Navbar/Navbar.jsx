@@ -6,39 +6,27 @@ import { GoPerson } from "react-icons/go";
 import "./Navbar.css";
 import { Link } from "react-router-dom";
 import CustomizedBadges from "../CartIcon/CartIcon";
-import InputDropdown from "../Dropdawon/Dropdawon";
+import BranchDropDown from "../BranchDropDown/BranchDropDown";
 
 const Navbar = () => {
   const [showNavbar, setShowNavbar] = useState(false);
-  const [branches, setBranches] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  useEffect(() => {
-    const token = sessionStorage.getItem('accessToken');
-      if (token) {
-        setIsLoggedIn(true);
-      } else {
-        setIsLoggedIn(false);
-      }
-    fetch("http://localhost:8080/branches")
-      .then((response) => response.json())
-      .then((data) => {
-        if (Array.isArray(data)) {
-          setBranches(data);
-        } else {
-          console.error("Expected an array but got:", data);
-          setBranches([]);
-        }
-      })
-      .catch((error) => {
-        console.error("Error fetching branches:", error);
-        setBranches([]);
-      });
-  }, []);
+  const [selectedBranch, setSelectedBranch] = useState(localStorage.getItem('selectedBranch') || '');
 
   const handleShowNavbar = () => {
     setShowNavbar(!showNavbar);
   };
+
+  const handleBranchChange = (branch) => {
+    setSelectedBranch(branch.branchName);
+  };
+
+  useEffect(() => {
+    const savedBranch = localStorage.getItem('selectedBranch');
+    if (savedBranch) {
+      setSelectedBranch(savedBranch);
+    }
+  }, []);
 
   return (
     <nav className="navbar">
@@ -70,32 +58,24 @@ const Navbar = () => {
                 <NavLink to="/contact">Contact</NavLink>
               </li>
               <li>
-                <InputDropdown
-                  id="branchDropdown"
-                  name="branchDropdown"
-                  options={branches.map((branch) => branch.branchName)}
-                  editable={true}
-                  onChange={(e) => console.log("Selected option:", e.target.value)}
-                />
+                <BranchDropDown id="branch" name="branch" editable={true} onChange={handleBranchChange}/>
               </li>
             </ul>
           </div>
 
           <div>
             <ul className="navbar_cart_person">
-            {isLoggedIn ? (
-              <li>
-                <NavLink to="/my-account">
-                  <GoPerson className="iconPerson" />
-                </NavLink>
-              </li>
-            ) : (
-              <li>
-                <NavLink to="/login">Login</NavLink>
-                
-              </li>
-            )}
-
+              {isLoggedIn ? (
+                <li>
+                  <NavLink to="/my-account">
+                    <GoPerson className="iconPerson" />
+                  </NavLink>
+                </li>
+              ) : (
+                <li>
+                  <NavLink to="/login">Login</NavLink>
+                </li>
+              )}
               <li>
                 <Link to="/cart">
                   <CustomizedBadges className="nav_login_cart" />

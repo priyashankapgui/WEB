@@ -47,7 +47,7 @@ const Ebill = () => {
                     </div>
                 </div>
                 <hr className='invoice-line-top' />
-                <h5 className='payment-Ereceipt-Txt'>e - Payment Receipt</h5>
+                <h5 className='payment-Ereceipt-Txt'>Online - Payment Receipt</h5>
                 <hr className='invoice-line-top' />
                 <div className="receipt-content">
                     <table className='receipt-details-table'>

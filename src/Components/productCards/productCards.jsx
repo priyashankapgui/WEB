@@ -24,9 +24,12 @@ const ProductCards = ({ items }) => {
       localStorage.setItem('cartItems', JSON.stringify(cartItems));
 
       // Save item in backend
+      const selectedBranchId = localStorage.getItem('selectedBranchId');  // Get branchId from local storage
       await axios.post('http://localhost:8080/cart', {
         productId: item.productId,
         productName: item.productName,
+        batchNo: item.batchNo,
+        branchId: selectedBranchId,  // Send branchId from local storage
         sellingPrice: item.sellingPrice,
         quantity: 1,
         discount: item.discount
@@ -36,7 +39,12 @@ const ProductCards = ({ items }) => {
       setAlertMessage('Item added to cart!');
     } catch (error) {
       console.error('Failed to add to cart:', error);
-      setAlertMessage('Failed to add item to cart.');
+      if (error.response) {
+        console.error('Server responded with:', error.response.data);
+        setAlertMessage(`Failed to add item to cart: ${error.response.data.message}`);
+      } else {
+        setAlertMessage('Failed to add item to cart.');
+      }
     }
   };
 
@@ -94,7 +102,7 @@ const ProductCards = ({ items }) => {
             <ItemCard
               LablePrice={item.sellingPrice ? formatPrice(item.sellingPrice) : "LKR 000.00"}
               LableProductName={item.productName}
-              quarterLabel={item.discount ? `${item.discount}%` : "No Discount"}
+              quarterLabel={item.discount ? `${item.discount}%` : "0%"}
               image={item.image}
               imageHeight="180vh"
               imageWidth="40vw"
