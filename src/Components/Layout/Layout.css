@@ -4,6 +4,7 @@
   margin: 0;
   padding: 0;
   font-family: 'Poppins';
+  
 }
 
 #topcontent {
@@ -21,3 +22,7 @@
 #footercontent {
   min-height: 10vh;
 }
+.layout{
+  background-color: #fafafa;
+}
+

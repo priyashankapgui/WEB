@@ -5,6 +5,18 @@ const HoverImage = ({ images }) => {
   const [hoveredImage, setHoveredImage] = useState(null);
   const { image, hoverSlide } = itemsData;
 
+  // Define the styles with transition
+  const imageStyle = {
+    width: "200px",
+    height: "200px",
+    transition: "transform 0.8s ease-in-out",
+  };
+
+  const hoveredImageStyle = {
+    ...imageStyle,
+    transform: "scale(1.1)", // Example: scale the image when hovered
+  };
+
   return (
     <div style={{ display: "flex", flexWrap: "wrap" }}>
       {images.map((image, index) => (
@@ -17,7 +29,7 @@ const HoverImage = ({ images }) => {
           <img
             src={hoveredImage === index ? image.hoverSrc : image.defaultSrc}
             alt={image.alt}
-            style={{ width: "200px", height: "200px" }}
+            style={hoveredImage === index ? hoveredImageStyle : imageStyle}
           />
         </div>
       ))}

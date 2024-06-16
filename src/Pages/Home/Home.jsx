@@ -29,6 +29,8 @@ export default function Home() {
           axios.get('http://localhost:8080/product-batch-sum'),
         ]);
 
+        console.log('Product Response:', productResponse); // Log the response
+
         const productData = productResponse.data.data;
         const priceData = priceResponse.data;
         const discountData = discountResponse.data;

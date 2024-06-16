@@ -60,7 +60,7 @@ export default function ItemCard({
       sx={{
         position: "relative",
         width: "35vh",
-        height: "fit-content",
+        height: "55vh",
         borderRadius: "8px",
         boxShadow: "0 9px 10px rgba(0,0,0,0.5)",
         textAlign: "center",
