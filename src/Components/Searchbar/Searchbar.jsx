@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { RiSearchLine } from "react-icons/ri";
 import './Searchbar.css'; 
+
 const url = "http://localhost:8080/categories";
 const product_url = "http://localhost:8080/products";
 
 const Searchbar = ({ setResults }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [categories, setCategories] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState("all");
 
   useEffect(() => {
     fetchCategories();
-  }, []); // Empty dependency array ensures useEffect runs only once
+  }, []); 
 
   const fetchCategories = async () => {
     try {
@@ -19,10 +21,10 @@ const Searchbar = ({ setResults }) => {
         throw new Error('Failed to fetch categories');
       }
       const data = await response.json();
-      if (Array.isArray(data)) {
-        setCategories(data);
+      if (data.success && Array.isArray(data.data)) {
+        setCategories(data.data);
       } else {
-        console.error('Fetched data is not an array:', data);
+        console.error('Fetched data is not as expected:', data);
       }
     } catch (error) {
       console.error('Error fetching categories:', error);
@@ -31,32 +33,39 @@ const Searchbar = ({ setResults }) => {
 
   const fetchData = (value) => {
     fetch(product_url)
-    .then((res) => res.json())
-    .then((json) => {
-      const results = json.filter((product) => {
-        return (
-          value && 
-          product && 
-          product.productName && 
-          product.productName.toLowerCase().includes(value.toLowerCase())
-        );
-      });
-      setResults(results);
-    });
-  }
+      .then((res) => res.json())
+      .then((json) => {
+        if (json.success && Array.isArray(json.data)) {
+          const results = json.data.filter((product) => {
+            const matchesCategory = selectedCategory === "all" || product.categoryId === selectedCategory;
+            const matchesSearchTerm = product.productName && product.productName.toLowerCase().includes(value.toLowerCase());
+            return matchesCategory && matchesSearchTerm;
+          });
+          setResults(results);
+        } else {
+          console.error('Fetched products data is not as expected:', json);
+        }
+      })
+      .catch((error) => console.error('Error fetching products:', error));
+  };
 
   const handleChange = (value) => {
     setSearchTerm(value);
     fetchData(value);
-  }
+  };
+
+  const handleCategoryChange = (value) => {
+    setSelectedCategory(value);
+    fetchData(searchTerm); 
+  };
 
   return (
     <div className="search-container">
       <div className='drop'>
-        <select className="dropdown" value={''} onChange={''}>
+        <select className="dropdown" value={selectedCategory} onChange={(e) => handleCategoryChange(e.target.value)}>
           <option value="all">Categories</option>
           {categories.map(category => (
-            <option key={category.id} value={category.name}>
+            <option key={category.categoryId} value={category.categoryId}>
               {category.categoryName}
             </option>
           ))}

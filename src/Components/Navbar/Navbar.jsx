@@ -6,43 +6,27 @@ import { GoPerson } from "react-icons/go";
 import "./Navbar.css";
 import { Link } from "react-router-dom";
 import CustomizedBadges from "../CartIcon/CartIcon";
-import axios from "axios";
-import InputDropdown from "../Dropdawon/Dropdawon";
+import BranchDropDown from "../BranchDropDown/BranchDropDown";
 
 const Navbar = () => {
   const [showNavbar, setShowNavbar] = useState(false);
-  const [branches, setBranchData] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  const branchesApiUrl = "http://localhost:8080/branchesWeb";
-
-  useEffect(() => {
-    const fetchBranchData = async () => {
-        try {
-            const token = sessionStorage.getItem("accessToken");
-            const response = await axios.get(branchesApiUrl, {
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
-            });
-    
-            setBranchData(Array.isArray(response.data) ? response.data : response.data.branchesList || []);
-          
-        } catch (error) {
-            console.error('Error fetching branches:', error);
-            
-        }
-    };
-
-    fetchBranchData();
-
-    }
-);
-
+  const [selectedBranch, setSelectedBranch] = useState(localStorage.getItem('selectedBranch') || '');
 
   const handleShowNavbar = () => {
     setShowNavbar(!showNavbar);
   };
+
+  const handleBranchChange = (branch) => {
+    setSelectedBranch(branch.branchName);
+  };
+
+  useEffect(() => {
+    const savedBranch = localStorage.getItem('selectedBranch');
+    if (savedBranch) {
+      setSelectedBranch(savedBranch);
+    }
+  }, []);
 
   return (
     <nav className="navbar">
@@ -74,13 +58,7 @@ const Navbar = () => {
                 <NavLink to="/contact">Contact</NavLink>
               </li>
               <li>
-                <InputDropdown
-                  id="branchDropdown"
-                  name="branchDropdown"
-                  options={branches.map((branch) => branch.branchName)}
-                  editable={true}
-                  onChange={(e) => console.log("Selected option:", e.target.value)}
-                />
+                <BranchDropDown id="branch" name="branch" editable={true} onChange={handleBranchChange}/>
               </li>
             </ul>
           </div>

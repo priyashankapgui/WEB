@@ -1,4 +1,4 @@
-.results-list{
+.results-list {
     width: 40%;
     background-color: white;
     display: flex;
@@ -14,4 +14,21 @@
     max-height: 300px;
     overflow-y: scroll;
     margin-left: 30%;
+    scrollbar-width: thin; 
+    scrollbar-color: #888 #e0e0e0; 
+}
+
+.results-list::-webkit-scrollbar {
+    width: 8px; 
+}
+
+.results-list::-webkit-scrollbar-track {
+    background: #e0e0e0; 
+    border-radius: 10px; 
+}
+
+.results-list::-webkit-scrollbar-thumb {
+    background-color: #888; 
+    border-radius: 10px; 
+    border: 2px solid #e0e0e0; 
 }

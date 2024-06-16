@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useEffect, useState } from "react";
 import Badge from "@mui/material/Badge";
 import { styled } from "@mui/material/styles";
 import IconButton from "@mui/material/IconButton";
@@ -15,9 +15,17 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 }));
 
 export default function CartIcon() {
+  const [cartCount, setCartCount] = useState(0);
+
+  useEffect(() => {
+    
+    const cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
+    setCartCount(cartItems.length);
+  }, []);
+
   return (
     <IconButton aria-label="cart">
-      <StyledBadge badgeContent={1} color="secondary">
+      <StyledBadge badgeContent={cartCount} color="secondary">
         <ShoppingCartIcon />
       </StyledBadge>
     </IconButton>
