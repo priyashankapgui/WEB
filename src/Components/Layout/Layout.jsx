@@ -25,10 +25,6 @@ export default function Layout({ children }) {
           {results.length > 0 && <SearchResultsList results={results} />}
         </div>
         {children}
-        <div id="bodycontent">
-          <Body />
-          
-        </div>
         <div id="footercontent">
           <Footer />
         </div>
