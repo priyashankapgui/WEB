@@ -5,12 +5,16 @@ import "./ResetPw.css";
 import InputField from "../../../Components/InputField/InputField";
 import Buttons from "../../../Components/Button/Button";
 import Popup from "../../../Components/Popup/Popup";
+import LoaderComponent from "../../../Components/Spiner/HashLoader/HashLoader";
+import PasswordStrengthBar from "react-password-strength-bar";
+
 
 const ResetPw = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
   const [showPopup, setShowPopup] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
@@ -26,29 +30,27 @@ const ResetPw = () => {
 
   const handleResetPassword = async (e) => {
     e.preventDefault();
-
+    setLoading(true);
     if (!password || !confirmPassword) {
       setError("Please fill in both password fields.");
-      return;
+      setLoading(false);
     }
-
     if (password !== confirmPassword) {
       setError("Passwords do not match.");
-      return;
+      setLoading(false);
     }
     const urlParams = new URLSearchParams(window.location.search);
     const token = urlParams.get("token");
-
-   
-
     // If token is not present, redirect to login page
     if (!token) {
+      setLoading(false);
       window.location.href = "/login";
     } else {
       const response = await fetch("http://localhost:8080/api/customers/login/forgotpw/resetpw", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
           resetToken: token,
@@ -58,11 +60,12 @@ const ResetPw = () => {
       }).catch((error) => console.error("Error:", error));
 
       if (response.ok) {
+        setLoading(true);
         const data = await response.json();
         setShowPopup(true);
-        
         console.log("Response data:", data);
       } else {
+        setLoading(false);
         const data = await response.json();
         setError(data.message);
       }
@@ -72,8 +75,6 @@ const ResetPw = () => {
   };
 
   const handleOkButtonClick = () => {
-
-    // Navigate back to login page
     window.location.href = "/login";
   };
 
@@ -106,9 +107,9 @@ const ResetPw = () => {
             placeholder="New password"
             editable={true}
             onChange={handlePasswordChange}
+            value={password}
             required
           >
-     
             <button
               type="button"
               onClick={toggleShowPassword}
@@ -118,6 +119,24 @@ const ResetPw = () => {
               {showPassword ? <FaEye /> : <FaEyeSlash />}
             </button>
           </InputField>
+          {password && (
+              <PasswordStrengthBar
+                password={password}
+                minLength={8}
+                scoreWordStyle={{
+                  fontSize: "14px",
+                  fontFamily: "Poppins",
+                }}
+                scoreWords={[
+                  "very weak",
+                  "weak",
+                  "good",
+                  "strong",
+                  "very strong",
+                ]}
+                shortScoreWord="should be atlest 8 characters long"
+              />
+          )}
           <p>Confirm New Password:</p>
           <InputField
             type={showConfirmPassword ? "text" : "password"}
@@ -138,14 +157,19 @@ const ResetPw = () => {
               {showConfirmPassword ? <FaEye /> : <FaEyeSlash />}
             </button>
           </InputField>
-
-          <Buttons
-            type="submit"
-            id="save-btn"
-            style={{ backgroundColor: "green", color: "white" }}
-          >
-            Save
-          </Buttons>
+           {loading ? (
+                <div className='loading-container'>
+                    <LoaderComponent size={50} />
+                </div>
+            ) : (
+              <Buttons
+                type="submit"
+                id="save-btn"
+                style={{ backgroundColor: "green", color: "white" }}
+              >
+                Save
+              </Buttons>
+          )}
         </div>
         {error && <p className="rp-error">{error}</p>}
       </form>

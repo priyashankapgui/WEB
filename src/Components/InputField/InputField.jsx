@@ -53,10 +53,10 @@ function InputField(props) {
       {props.children && (
         <span
           style={{
-            position: "absolute",
+            position: "relative",
             top: "50%",
             right: "0.625em",
-            transform: "translateY(-50%)",
+            transform: "translateX(-100%)",
             display: "flex",
             alignItems: "center",
           }}

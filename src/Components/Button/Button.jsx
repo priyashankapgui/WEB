@@ -14,7 +14,12 @@ const Button = styled.button`
   text-transform: none;
   text-align: center;
   font-family: "Poppins", sans-serif;
-
+  cursor: pointer; /* Changes the mouse pointer to a hand icon */
+  transition: box-shadow 0.3s ease-in-out;
+  &:hover {
+    background-color: #f0f0f0; /* Example hover effect */
+     box-shadow: 0 0 5px 2px #51B541; /* Green glow effect */
+  }
 `;
 
 function Buttons(props) {

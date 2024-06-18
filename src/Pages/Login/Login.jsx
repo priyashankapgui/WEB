@@ -5,6 +5,8 @@ import greenmart from "../../Assets/Green Leaf Super.png";
 import InputField from "../../Components/InputField/InputField";
 import { FaRegEye, FaRegUserCircle,FaEyeSlash} from "react-icons/fa";
 import Buttons from "../../Components/Button/Button";
+import LoaderComponent from "../../Components/Spiner/HashLoader/HashLoader";
+import secureLocalStorage from "react-secure-storage";
 
 
 
@@ -13,6 +15,7 @@ export default function Login(props) {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
   
 
   const handleEmailChange = (e) => {
@@ -42,35 +45,39 @@ export default function Login(props) {
   // }, []);
 
   const handleLogin = async(e) => {
-    e.preventDefault();
-    const cus = JSON.stringify({
-      email : email,
-      password : password,
-    })
+    try{
+        e.preventDefault();
+        setLoading(true);
+        const cus = JSON.stringify({
+          email : email,
+          password : password,
+        })
 
-    const response = await fetch ('http://localhost:8080/api/customers/login',{
-      method : 'POST',
-      headers : {
-        'Content-Type' : 'application/json'
-      },
-      body : cus,
-    }).catch((error) => console.error("Error:", error));
+        const response = await fetch ('http://localhost:8080/api/customers/login',{
+          method : 'POST',
+          headers : {
+            'Content-Type' : 'application/json'
+          },
+          body : cus,
+        }).catch((error) => console.error("Error:", error));
 
-    if (response.ok){
-      const data = await response.json();
-      console.log("Response data:", data);
-
-      // Store the token in local storage
-      sessionStorage.setItem("accessToken", data.token);
-      sessionStorage.setItem("user", JSON.stringify(data.user));
-      window.location.href = '/';
-    }
-    else {
-      //login failed
-      const data = await response.json();
-      console.log("Error:", data.message);
-      setError(data.message);
-    }
+        if (response.ok){
+          const data = await response.json();
+          secureLocalStorage.setItem("accessToken", data.token);
+          secureLocalStorage.setItem("user", data.user);
+          window.location.href = '/';
+        }
+        else {
+          //login failed
+          const data = await response.json();
+          console.log("Error:", data.message);
+          setError(data.message);
+          setLoading(false);
+        }
+      }catch(error){
+        setError(error.message);
+        setLoading(false);
+      }
     
   
   };
@@ -125,24 +132,30 @@ export default function Login(props) {
                   )}
               </InputField>
 
-              {error && <p className="login-error">{error}</p>}
               
             </div>
+              {error && <p className="login-error">{error}</p>}
             <div className="s-w-forgotpw">
               <Link to="/login/forgotpw">Forgot Password?</Link>
             </div>
             <div className="s-w-Lsignup">
               Don't have an account? <Link to="/signup">Sign Up</Link>
             </div>
-            <Buttons
-              className="s-w-loginButton"
-              type="submit"
-              id="submit"
-              style={{ backgroundColor: "green", color: "white"}}
-              $alignSelf="center"
-            >
-              Login
-            </Buttons>
+            {loading ? (
+                <div className='loading-container'>
+                    <LoaderComponent size={50} />
+                </div>
+            ) : (
+                <Buttons
+                  className="s-w-loginButton"
+                  type="submit"
+                  id="submit"
+                  style={{ backgroundColor: "green", color: "white"}}
+                  $alignSelf="center"
+                >
+                  Login
+                </Buttons>
+            )}
           </form>
 
           
