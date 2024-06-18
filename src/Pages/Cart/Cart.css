@@ -18,6 +18,41 @@
     color: #fafafa;
     font-size: 1em;
     font-family: 'Poppins';
-    margin: 15%;
+    margin: 10%;
+    margin-top: 5%;
     margin-left: 30%;
 }
+.PickupDatePicker{
+    display: flex;
+    align-items: center;
+    padding: 10px;
+}
+.PickupDate{
+    /* padding-top: 20px; */
+    font-family: 'Poppins';
+}
+.CancelNotification{
+    padding-top: 50px;
+    color: red;
+}
+
+.inputFieldContainer {
+    display: flex;
+    align-items: center;
+  }
+  
+  .dateInput {
+    padding: 10px;
+    font-size: 16px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 150px;
+  }
+  
+  .calendarButton {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+  }

@@ -1,8 +1,15 @@
-import React from 'react'
-import './SearchResult.css'
+// SearchResult.js
 
-export const SearchResult = ({result}) => {
+import React from 'react';
+import { Link } from 'react-router-dom';
+import './SearchResult.css';
+
+const SearchResult = ({ result }) => {
   return (
-    <div className='search-result'>{result.productName}</div>
-  )
-}
+    <Link to={`/single-product/${result.productId}`} className='search-result-link'>
+      <div className='search-result'>{result.productName}</div>
+    </Link>
+  );
+};
+
+export default SearchResult;

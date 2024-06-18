@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from 'react';
 import Layout from "../../../Components/Layout/Layout";
 import './SingleProduct.css';
 import { Box } from '@mui/material';
 import ItemCard from "../../../Components/Card/Card";
 import axios from "axios";
+import { useParams } from 'react-router-dom';
 
 const boxStyle = {
   width: '1180px',
@@ -33,35 +34,27 @@ const innerBoxStyleLast = {
   padding: '20px',
 };
 
-export default function SingleProduct() {
-  const product = {
-    productId: "123",
-    productName: "Sample Product",
-    sellingPrice: 5000,
-    discount: 10,
-    image: "path/to/image.jpg",
-  };
+const SingleProduct = () => {
+  const { productId } = useParams();
+  const [product, setProduct] = useState(null);
+
+  useEffect(() => {
+    const fetchProduct = async () => {
+      try {
+        const response = await axios.get(`http://localhost:8080/products/${productId}`);
+        const { data } = response.data; // Destructure the 'data' field from the response
+        setProduct(data); // Update state with the 'data' field
+      } catch (error) {
+        console.error('Error fetching product:', error);
+      }
+    };
+
+    fetchProduct();
+  }, [productId]);
 
   const handleAddToCart = async (item) => {
     try {
-      const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-      const itemIndex = cartItems.findIndex(cartItem => cartItem.productId === item.productId);
-  
-      if (itemIndex > -1) {
-        cartItems[itemIndex].quantity += 1;
-      } else {
-        cartItems.push({ ...item, quantity: 1 });
-      }
-  
-      localStorage.setItem('cartItems', JSON.stringify(cartItems));
-  
-      await axios.post('http://localhost:8080/cart', {
-        productId: item.productId,
-        productName: item.productName,
-        sellingPrice: item.sellingPrice,
-        quantity: 1,
-        discount: item.discount
-      });
+      // Implement your add to cart logic
     } catch (error) {
       console.error('Failed to add to cart:', error);
     }
@@ -76,38 +69,50 @@ export default function SingleProduct() {
     }).format(price);
   };
 
+  if (!product) {
+    return null; // You can render a loading spinner or message while waiting for product data
+  }
+
   return (
     <Layout>
-      <div className="singleproducts">
+      <div className='singleproducts'>
         <Box style={boxStyle}>
           <div style={innerBoxStyle}>
             <img src={product.image} alt={product.productName} style={{ width: '100%', height: 'auto' }} />
           </div>
           <div style={innerBoxStyleLast}>
             <ItemCard
-              LablePrice={product.sellingPrice ? formatPrice(product.sellingPrice) : "LKR 000.00"}
+              LablePrice={product.sellingPrice ? formatPrice(product.sellingPrice) : 'LKR 000.00'}
               LableProductName={product.productName}
-              LabelProductWeight="500g"
-              productLable="Category Name"
-              quarterLabel={product.discount ? `${product.discount}%` : "No Discount"}
+              LabelProductWeight='500g'
+              productLable={product.categoryName}
+              quarterLabel={product.discount ? `${product.discount}%` : 'No Discount'}
               showButton={true}
               showRating={true}
               showQuarter={true}
               buttonProps={{
-                type: "submit",
-                id: "AddtoCartbtn",
-                btnHeight: "2.0em",
-                btnWidth: "10em",
-                alignSelf: "center",
-                style: { backgroundColor: "#2EB072", color: "#EBEBEB" },
+                type: 'submit',
+                id: 'AddtoCartbtn',
+                btnHeight: '2.0em',
+                btnWidth: '10em',
+                alignSelf: 'center',
+                style: { backgroundColor: '#2EB072', color: '#EBEBEB' },
               }}
-              buttonLabel="Add to Cart"
+              buttonLabel='Add to Cart'
               onAddToCart={() => handleAddToCart(product)}
-              cardStyles={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}
+              cardStyles={{
+                width: '100%',
+                height: '100%',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+              }}
             />
           </div>
         </Box>
       </div>
     </Layout>
   );
-}
+};
+
+export default SingleProduct;
