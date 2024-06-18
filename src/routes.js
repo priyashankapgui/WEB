@@ -27,7 +27,7 @@ const createRoutes=() => (
         <Route path="/cart" element={<Cart/>} />
         <Route path="/success" element={<Success/>} />
         <Route path="/cancel" element={<Cancel/>} />
-        <Route path="/my-account" element={<MyAccount/>}/>
+        <Route path= "/my-account" element = {<MyAccount/>}/>
         <Route path='/login' element={<Login/>}/>
         <Route path="/login/forgotpw" element={<ForgotPw/>} />
         <Route path="/login/forgotpw/resetpw" element={<ResetPw/>}/>

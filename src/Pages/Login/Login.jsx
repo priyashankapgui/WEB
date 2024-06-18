@@ -132,9 +132,9 @@ export default function Login(props) {
                   )}
               </InputField>
 
-              {error && <p className="login-error">{error}</p>}
               
             </div>
+              {error && <p className="login-error">{error}</p>}
             <div className="s-w-forgotpw">
               <Link to="/login/forgotpw">Forgot Password?</Link>
             </div>

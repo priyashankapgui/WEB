@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import "./MyAccount.css";
 import Layout from '../../Components/Layout/Layout';
 import InputField from '../../Components/InputField/InputField';
 import InputLable from '../../Components/InputLable/InputLable';
 import Buttons from '../../Components/Button/Button';
 import CustomAlert from '../../Components/Alerts/CustomAlert/CustomAlert';
-import HashLoader from '../../Components/Spiner/HashLoader/HashLoader';
 import { FaRegEye, FaEyeSlash } from "react-icons/fa";
 import LoaderComponent from '../../Components/Spiner/HashLoader/HashLoader';
 import secureLocalStorage from 'react-secure-storage';
+import PasswordStrengthBar from "react-password-strength-bar";
 
 
 
@@ -19,30 +19,51 @@ const MyAccount = () => {
     const [showAlertError, setShowAlertError] = useState("");
     const [loading, setLoading] = useState(false); // Loading state
     const [logoutLoading, setLogoutLoading] = useState(false); // Loading state
-    const user = secureLocalStorage.getItem('user');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [currentPassword, setCurrentPassword] = useState('');
     const [showCurrentPassword, setShowCurrentPassword] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-    const [customerData, setCustomerData] = useState(
-        {
-            firstName: user?.firstName,
-            lastName: user?.lastName,
-            phone: user?.phone,
-            email: user?.email,
-        }
-    );
+    let user = secureLocalStorage.getItem("user");
+    // const [customerData, setCustomerData] = useState(
+    //     {
+    //         firstName: user?.firstName,
+    //         lastName: user?.lastName,
+    //         phone: user?.phone,
+    //         address:user?.address,
+    //         email: user?.email,
+    //     }
+    // );
 
-    if (!user) {
-        window.location.href = '/';
-    }
+    const [customerData, setCustomerData] = useState({
+        firstName: "",
+        lastName: "",
+        phone: "",
+        address: "",
+        email: ""
+    });
+
+    useEffect(() => {
+        if (!user) {
+            window.location.href = '/';
+            return;
+        } else {
+            setCustomerData({
+                firstName: user?.firstName,
+                lastName: user?.lastName,
+                phone: user?.phone,
+                address: user?.address,
+                email: user?.email,
+            });
+        }
+    }, []);
 
     const handleCustomerDataUpdate = async(e) => {
         e.preventDefault();
         setLoading(true);
         try{
+            const user = secureLocalStorage.getItem('user');
             const response = await fetch(`http://localhost:8080/api/customers/${user.customerId}`, {
                 method: 'PUT',
                 headers: {
@@ -52,15 +73,22 @@ const MyAccount = () => {
                 body: JSON.stringify(customerData),
             });
             if(response.ok){
+                const updatedCustomerData = await response.json();
+                setCustomerData({
+                    firstName: updatedCustomerData.firstName,
+                    lastName: updatedCustomerData.lastName,
+                    phone: updatedCustomerData.phone,
+                    address: updatedCustomerData.address,
+                    email: updatedCustomerData.email,
+                });
+                secureLocalStorage.setItem("user", updatedCustomerData);
                 setShowAlertSuccess(true);
-                //const updatedUser = await response.json();
             }
             else{
                 const responseError = await response.json();
                 console.log(responseError);
                 setShowAlertError(responseError.message);
             }
-
         }
         catch(error){
             setShowAlertError(error.message);
@@ -85,6 +113,7 @@ const MyAccount = () => {
             return;
         }
         try{
+            const user = secureLocalStorage.getItem('user');
             const response = await fetch(`http://localhost:8080/api/customers/password/${user.customerId}`, {
                 method: 'POST',
                 headers: {
@@ -106,11 +135,9 @@ const MyAccount = () => {
                 const responseError = await response.json();
                 setShowAlertError(responseError.message);
             }
-
         }
         catch(error){
             setShowAlertError(error.message);
-            console.log(error);
         }
         finally{
             setLoading(false);
@@ -178,14 +205,16 @@ const MyAccount = () => {
                                     onChange={(e) => setCustomerData({ ...customerData, phone: e.target.value })}
                                 />
                             
-                            {/* <InputLable htmlFor="birthday" color="#000">
-                                Birthday:
+                            <InputLable htmlFor="address" color="#000">
+                                Address:
+                            </InputLable>
                                 <InputField
-                                    type="date"
-                                    name="birthday"
+                                    type="text"
+                                    name="address"
                                     editable={true}
+                                    value={customerData.address}
+                                    onChange={(e) => setCustomerData({...customerData,address: e.target.value})}
                                 />
-                            </InputLable> */}
                         </form>
                         <h3>Email Information</h3>
                         <hr></hr>
@@ -204,7 +233,7 @@ const MyAccount = () => {
                         </form>
                         {loading ? (
                                 <div className='loading-container'>
-                                    <HashLoader/>
+                                    <LoaderComponent/>
                                 </div>
                             ) : (
                             <Buttons
@@ -283,7 +312,24 @@ const MyAccount = () => {
                                         />
                                       )}
                                 </InputField>
-                            
+                                    {password && (
+                                        <PasswordStrengthBar
+                                        password={password}
+                                        minLength={8}
+                                        scoreWordStyle={{
+                                            fontSize: "14px",
+                                            fontFamily: "Poppins",
+                                        }}
+                                        scoreWords={[
+                                            "very weak",
+                                            "weak",
+                                            "good",
+                                            "strong",
+                                            "very strong",
+                                        ]}
+                                        shortScoreWord="should be atlest 8 characters long"
+                                        />
+                                    )}
                             <InputLable  htmlFor="password" color="#000">
                                 Confirm Password:
                             </InputLable>
@@ -365,7 +411,7 @@ const MyAccount = () => {
                             >
                                 {logoutLoading ? (
                                 <div className='loading-container'>
-                                    <HashLoader size={50}/>
+                                    <LoaderComponent size={50}/>
                                 </div>
                                 ) : (
                                     <Buttons
