@@ -2,8 +2,12 @@ import React, { useState } from "react";
 import greenmart from "../../Assets/Green Leaf Super.png";
 import "./Signup.css";
 import InputField from "../../Components/InputField/InputField";
-import Buttons from "../../Components/Button/Button";
+import Buttons from "../../Components/Button/Buttons";
 import { FaRegEye,FaEyeSlash} from "react-icons/fa";
+import LoaderComponent from '../../Components/Spiner/HashLoader/HashLoader';
+import CustomAlert from "../../Components/Alerts/CustomAlert/CustomAlert";
+import PasswordStrengthBar from "react-password-strength-bar";
+
 
 
 const Signup = () => {
@@ -16,6 +20,10 @@ const Signup = () => {
   const [confirmpassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [loading, setLoading] = useState(false); // Loading state
+  const [showAlertSuccess, setShowAlertSuccess] = useState(false);
+
 
 
   const handleFirstnameChange = (e) => {
@@ -57,27 +65,28 @@ const Signup = () => {
     setShowPassword(!showPassword);
   };
 
+  const toggleShowConfirmPassword = () => {
+    setShowConfirmPassword(!showConfirmPassword);
+  };
+
   const handleSignup = async (e) => {
     e.preventDefault();
-
-
-
+    setLoading(true); // Set loading to true when form is submitted
     // Frontend validation
     if (!firstname || !lastname || !email || !phone || !address || !password || !confirmpassword) {
+      setLoading(false);
       setError("All fields are required");
       return;
     }
-
     if (password !== confirmpassword) {
+      setLoading(false);
       setError("Passwords do not match");
       return;
     }
-
     // const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     // if (!emailRegex.test(email)) {
     //     throw new Error("Invalid email format");
     // }
-    
     const cus = JSON.stringify({
       firstName: firstname,
       lastName: lastname,
@@ -86,8 +95,6 @@ const Signup = () => {
       address: address,
       password: password,
     })
-
-    
     const response = await fetch ('http://localhost:8080/api/customers/registercustomer',{
     method : 'POST',
     headers : {
@@ -97,9 +104,11 @@ const Signup = () => {
   }).catch((error) => console.error("Error:", error));
 
   if (response.ok){
-    alert('Account created successfully');
+    setLoading(false);
+    setShowAlertSuccess('Account created successfully');
     window.location.href = '/login';
   }else {
+    setLoading(false);
     const data = await response.json();
     console.log("Error:", data.message);
     setError(data.message);
@@ -123,7 +132,7 @@ const Signup = () => {
                   id="firstname"
                   name="firstname"
                   type="text"
-                  placeholder="firstName"
+                  placeholder="FirstName"
                   value={firstname}
                   onChange={handleFirstnameChange}
                   editable={true}
@@ -138,7 +147,7 @@ const Signup = () => {
                   id="lastname"
                   name="lastname"
                   type="text"
-                  placeholder="lastName"
+                  placeholder="LastName"
                   value={lastname}
                   onChange={handleLastnameChange}
                   editable={true}
@@ -191,8 +200,8 @@ const Signup = () => {
                 <InputField
                   id="password"
                   name="password"
-                  type="password"
-                  placeholder="Password"
+                  type={showPassword ? "text" : "password"}
+                  placeholder="New Password"
                   value={password}
                   onChange={handlePasswordChange}
                   editable={true}
@@ -209,50 +218,83 @@ const Signup = () => {
                       style={{ cursor: "pointer" }}
                     />
                   )}
-                
                 </InputField>
-                
+                {password && (
+                    <PasswordStrengthBar
+                      password={password}
+                      minLength={8}
+                      scoreWordStyle={{
+                        fontSize: "14px",
+                        fontFamily: "Poppins",
+                      }}
+                      scoreWords={[
+                        "very weak",
+                        "weak",
+                        "good",
+                        "strong",
+                        "very strong",
+                      ]}
+                      shortScoreWord="should be atlest 8 characters long"
+                    />
+                  )}
               </div>
               <div>
                 <InputField
                   id="confirmpassword"
                   name="confirmpassword"
-                  type="password"
+                  type={showConfirmPassword ? "text" : "password"}
                   placeholder="Confirm Password"
                   value={confirmpassword}
                   onChange={handleConfirmPasswordChange}
                   editable={true}
                   required>
 
-                  {showPassword ? (
+                  {showConfirmPassword ? (
                     <FaRegEye
-                      onClick={toggleShowPassword}
+                      onClick={toggleShowConfirmPassword}
                       style={{ cursor: "pointer" }}
                     />
                   ) : (
                     <FaEyeSlash
-                      onClick={toggleShowPassword}
+                      onClick={toggleShowConfirmPassword}
                       style={{ cursor: "pointer" }}
                     />
                   )}
-                
                 </InputField>
-
                 {error && <p className="signup-error">{error}</p>}
-
               </div>
-
-              <Buttons
-                type="submit"
-                id="submit"
-                style={{ backgroundColor: "green", color: "white"}}
-                alignSelf="center"
-              >
-                Create Account
-              </Buttons>
+              <div>
+              {loading ? (
+                  <div className='loading-container'>
+                      <LoaderComponent size={50} />
+                  </div>
+              ) : (
+                  <Buttons
+                    type="submit"
+                    id="submit"
+                    style={{ backgroundColor: "green", color: "white"}}
+                    btnWidth="fit-content"
+                    alignSelf="center"
+                  >
+                    Create Account
+                  </Buttons>
+              )}
+              </div>
+              <div>
+                <p className="signup-para">
+                  Already have an account? <a href="/login">Login</a>
+                </p>
+              </div>
             </form>
-  
-            
+            {showAlertSuccess && (
+                <CustomAlert
+                    severity="success"
+                    title="Success"
+                    message="Customer updated successfully"
+                    duration={4000}
+                    onClose={() =>window.location.href = '/login'}
+                />
+                )}
           </div>
         </div>
       </div>

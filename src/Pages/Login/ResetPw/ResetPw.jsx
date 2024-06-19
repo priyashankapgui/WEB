@@ -6,6 +6,7 @@ import InputField from "../../../Components/InputField/InputField";
 import Buttons from "../../../Components/Button/Button";
 import Popup from "../../../Components/Popup/Popup";
 import LoaderComponent from "../../../Components/Spiner/HashLoader/HashLoader";
+import PasswordStrengthBar from "react-password-strength-bar";
 
 
 const ResetPw = () => {
@@ -30,21 +31,16 @@ const ResetPw = () => {
   const handleResetPassword = async (e) => {
     e.preventDefault();
     setLoading(true);
-
     if (!password || !confirmPassword) {
       setError("Please fill in both password fields.");
       setLoading(false);
     }
-
     if (password !== confirmPassword) {
       setError("Passwords do not match.");
       setLoading(false);
     }
     const urlParams = new URLSearchParams(window.location.search);
     const token = urlParams.get("token");
-
-   
-
     // If token is not present, redirect to login page
     if (!token) {
       setLoading(false);
@@ -54,6 +50,7 @@ const ResetPw = () => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
           resetToken: token,
@@ -66,7 +63,6 @@ const ResetPw = () => {
         setLoading(true);
         const data = await response.json();
         setShowPopup(true);
-        
         console.log("Response data:", data);
       } else {
         setLoading(false);
@@ -79,8 +75,6 @@ const ResetPw = () => {
   };
 
   const handleOkButtonClick = () => {
-
-    // Navigate back to login page
     window.location.href = "/login";
   };
 
@@ -113,9 +107,9 @@ const ResetPw = () => {
             placeholder="New password"
             editable={true}
             onChange={handlePasswordChange}
+            value={password}
             required
           >
-     
             <button
               type="button"
               onClick={toggleShowPassword}
@@ -125,6 +119,24 @@ const ResetPw = () => {
               {showPassword ? <FaEye /> : <FaEyeSlash />}
             </button>
           </InputField>
+          {password && (
+              <PasswordStrengthBar
+                password={password}
+                minLength={8}
+                scoreWordStyle={{
+                  fontSize: "14px",
+                  fontFamily: "Poppins",
+                }}
+                scoreWords={[
+                  "very weak",
+                  "weak",
+                  "good",
+                  "strong",
+                  "very strong",
+                ]}
+                shortScoreWord="should be atlest 8 characters long"
+              />
+          )}
           <p>Confirm New Password:</p>
           <InputField
             type={showConfirmPassword ? "text" : "password"}

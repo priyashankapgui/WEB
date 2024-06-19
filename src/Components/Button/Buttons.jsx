@@ -3,6 +3,8 @@ import styled from "styled-components";
 
 const Button = styled.button`
   position: relative;
+  display: flex;
+  align-items: center;
   width: ${(props) => props.btnWidth || "5.125em"};
   height: ${(props) => props.btnHeight || "2em"};
   border-radius: ${(props) => props.btnRadius || "0.5em"};
@@ -12,7 +14,7 @@ const Button = styled.button`
   box-shadow: 1px 1px rgba(0, 0, 0, 0.2);
   margin-top: 0.625em;
   margin-bottom: 3vh;
-  padding: 0.125em;
+  padding: 0.5em;
   text-transform: none;
   text-align: center;
   &:hover {
