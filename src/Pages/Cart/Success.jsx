@@ -9,23 +9,43 @@ import axios from 'axios';
 const billbutton = {
   backgroundColor: "rgb(24, 111, 101)",
   marginTop: "3%",
-}
+};
 
 function Success() {
   const navigate = useNavigate();
-  const [onlineBillNo, setOnlineBillNo] = useState('GAL-B24000001'); // Set your actual bill number here
+  const [onlineBillNo, setOnlineBillNo] = useState('');
 
   const handleGetBill = async () => {
     try {
-      const response = await axios.post('http://localhost:8080/addproductstobill', { onlineBillNo });
-      if (response.status === 200) {
-        console.log(response.data);
-        navigate('/bill'); 
+      // First create the online bill
+      const createBillResponse = await axios.post('http://localhost:8080/onlineBills', {
+        branchId: 'yourBranchId',
+        customerId: 'yourCustomerId',
+        acceptedBy: 'yourAcceptedBy',
+        status: 'yourStatus',
+        hopeToPickup: 'yourHopeToPickupDate' // Optional: replace with actual hope to pick up date if needed
+      });
+
+      if (createBillResponse.status === 201) {
+        const createdBill = createBillResponse.data;
+        const { onlineBillNo } = createdBill;
+
+        setOnlineBillNo(onlineBillNo);
+
+        // Now add products to the bill
+        const addProductsResponse = await axios.post('http://localhost:8080/addproductstobill', { onlineBillNo });
+
+        if (addProductsResponse.status === 200) {
+          console.log(addProductsResponse.data);
+          navigate('/bill');
+        } else {
+          console.error('Failed to add products to the bill.');
+        }
       } else {
-        console.error('Failed to get the bill.');
+        console.error('Failed to create the online bill.');
       }
     } catch (error) {
-      console.error('An error occurred while getting the bill:', error);
+      console.error('An error occurred while creating the bill or adding products:', error);
     }
   };
 
