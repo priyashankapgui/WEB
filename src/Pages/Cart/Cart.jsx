@@ -131,17 +131,19 @@ export default function Cart() {
     updatedRows[index].quantity += 1;
     setRows(updatedRows);
     localStorage.setItem('cartItems', JSON.stringify(updatedRows));
-
-    // Update backend
+  
+    const cartId = updatedRows[index].cartId;  // Ensure cartId is available in the row data
     const productId = updatedRows[index].productId;
+  
     try {
-      await axios.put(`http://localhost:8080/cart/${productId}`, {
+      await axios.put(`http://localhost:8080/cart/${cartId}/item/${productId}`, {
         quantity: updatedRows[index].quantity,
       });
     } catch (error) {
       console.error('Error updating cart item quantity:', error);
     }
   };
+  
 
   const handleDecrement = async (index) => {
     const updatedRows = [...rows];
@@ -149,11 +151,12 @@ export default function Cart() {
       updatedRows[index].quantity -= 1;
       setRows(updatedRows);
       localStorage.setItem('cartItems', JSON.stringify(updatedRows));
-
-      // Update backend
+  
+      const cartId = updatedRows[index].cartId;  // Ensure cartId is available in the row data
       const productId = updatedRows[index].productId;
+  
       try {
-        await axios.put(`http://localhost:8080/cart/${productId}`, {
+        await axios.put(`http://localhost:8080/cart/${cartId}/item/${productId}`, {
           quantity: updatedRows[index].quantity,
         });
       } catch (error) {
@@ -161,12 +164,15 @@ export default function Cart() {
       }
     }
   };
+  
 
   const handleDelete = async (index) => {
-    const productId = rows[index].productId; 
-
+    const cartId = rows[index].cartId;  // Ensure cartId is available in the row data
+    const productId = rows[index].productId;
+  
     try {
-      await axios.delete(`http://localhost:8080/cart/${productId}`);
+      // Send a DELETE request to the backend
+      await axios.delete(`http://localhost:8080/cart/${cartId}/item/${productId}`);
       const updatedRows = rows.filter((_, i) => i !== index);
       setRows(updatedRows);
       localStorage.setItem('cartItems', JSON.stringify(updatedRows));
@@ -174,16 +180,18 @@ export default function Cart() {
       console.error('Error deleting cart item:', error);
     }
   };
+  
+  
+  
 
   const handleCheckout = async () => {
     try {
       const response = await axios.post('http://localhost:8080/create-checkout-session', {
-        items: rows,
+        items: rows
       });
-      
-
+  
       const { sessionId } = response.data;
-      const stripe = await stripePromise;
+      const stripe = await stripePromise; 
       await stripe.redirectToCheckout({ sessionId });
     } catch (error) {
       console.error('Error during checkout:', error);

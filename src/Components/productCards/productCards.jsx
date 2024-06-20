@@ -1,37 +1,70 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Slider from "react-slick";
 import ItemCard from "../Card/Card";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import axios from 'axios';
 import ConnectionWarning from '../Alerts/ConnectionWarning';
+import secureLocalStorage from 'react-secure-storage';
 
-const ProductCards = ({ items }) => {
+const ProductCards = ({ items, customerId: propCustomerId, selectedBranchId: propBranchId }) => {
   const [alertMessage, setAlertMessage] = useState("");
+  const [customerId, setCustomerId] = useState(propCustomerId || null);
+  const [selectedBranchId, setSelectedBranchId] = useState(propBranchId || null);
+
+  useEffect(() => {
+    if (!customerId) {
+      const user = secureLocalStorage.getItem("user");
+      if (user && user.customerId) {
+        setCustomerId(user.customerId);
+      } else {
+        setAlertMessage("Customer ID not found. Please log in again.");
+      }
+    }
+
+    if (!selectedBranchId) {
+      const branchId = localStorage.getItem('selectedBranchId');
+      if (branchId) {
+        setSelectedBranchId(branchId);
+      } else {
+        setAlertMessage("Selected branch ID not found. Please select a branch.");
+      }
+    }
+  }, [customerId, selectedBranchId]);
 
   const handleAddToCart = async (item) => {
+    if (!customerId) {
+      setAlertMessage("Customer ID not found. Please log in again.");
+      return;
+    }
+
+    if (!selectedBranchId) {
+      setAlertMessage("Selected branch ID not found. Please select a branch.");
+      return;
+    }
+
     try {
       // Retrieve cart items from localStorage
       const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
       const itemIndex = cartItems.findIndex(cartItem => cartItem.productId === item.productId);
-  
+
       if (itemIndex === -1) {
         // Add new item to cart with quantity 1
         cartItems.push({ ...item, quantity: 1 });
         localStorage.setItem('cartItems', JSON.stringify(cartItems));
-  
+
         // Save item in backend
-        const selectedBranchId = localStorage.getItem('selectedBranchId');  // Get branchId from local storage
-        await axios.post('http://localhost:8080/cart', {
+        const response = await axios.post('http://localhost:8080/cart-items/add', {
+          customerId, // Using the customerId from state
           productId: item.productId,
           productName: item.productName,
           batchNo: item.batchNo,
-          branchId: selectedBranchId,  // Send branchId from local storage
+          branchId: selectedBranchId,  // Send branchId from state
           sellingPrice: item.sellingPrice,
           quantity: 1,
           discount: item.discount
         });
-  
+
         // Show alert on success
         setAlertMessage('Item added to cart!');
       } else {
@@ -48,7 +81,6 @@ const ProductCards = ({ items }) => {
       }
     }
   };
-  
 
   const formatPrice = (price) => {
     return new Intl.NumberFormat('en-LK', {
