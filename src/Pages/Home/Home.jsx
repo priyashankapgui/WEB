@@ -24,9 +24,9 @@ export default function Home() {
         setLoading(true);
 
         const [productResponse, priceResponse, discountResponse] = await Promise.all([
-          axios.get('http://localhost:8080/products'),
-          axios.get('http://localhost:8080/product-batch-sum'),
-          axios.get('http://localhost:8080/product-batch-sum'),
+          
+          axios.get('localhost:8080/product-quantities-by-branch'),
+          
         ]);
 
         console.log('Product Response:', productResponse); // Log the response
