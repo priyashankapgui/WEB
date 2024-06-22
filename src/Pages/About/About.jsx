@@ -16,7 +16,7 @@ export default function About() {
             <div className="aboutImage">
              
                 <img
-                  src={AboutImage}
+                  src={`https://flexflowstorage01.blob.core.windows.net/webimage/aboutimages(${0}).png`}
                   alt="logo"
                 />
             

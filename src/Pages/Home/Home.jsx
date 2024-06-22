@@ -117,8 +117,8 @@ export default function Home() {
             <div className="endImage">
               {itemsData.endImage.map((endImg, index) => (
                 <div key={index}  className="endImage">
-                  <img src={endImg.image1} alt="Background" className="end1" />
-                  <img src={endImg.image2} alt="Overlay" className="end2" />
+                  <img src={`https://flexflowstorage01.blob.core.windows.net/webimage/endimage(${0}).png`} alt="Background" className="end1" />
+                  <img src={`https://flexflowstorage01.blob.core.windows.net/webimage/endimage(${1}).png`} alt="Overlay" className="end2" />
                 </div>
               ))}
             </div>
