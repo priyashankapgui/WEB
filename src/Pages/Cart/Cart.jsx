@@ -14,6 +14,8 @@ import Box from "@mui/material/Box";
 import Layout from '../../Components/Layout/Layout';
 import { loadStripe } from "@stripe/stripe-js";
 import axios from 'axios';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
 const style = { color: "red", fontSize: "1.8em", cursor: "pointer" };
 
@@ -66,11 +68,34 @@ const checkoutButton = {
   color: "#fafafa",
   fontSize: "16px",
   fontFamily: "Poppins",
-  margin: "15%",
-  marginLeft: "30%",
+  marginTop:"5%",
+  marginRight:"0%",
+  marginLeft:"25%",
 };
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_KEY);
+
+const DatePickerInput = () => {
+  const [selectedDate, setSelectedDate] = useState(null);
+
+  return (
+    <div className="inputFieldContainer">
+      <input
+        type="text"
+        value={selectedDate ? selectedDate.toLocaleDateString() : ''}
+        placeholder="Select a date"
+        readOnly
+        className="dateInput"
+      />
+      <DatePicker
+        selected={selectedDate}
+        onChange={(date) => setSelectedDate(date)}
+        customInput={<button className="calendarButton">📅</button>}
+        className="datePicker"
+      />
+    </div>
+  );
+};
 
 export default function Cart() {
   const [rows, setRows] = useState([]);
@@ -101,45 +126,72 @@ export default function Cart() {
     calculateTotals();
   }, [rows]);
 
-  const handleIncrement = (index) => {
+  const handleIncrement = async (index) => {
     const updatedRows = [...rows];
     updatedRows[index].quantity += 1;
     setRows(updatedRows);
     localStorage.setItem('cartItems', JSON.stringify(updatedRows));
+  
+    const cartId = updatedRows[index].cartId;  // Ensure cartId is available in the row data
+    const productId = updatedRows[index].productId;
+  
+    try {
+      await axios.put(`http://localhost:8080/cart/${cartId}/item/${productId}`, {
+        quantity: updatedRows[index].quantity,
+      });
+    } catch (error) {
+      console.error('Error updating cart item quantity:', error);
+    }
   };
+  
 
-  const handleDecrement = (index) => {
+  const handleDecrement = async (index) => {
     const updatedRows = [...rows];
     if (updatedRows[index].quantity > 1) {
       updatedRows[index].quantity -= 1;
       setRows(updatedRows);
       localStorage.setItem('cartItems', JSON.stringify(updatedRows));
+  
+      const cartId = updatedRows[index].cartId;  // Ensure cartId is available in the row data
+      const productId = updatedRows[index].productId;
+  
+      try {
+        await axios.put(`http://localhost:8080/cart/${cartId}/item/${productId}`, {
+          quantity: updatedRows[index].quantity,
+        });
+      } catch (error) {
+        console.error('Error updating cart item quantity:', error);
+      }
     }
   };
+  
 
   const handleDelete = async (index) => {
-    const productId = rows[index].productId; 
-
+    const cartId = rows[index].cartId;  // Ensure cartId is available in the row data
+    const productId = rows[index].productId;
+  
     try {
-      await axios.delete(`http://localhost:8080/cart/${productId}`);
+      // Send a DELETE request to the backend
+      await axios.delete(`http://localhost:8080/cart/${cartId}/item/${productId}`);
+      const updatedRows = rows.filter((_, i) => i !== index);
+      setRows(updatedRows);
+      localStorage.setItem('cartItems', JSON.stringify(updatedRows));
     } catch (error) {
       console.error('Error deleting cart item:', error);
     }
-
-    const updatedRows = rows.filter((_, i) => i !== index);
-    setRows(updatedRows);
-    localStorage.setItem('cartItems', JSON.stringify(updatedRows)); 
   };
+  
+  
+  
 
   const handleCheckout = async () => {
     try {
       const response = await axios.post('http://localhost:8080/create-checkout-session', {
-        items: rows,
+        items: rows
       });
-      
-
+  
       const { sessionId } = response.data;
-      const stripe = await stripePromise;
+      const stripe = await stripePromise; 
       await stripe.redirectToCheckout({ sessionId });
     } catch (error) {
       console.error('Error during checkout:', error);
@@ -192,7 +244,7 @@ export default function Cart() {
         Return To Shop
       </Button>
       <div className="checkoutContainer">
-        <Box height={324} width={470} p={2} sx={{ border: "2px solid grey" }}>
+        <Box height={350} width={470} p={2} sx={{ border: "2px solid grey" }}>
           <h2>Cart Total</h2>
           <div>
             <Table sx={{ minWidth: 400 }} aria-label="custom pagination table">
@@ -211,6 +263,11 @@ export default function Cart() {
                 </TableRow>
               </TableBody>
             </Table>
+            <div className="PickupDatePicker">
+              <h4 className="PickupDate">Select a date you hope to pick up your order </h4>
+              <DatePickerInput />
+            </div>
+            
           </div>
           <Button
             style={checkoutButton}
@@ -219,7 +276,7 @@ export default function Cart() {
           >
             Proceed to checkout
           </Button>
-          <h3>Please note that once an online order is placed, it cannot be canceled.</h3>
+          <h3 className="CancelNotification">Please note that once an online order is placed, it cannot be canceled.</h3>
         </Box>
       </div>
     </Layout>
