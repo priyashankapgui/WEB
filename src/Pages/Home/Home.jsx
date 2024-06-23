@@ -24,9 +24,9 @@ export default function Home() {
         setLoading(true);
 
         const [productResponse, priceResponse, discountResponse] = await Promise.all([
-          axios.get('http://localhost:8080/products'),
-          axios.get('http://localhost:8080/product-batch-sum'),
-          axios.get('http://localhost:8080/product-batch-sum'),
+          
+          axios.get('localhost:8080/product-quantities-by-branch'),
+          
         ]);
 
         console.log('Product Response:', productResponse); // Log the response
@@ -116,9 +116,9 @@ export default function Home() {
 
             <div className="endImage">
               {itemsData.endImage.map((endImg, index) => (
-                <div key={index}>
-                  <img src={endImg.image1} alt="Background" className="end1" />
-                  <img src={endImg.image2} alt="Overlay" className="end2" />
+                <div key={index}  className="endImage">
+                  <img src={`https://flexflowstorage01.blob.core.windows.net/webimage/endimage(${0}).png`} alt="Background" className="end1" />
+                  <img src={`https://flexflowstorage01.blob.core.windows.net/webimage/endimage(${1}).png`} alt="Overlay" className="end2" />
                 </div>
               ))}
             </div>
