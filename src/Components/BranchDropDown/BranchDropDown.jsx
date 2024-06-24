@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { IoMdArrowDropdown } from "react-icons/io";
+import axios from 'axios';
 import './BranchDropDown.css';
 
 const BranchDropDown = ({ id, name, height, width, onChange, editable, borderRadius, marginTop }) => {
@@ -10,11 +11,9 @@ const BranchDropDown = ({ id, name, height, width, onChange, editable, borderRad
     const placeholder = "Select a branch";
 
     useEffect(() => {
-        // Fetch options from API
-        fetch('http://localhost:8080/branchesWeb')
-            .then(response => response.json())
-            .then(data => {
-                setOptions(data);
+        axios.get('http://localhost:8080/branchesWeb')
+            .then(response => {
+                setOptions(response.data);
                 const savedBranchName = localStorage.getItem('selectedBranch');
                 if (savedBranchName) {
                     setSelectedOption(savedBranchName);

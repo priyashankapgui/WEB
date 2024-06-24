@@ -1,16 +1,38 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './SearchResultsList.css';
-import SearchResult from './SearchResult'; // Import default export
+import SearchResult from './SearchResult'; 
 
 export const SearchResultsList = ({ results }) => {
-  const [showResults, setShowResults] = useState(true); // State to manage visibility
+  const [showResults, setShowResults] = useState(true); 
+  const resultsListRef = useRef(null); 
+  // useEffect(() => {
+  //   const timer = setTimeout(() => {
+  //     setShowResults(false); 
+  //   }, 5000);
+
+  //   return () => clearTimeout(timer); 
+  // }, []);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (resultsListRef.current && !resultsListRef.current.contains(event.target)) {
+        setShowResults(false); 
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside); 
+    };
+  }, [resultsListRef]);
 
   const handleProductClick = () => {
-    setShowResults(false); // Hide results-list when a product is clicked
+    setShowResults(false); 
   };
 
   return (
-    <div className='results-list' style={{ display: showResults ? 'block' : 'none' }}>
+    <div ref={resultsListRef} className='results-list' style={{ display: showResults ? 'block' : 'none' }}>
       {results.map((result, id) => (
         <SearchResult result={result} key={id} onClick={handleProductClick} />
       ))}
