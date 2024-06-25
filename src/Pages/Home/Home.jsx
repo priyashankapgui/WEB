@@ -21,13 +21,20 @@ export default function Home() {
   useEffect(() => {
     const fetchHomePageItems = async () => {
       try {
+        // setLoading(true);
+
+        // const [productResponse, priceResponse, discountResponse] = await Promise.all([
+          
+        //   axios.get('localhost:8080/product-quantities-by-branch'),
+          
+        // ]);
         setLoading(true);
 
-        const [productResponse, priceResponse, discountResponse] = await Promise.all([
-          
-          axios.get('localhost:8080/product-quantities-by-branch'),
-          
-        ]);
+      const [productResponse, priceResponse, discountResponse] = await Promise.all([
+        axios.get('http://localhost:8080/products'),
+        axios.get('http://localhost:8080/product-batch-sum'),
+        axios.get('http://localhost:8080/product-batch-sum'),
+      ]);
 
         console.log('Product Response:', productResponse); 
 
