@@ -6,9 +6,7 @@ import { FaSdCard } from "react-icons/fa";
 const Snowflake = (props) => {
     return (
         <p className="Snowflake" id={`item${props.id}`} style={props.style}>
-            <FaCar />
-            <FaSdCard 
-            color='red'/>
+            <p>*</p>
 
         </p>
     );
