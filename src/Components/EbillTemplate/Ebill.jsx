@@ -1,14 +1,28 @@
 import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
 import './Ebill.css';
 import greenleafBillLogo from "../.././Assets/greenleafBillLogo.svg";
 
 const Ebill = () => {
+    const { onlineBillNo } = useParams();
+    const [billData, setBillData] = useState(null);
     const [billedItems, setBilledItems] = useState([]);
 
     useEffect(() => {
-        const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-        setBilledItems(cartItems);
-    }, []);
+        const fetchBillData = async () => {
+            try {
+                const response = await axios.get(`http://localhost:8080/onlineBills/${onlineBillNo}`);
+                setBillData(response.data);
+                // Assuming the response data includes billed items
+                setBilledItems(response.data.billedItems || []);
+            } catch (error) {
+                console.error('Error fetching bill data:', error);
+            }
+        };
+
+        fetchBillData();
+    }, [onlineBillNo]);
 
     const calculateAmount = (item) => {
         const unitPrice = parseFloat(item.sellingPrice);
@@ -32,6 +46,10 @@ const Ebill = () => {
         return billedItems.reduce((total, item) => total + parseFloat(calculateAmount(item)), 0).toFixed(2);
     };
 
+    if (!billData) {
+        return <div>Loading...</div>;
+    }
+
     return (
         <>
             <div className="sales-receipt">
@@ -54,11 +72,11 @@ const Ebill = () => {
                         <tbody>
                             <tr>
                                 <td className='receipt-details-label'>Order No:</td>
-                                <td className='receipt-details-value'>GAL-ORD1234567</td>
+                                <td className='receipt-details-value'>{billData.onlineBillNo}</td>
                             </tr>
                             <tr>
                                 <td className='receipt-details-label'>Ordered At:</td>
-                                <td className='receipt-details-value'>01/06/2024 12:34 PM</td>
+                                <td className='receipt-details-value'>{new Date(billData.createdAt).toLocaleString()}</td>
                             </tr>
                             <tr>
                                 <td className='receipt-details-label'>Payment Method:</td>
@@ -66,11 +84,11 @@ const Ebill = () => {
                             </tr>
                             <tr>
                                 <td className='receipt-details-label'>Name:</td>
-                                <td className='receipt-details-value'>Dinu Kithmini</td>
+                                <td className='receipt-details-value'>{billData.customer.firstName} {billData.customer.lastName}</td>
                             </tr>
                             <tr>
                                 <td className='receipt-details-label'>Phone:</td>
-                                <td className='receipt-details-value'>071 123 4567</td>
+                                <td className='receipt-details-value'>{billData.customer.phone}</td>
                             </tr>
                         </tbody>
                     </table>

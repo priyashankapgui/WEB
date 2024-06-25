@@ -30,7 +30,7 @@ const createRoutes = () => (
     <Route path="/login" element={<Login />} />
     <Route path="/login/forgotpw" element={<ForgotPw />} />
     <Route path="/login/forgotpw/resetpw" element={<ResetPw />} />
-    <Route path="/bill" element={<Bill />} />
+    <Route path="/bill/:onlineBillNo" element={<Bill />} />
     <Route path="/single-product/:productId" element={<SingleProduct />} />
     <Route path="/all-product" element={<AllProducts />} />
   </Routes>

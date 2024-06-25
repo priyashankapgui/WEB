@@ -7,6 +7,7 @@
     margin-left: 64%;
     font-family: 'Poppins';
     font-size: 1em;
+    margin-bottom: 15vh;
 }
 .checkoutTable {
     font-family: 'Poppins';
@@ -34,6 +35,7 @@
 .CancelNotification{
     padding-top: 50px;
     color: red;
+    margin-bottom: 10px;
 }
 
 .inputFieldContainer {
