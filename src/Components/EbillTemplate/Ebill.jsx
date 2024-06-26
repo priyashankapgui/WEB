@@ -14,8 +14,6 @@ const Ebill = () => {
             try {
                 const response = await axios.get(`http://localhost:8080/onlineBills/${onlineBillNo}`);
                 setBillData(response.data);
-                // Assuming the response data includes billed items
-                setBilledItems(response.data.billedItems || []);
             } catch (error) {
                 console.error('Error fetching bill data:', error);
             }
@@ -24,20 +22,33 @@ const Ebill = () => {
         fetchBillData();
     }, [onlineBillNo]);
 
+    useEffect(() => {
+        const fetchBilledItems = async () => {
+            try {
+                const response = await axios.get(`http://localhost:8080/onlineBillProducts/${onlineBillNo}`);
+                setBilledItems(response.data);
+            } catch (error) {
+                console.error('Error fetching billed items:', error);
+            }
+        };
+
+        fetchBilledItems();
+    }, [onlineBillNo]);
+
     const calculateAmount = (item) => {
         const unitPrice = parseFloat(item.sellingPrice);
-        const qty = parseFloat(item.quantity);
+        const qty = parseFloat(item.PurchaseQty);
         const discount = parseFloat(item.discount);
         return (unitPrice * qty - (unitPrice * qty * discount / 100)).toFixed(2);
     };
 
     const calculateGrossTotal = () => {
-        return billedItems.reduce((total, item) => total + parseFloat(item.sellingPrice) * item.quantity, 0).toFixed(2);
+        return billedItems.reduce((total, item) => total + parseFloat(item.sellingPrice) * item.PurchaseQty, 0).toFixed(2);
     };
 
     const calculateTotalDiscount = () => {
         return billedItems.reduce((total, item) => {
-            const discountAmount = (parseFloat(item.sellingPrice) * item.quantity) * (parseFloat(item.discount) / 100);
+            const discountAmount = (parseFloat(item.sellingPrice) * item.PurchaseQty) * (parseFloat(item.discount) / 100);
             return total + discountAmount;
         }, 0).toFixed(2);
     };
@@ -113,7 +124,7 @@ const Ebill = () => {
                                         </tr>
                                         <tr>
                                             <td>{parseFloat(item.sellingPrice).toFixed(2)}</td>
-                                            <td style={{ textAlign: 'center' }}>{parseFloat(item.quantity).toFixed(2)}</td>
+                                            <td style={{ textAlign: 'center' }}>{parseFloat(item.PurchaseQty).toFixed(2)}</td>
                                             <td style={{ textAlign: 'right' }}>{parseFloat(item.discount).toFixed(2)}</td>
                                             <td style={{ textAlign: 'right' }}>{calculateAmount(item)}</td>
                                         </tr>
