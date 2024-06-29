@@ -15,8 +15,10 @@ const ProductCards = ({ items, customerId: propCustomerId, selectedBranchId: pro
   useEffect(() => {
     if (!customerId) {
       const user = secureLocalStorage.getItem("user");
+
       if (user && user.customerId) {
         setCustomerId(user.customerId);
+        console.log("userid",customerId)
       } else {
         setAlertMessage("Customer ID not found. Please log in again.");
       }
@@ -44,33 +46,21 @@ const ProductCards = ({ items, customerId: propCustomerId, selectedBranchId: pro
     }
 
     try {
-      // Retrieve cart items from localStorage
-      const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-      const itemIndex = cartItems.findIndex(cartItem => cartItem.productId === item.productId);
+      // Save item in backend
+      const response = await axios.post('http://localhost:8080/cart-items/add', {
+        customerId, // Using the customerId from state
+        productId: item.productId,
+        productName: item.productName,
+        batchNo: item.batchNo,
+        branchId: selectedBranchId,  // Send branchId from state
+        sellingPrice: item.sellingPrice,
+        quantity: 1,
+        discount: item.discount,
+        customerId:customerId
+      });
 
-      if (itemIndex === -1) {
-        // Add new item to cart with quantity 1
-        cartItems.push({ ...item, quantity: 1 });
-        localStorage.setItem('cartItems', JSON.stringify(cartItems));
-
-        // Save item in backend
-        const response = await axios.post('http://localhost:8080/cart-items/add', {
-          customerId, // Using the customerId from state
-          productId: item.productId,
-          productName: item.productName,
-          batchNo: item.batchNo,
-          branchId: selectedBranchId,  // Send branchId from state
-          sellingPrice: item.sellingPrice,
-          quantity: 1,
-          discount: item.discount
-        });
-
-        // Show alert on success
-        setAlertMessage('Item added to cart!');
-      } else {
-        // Show alert that item is already in cart
-        setAlertMessage('Item is already in the cart!');
-      }
+      // Show alert on success
+      setAlertMessage('Item added to cart!');
     } catch (error) {
       console.error('Failed to add to cart:', error);
       if (error.response) {

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { RiSearchLine } from "react-icons/ri";
-import './Searchbar.css'; 
+import { IoMdSearch } from "react-icons/io";
+import axios from 'axios';
+import './Searchbar.css';
 
 const url = "http://localhost:8080/categories";
 const product_url = "http://localhost:8080/products";
@@ -12,41 +13,37 @@ const Searchbar = ({ setResults }) => {
 
   useEffect(() => {
     fetchCategories();
-  }, []); 
+  }, []);
 
   const fetchCategories = async () => {
     try {
-      const response = await fetch(url);
-      if (!response.ok) {
-        throw new Error('Failed to fetch categories');
-      }
-      const data = await response.json();
-      if (data.success && Array.isArray(data.data)) {
-        setCategories(data.data);
+      const response = await axios.get(url);
+      if (response.data.success && Array.isArray(response.data.data)) {
+        setCategories(response.data.data);
       } else {
-        console.error('Fetched data is not as expected:', data);
+        console.error('Fetched data is not as expected:', response.data);
       }
     } catch (error) {
       console.error('Error fetching categories:', error);
     }
   };
 
-  const fetchData = (value) => {
-    fetch(product_url)
-      .then((res) => res.json())
-      .then((json) => {
-        if (json.success && Array.isArray(json.data)) {
-          const results = json.data.filter((product) => {
-            const matchesCategory = selectedCategory === "all" || product.categoryId === selectedCategory;
-            const matchesSearchTerm = product.productName && product.productName.toLowerCase().includes(value.toLowerCase());
-            return matchesCategory && matchesSearchTerm;
-          });
-          setResults(results);
-        } else {
-          console.error('Fetched products data is not as expected:', json);
-        }
-      })
-      .catch((error) => console.error('Error fetching products:', error));
+  const fetchData = async (value) => {
+    try {
+      const response = await axios.get(product_url);
+      if (response.data.success && Array.isArray(response.data.data)) {
+        const results = response.data.data.filter((product) => {
+          const matchesCategory = selectedCategory === "all" || product.categoryId === selectedCategory;
+          const matchesSearchTerm = product.productName && product.productName.toLowerCase().includes(value.toLowerCase());
+          return matchesCategory && matchesSearchTerm;
+        });
+        setResults(results);
+      } else {
+        console.error('Fetched products data is not as expected:', response.data);
+      }
+    } catch (error) {
+      console.error('Error fetching products:', error);
+    }
   };
 
   const handleChange = (value) => {
@@ -56,35 +53,21 @@ const Searchbar = ({ setResults }) => {
 
   const handleCategoryChange = (value) => {
     setSelectedCategory(value);
-    fetchData(searchTerm); 
+    fetchData(searchTerm);
   };
 
   return (
     <div className="search-container">
-      <div className='drop'>
-        <select className="dropdown" value={selectedCategory} onChange={(e) => handleCategoryChange(e.target.value)}>
-          <option value="all">Categories</option>
-          {categories.map(category => (
-            <option key={category.categoryId} value={category.categoryId}>
-              {category.categoryName}
-            </option>
-          ))}
-        </select>
+      <div className="search-wrapper">
+        <input
+          className="search-input"
+          type="text"
+          placeholder="Search..."
+          value={searchTerm}
+          onChange={(e) => handleChange(e.target.value)}
+        />
+        <IoMdSearch className="search-icon" />
       </div>
-
-      <input
-        className="search-input"
-        type="text"
-        placeholder="Search..."
-        value={searchTerm}
-        onChange={(e) => handleChange(e.target.value)}
-      />
-      
-      <button className="search-button">
-        <RiSearchLine style={{ fontSize: '31px' }} />
-      </button>
-
-      <div className="horizontal-line"></div>
     </div>
   );
 };

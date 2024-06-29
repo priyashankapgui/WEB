@@ -8,12 +8,12 @@
 
 .centered-box {
   background-color: #c8c8c8;
-  padding: 2rem; /* Added padding for better spacing */
+  padding: 2rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  border-radius: 10px; /* Optional: rounded corners */
+  border-radius: 10px;
 }
 
 .success-icon {
@@ -26,6 +26,6 @@
 }
 
 .bill {
-  margin-top: 1rem; /* Adjusted margin for spacing */
+  margin-top: 1rem;
   color: purple;
 }

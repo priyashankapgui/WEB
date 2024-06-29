@@ -1,23 +1,48 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Layout from "../../Components/Layout/Layout";
 import Body from "../../Components/Body/Body";
 import InputLabel from "../../Components/InputLable/InputLable";
-import "./Contact.css";
 import { Icon } from "@iconify/react";
-import items from "../../data/items.json";
 import FeedbackForm from "../../Components/FeedbackForm/FeedbackForm";
+import { getBranchOptions } from "../../Api/BranchApi/BranchApi.jsx"; // Adjust the path accordingly
+import "./Contact.css";
 
 export default function Contact() {
+  const [branches, setBranches] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchBranches = async () => {
+      try {
+        const branchesData = await getBranchOptions();
+        setBranches(branchesData);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching branches:', error);
+        setError(error.message);
+        setLoading(false);
+      }
+    };
+
+    fetchBranches();
+  }, []);
+
+  if (loading) {
+    return <p>Loading...</p>; // You can replace this with a loading spinner or animation
+  }
+
+  if (error) {
+    return <p>Error: {error}</p>; // Basic error handling, you can improve this based on your app's requirements
+  }
+
   return (
     <Layout>
       <Body>
         <div className="Contact_content">
           <div className="Contact_details">
             <div className="heading1">
-              <Icon
-                icon="el:phone-alt"
-                style={{ fontSize: "4vh", color: "#62C96D" }}
-              />
+              <Icon icon="el:phone-alt" style={{ fontSize: "4vh", color: "#62C96D" }} />
               <InputLabel
                 htmlFor="example"
                 color="black"
@@ -45,7 +70,7 @@ export default function Contact() {
               We are available 24/7, 7 days a week.
             </InputLabel>
 
-            {items.contact.map((contact, index) => (
+            {branches.map((branch, index) => (
               <InputLabel
                 key={index}
                 htmlFor={`teleNumber-${index}`}
@@ -57,12 +82,11 @@ export default function Contact() {
                 marginTop="2vh"
                 marginBottom="20px"
               >
-                {" "}
-                Phone : {contact.teleNumber}
+                Phone: {branch.contactNumber}
               </InputLabel>
             ))}
 
-            <din className="horizontalLine"></din>
+            <div className="horizontalLine"></div>
 
             <div className="heading1">
               <Icon
@@ -79,7 +103,7 @@ export default function Contact() {
                 marginTop="10px"
                 marginBottom="20px"
               >
-                Write To US
+                Write To Us
               </InputLabel>
             </div>
 
@@ -96,7 +120,7 @@ export default function Contact() {
               Fill out our form and we will contact you within 24 hours.
             </InputLabel>
 
-            {items.contact.map((contact, index) => (
+            {branches.map((branch, index) => (
               <InputLabel
                 key={index}
                 htmlFor={`teleNumber-${index}`}
@@ -108,8 +132,7 @@ export default function Contact() {
                 marginTop="2vh"
                 marginBottom="20px"
               >
-                {" "}
-                Email : {contact.email1}
+                Email: {branch.email}
               </InputLabel>
             ))}
           </div>
