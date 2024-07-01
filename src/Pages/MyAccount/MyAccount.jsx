@@ -9,11 +9,14 @@ import { FaRegEye, FaEyeSlash } from "react-icons/fa";
 import LoaderComponent from '../../Components/Spiner/HashLoader/HashLoader';
 import secureLocalStorage from 'react-secure-storage';
 import PasswordStrengthBar from "react-password-strength-bar";
+import { set } from 'lodash';
+import { useAuth } from '../../Components/UseAuth/UseAuth';
 
 
 
 
 const MyAccount = () => {
+    const isLoggedIn = useAuth();
     const [activeTab, setActiveTab] = useState('myDetails');
     const [showAlertSuccess, setShowAlertSuccess] = useState(false);
     const [showAlertError, setShowAlertError] = useState("");
@@ -26,6 +29,7 @@ const MyAccount = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     let user = secureLocalStorage.getItem("user");
+    const token = secureLocalStorage.getItem('accessToken')
     // const [customerData, setCustomerData] = useState(
     //     {
     //         firstName: user?.firstName,
@@ -45,19 +49,14 @@ const MyAccount = () => {
     });
 
     useEffect(() => {
-        if (!user) {
-            window.location.href = '/';
-            return;
-        } else {
-            setCustomerData({
-                firstName: user?.firstName,
-                lastName: user?.lastName,
-                phone: user?.phone,
-                address: user?.address,
-                email: user?.email,
-            });
-        }
-    }, []);
+        setCustomerData({
+            firstName: user?.firstName,
+            lastName: user?.lastName,
+            phone: user?.phone,
+            address: user?.address,
+            email: user?.email,
+        });
+    }, [token, user]);
 
     const handleCustomerDataUpdate = async(e) => {
         e.preventDefault();
@@ -427,7 +426,7 @@ const MyAccount = () => {
                             </div>
                     </div>
                     <div className="myaccount-content">
-                        {renderContent()}
+                        {isLoggedIn ? renderContent() : <p>Please login to view this page</p>}
                     </div>
                 </div>
                 {showAlertSuccess && (
