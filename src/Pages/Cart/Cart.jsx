@@ -16,6 +16,7 @@ import { loadStripe } from "@stripe/stripe-js";
 import axios from 'axios';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import secureLocalStorage from 'react-secure-storage';
 
 const style = { color: "red", fontSize: "1.8em", cursor: "pointer" };
 
@@ -68,9 +69,9 @@ const checkoutButton = {
   color: "#fafafa",
   fontSize: "16px",
   fontFamily: "Poppins",
-  marginTop:"5%",
-  marginRight:"0%",
-  marginLeft:"25%",
+  marginTop: "5%",
+  marginRight: "0%",
+  marginLeft: "25%",
 };
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_KEY);
@@ -100,11 +101,45 @@ const DatePickerInput = () => {
 export default function Cart() {
   const [rows, setRows] = useState([]);
   const [totals, setTotals] = useState({ subtotal: 0, discount: 0, total: 0 });
+  const [alertMessage, setAlertMessage] = useState("");
+  const [customerId, setCustomerId] = useState('');
+  const [cartId, setCartId] = useState('');
 
   useEffect(() => {
-    const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-    setRows(cartItems);
-  }, []);
+    if (!customerId) {
+      const user = secureLocalStorage.getItem("user");
+      console.log("customerId", customerId);
+      if (user && user.customerId) {
+        setCustomerId(user.customerId);
+        setCartId(user.cartId); 
+      } else {
+        setAlertMessage("Customer ID not found. Please log in again.");
+      }
+    }
+  }, [customerId]);
+
+  useEffect(() => {
+    const fetchCartItems = async () => {
+      if (!customerId || !cartId) {
+        return;
+      }
+
+      try {
+        const response = await axios.get(`http://localhost:8080/cart/items/${cartId}`);
+
+        if (response.data && response.data.length > 0) {
+          setRows(response.data);
+        } else {
+          setAlertMessage("No items found in the cart.");
+        }
+      } catch (error) {
+        console.error('Failed to fetch cart items:', error);
+        setAlertMessage('Failed to fetch cart items.');
+      }
+    };
+
+    fetchCartItems();
+  }, [customerId, cartId]);
 
   useEffect(() => {
     const calculateTotals = () => {
@@ -130,11 +165,10 @@ export default function Cart() {
     const updatedRows = [...rows];
     updatedRows[index].quantity += 1;
     setRows(updatedRows);
-    localStorage.setItem('cartItems', JSON.stringify(updatedRows));
-  
-    const cartId = updatedRows[index].cartId;  // Ensure cartId is available in the row data
+
+    const cartId = updatedRows[index].cartId;
     const productId = updatedRows[index].productId;
-  
+
     try {
       await axios.put(`http://localhost:8080/cart/${cartId}/item/${productId}`, {
         quantity: updatedRows[index].quantity,
@@ -143,18 +177,16 @@ export default function Cart() {
       console.error('Error updating cart item quantity:', error);
     }
   };
-  
 
   const handleDecrement = async (index) => {
     const updatedRows = [...rows];
     if (updatedRows[index].quantity > 1) {
       updatedRows[index].quantity -= 1;
       setRows(updatedRows);
-      localStorage.setItem('cartItems', JSON.stringify(updatedRows));
-  
-      const cartId = updatedRows[index].cartId;  // Ensure cartId is available in the row data
+
+      const cartId = updatedRows[index].cartId;
       const productId = updatedRows[index].productId;
-  
+
       try {
         await axios.put(`http://localhost:8080/cart/${cartId}/item/${productId}`, {
           quantity: updatedRows[index].quantity,
@@ -164,34 +196,28 @@ export default function Cart() {
       }
     }
   };
-  
 
   const handleDelete = async (index) => {
-    const cartId = rows[index].cartId;  // Ensure cartId is available in the row data
+    const cartId = rows[index].cartId;
     const productId = rows[index].productId;
-  
+
     try {
-      // Send a DELETE request to the backend
       await axios.delete(`http://localhost:8080/cart/${cartId}/item/${productId}`);
       const updatedRows = rows.filter((_, i) => i !== index);
       setRows(updatedRows);
-      localStorage.setItem('cartItems', JSON.stringify(updatedRows));
     } catch (error) {
       console.error('Error deleting cart item:', error);
     }
   };
-  
-  
-  
 
   const handleCheckout = async () => {
     try {
       const response = await axios.post('http://localhost:8080/create-checkout-session', {
         items: rows
       });
-  
+
       const { sessionId } = response.data;
-      const stripe = await stripePromise; 
+      const stripe = await stripePromise;
       await stripe.redirectToCheckout({ sessionId });
     } catch (error) {
       console.error('Error during checkout:', error);
@@ -201,6 +227,7 @@ export default function Cart() {
   return (
     <Layout>
       <div className="CartContainer">
+        {alertMessage && <div className="alert">{alertMessage}</div>}
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 700, '& .MuiTableCell-sizeMedium': { padding: '20px 16px' } }} aria-label="customized table">
             <TableHead>
@@ -214,23 +241,24 @@ export default function Cart() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {rows.map((row, index) => (
-                <StyledTableRow key={row.productId}>
+              {rows.map((item, index) => (
+                <StyledTableRow key={item.productId}>
                   <StyledTableCell>
                     <TiDelete style={style} onClick={() => handleDelete(index)} />
                   </StyledTableCell>
-                  <StyledTableCell component="th" scope="row">{row.productName}</StyledTableCell>
-                  <StyledTableCell align="right">{row.sellingPrice ? 'Rs.' + row.sellingPrice.toFixed(2) : 'N/A'}</StyledTableCell>
+                  <StyledTableCell component="th" scope="row">{item.product.productName}</StyledTableCell>
+                  <StyledTableCell align="right">{'Rs.' + item.sellingPrice.toFixed(2)}</StyledTableCell>
                   <StyledTableCell align="right">
                     <button style={buttonStyle} onClick={() => handleDecrement(index)}>-</button>
-                    <label style={qty} htmlFor="qty">{row.quantity}</label>
+                    <label style={qty} htmlFor="qty">{item.quantity}</label>
                     <button style={buttonStyle} onClick={() => handleIncrement(index)}>+</button>
                   </StyledTableCell>
-                  <StyledTableCell align="right">{row.sellingPrice ? (row.sellingPrice * row.quantity).toFixed(2) : 'N/A'}</StyledTableCell>
-                  <StyledTableCell align="right">{row.discount + '%'}</StyledTableCell>
+                  <StyledTableCell align="right">{'Rs.' + (item.sellingPrice * item.quantity).toFixed(2)}</StyledTableCell>
+                  <StyledTableCell align="right">{item.discount + '%'}</StyledTableCell>
                 </StyledTableRow>
               ))}
             </TableBody>
+
           </Table>
         </TableContainer>
       </div>
@@ -267,7 +295,6 @@ export default function Cart() {
               <h4 className="PickupDate">Select a date you hope to pick up your order </h4>
               <DatePickerInput />
             </div>
-            
           </div>
           <Button
             style={checkoutButton}

@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Box, Container } from '@mui/system';
 import './Success.css';   
 import { FcOk } from "react-icons/fc";
 import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom'; 
 import axios from 'axios';
+import secureLocalStorage from "react-secure-storage";
 
 const billbutton = {
   backgroundColor: "rgb(24, 111, 101)",
@@ -13,39 +14,43 @@ const billbutton = {
 
 function Success() {
   const navigate = useNavigate();
-  const [onlineBillNo, setOnlineBillNo] = useState('');
+  const [customerId, setCustomerId] = useState('');
+
+  useEffect(() => {
+    if (!customerId) {
+      const user = secureLocalStorage.getItem("user");
+      if (user && user.customerId) {
+        setCustomerId(user.customerId);
+      } else {
+        alert("Customer ID not found. Please log in again.");
+      }
+    }
+  }, [customerId]);
 
   const handleGetBill = async () => {
     try {
-      // First create the online bill
+      const branchId = localStorage.getItem('selectedBranchId');
+      if (!branchId || !customerId) {
+        alert("Branch ID or Customer ID is missing. Please check your inputs.");
+        return;
+      }
+
       const createBillResponse = await axios.post('http://localhost:8080/onlineBills', {
-        branchId: 'yourBranchId',
-        customerId: 'yourCustomerId',
-        acceptedBy: 'yourAcceptedBy',
-        status: 'yourStatus',
-        hopeToPickup: 'yourHopeToPickupDate' // Optional: replace with actual hope to pick up date if needed
+        branchId,
+        customerId,
+        acceptedBy: 'someAcceptedBy', 
+        status: 'New',
+        hopeToPickup: new Date().toISOString()
       });
 
       if (createBillResponse.status === 201) {
-        const createdBill = createBillResponse.data;
-        const { onlineBillNo } = createdBill;
-
-        setOnlineBillNo(onlineBillNo);
-
-        // Now add products to the bill
-        const addProductsResponse = await axios.post('http://localhost:8080/addproductstobill', { onlineBillNo });
-
-        if (addProductsResponse.status === 200) {
-          console.log(addProductsResponse.data);
-          navigate('/bill');
-        } else {
-          console.error('Failed to add products to the bill.');
-        }
+        const onlineBillNo = createBillResponse.data.onlineBillNo;
+        navigate(`/bill/${onlineBillNo}`);
       } else {
         console.error('Failed to create the online bill.');
       }
     } catch (error) {
-      console.error('An error occurred while creating the bill or adding products:', error);
+      console.error('An error occurred while creating the bill:', error);
     }
   };
 
