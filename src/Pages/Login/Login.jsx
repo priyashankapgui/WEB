@@ -7,8 +7,7 @@ import { FaRegEye, FaRegUserCircle,FaEyeSlash} from "react-icons/fa";
 import Buttons from "../../Components/Button/Button";
 import LoaderComponent from "../../Components/Spiner/HashLoader/HashLoader";
 import secureLocalStorage from "react-secure-storage";
-
-
+import { loginCustomer } from "../../Api/LoginApi/LoginApi";
 
 export default function Login(props) {
   const [email, setEmail] = useState("");
@@ -16,7 +15,6 @@ export default function Login(props) {
   const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
-  
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -32,44 +30,22 @@ export default function Login(props) {
     setShowPassword(!showPassword);
   };
 
-  // useEffect(() => {
-  //   // Retrieve employee ID and password from sessionStorage
-  //   const storedUsername = sessionStorage.getItem("username");
-  //   const storedPassword = sessionStorage.getItem("password");
-  //   if (storedUsername) {
-  //     setUsername(storedUsername);
-  //   }
-  //   if (storedPassword) {
-  //     setPassword(storedPassword);
-  //   }
-  // }, []);
-
   const handleLogin = async(e) => {
     try{
         e.preventDefault();
         setLoading(true);
-        const cus = JSON.stringify({
-          email : email,
-          password : password,
-        })
-
-        const response = await fetch ('http://localhost:8080/api/customers/login',{
-          method : 'POST',
-          headers : {
-            'Content-Type' : 'application/json'
-          },
-          body : cus,
-        }).catch((error) => console.error("Error:", error));
-
-        if (response.ok){
-          const data = await response.json();
+        const response = await loginCustomer(email, password);
+        console.log(response);
+        if (response.status === 200){
+          const data = await response.data;
+          console.log("Success:", data);
           secureLocalStorage.setItem("accessToken", data.token);
           secureLocalStorage.setItem("user", data.user);
           window.location.href = '/';
         }
         else {
           //login failed
-          const data = await response.json();
+          const data = await response.data;
           console.log("Error:", data.message);
           setError(data.message);
           setLoading(false);
@@ -157,8 +133,12 @@ export default function Login(props) {
                 </Buttons>
             )}
           </form>
+          <div className="s-w-terms">
+            <p>
+            &copy; 2022 Green Leaf Company. All rights reserved.
+            </p> 
+          </div>
 
-          
         </div>
       </div>
     </div>

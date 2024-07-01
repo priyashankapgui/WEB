@@ -7,6 +7,7 @@ import Buttons from "../../../Components/Button/Button";
 import Popup from "../../../Components/Popup/Popup";
 import LoaderComponent from "../../../Components/Spiner/HashLoader/HashLoader";
 import PasswordStrengthBar from "react-password-strength-bar";
+import { resetPassword } from "../../../Api/LoginApi/LoginApi";
 
 
 const ResetPw = () => {
@@ -46,27 +47,16 @@ const ResetPw = () => {
       setLoading(false);
       window.location.href = "/login";
     } else {
-      const response = await fetch("http://localhost:8080/api/customers/login/forgotpw/resetpw", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          resetToken: token,
-          newPassword: password,
-          confirmPassword: confirmPassword,
-        }),
-      }).catch((error) => console.error("Error:", error));
+      const response = await resetPassword(token, password, confirmPassword);
 
-      if (response.ok) {
+      if (response.status === 200) {
         setLoading(true);
-        const data = await response.json();
+        const data = await response.data;
         setShowPopup(true);
         console.log("Response data:", data);
       } else {
         setLoading(false);
-        const data = await response.json();
+        const data = await response.data;
         setError(data.message);
       }
     }
