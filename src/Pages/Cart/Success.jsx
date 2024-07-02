@@ -38,7 +38,6 @@
         const createBillResponse = await axios.post('http://localhost:8080/onlineBills', {
           branchId,
           customerId,
-          acceptedBy: 'someAcceptedBy', 
           status: 'New',
           hopeToPickup: new Date().toISOString()
         });

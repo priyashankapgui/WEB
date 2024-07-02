@@ -57,6 +57,21 @@ const Ebill = () => {
         return billedItems.reduce((total, item) => total + parseFloat(calculateAmount(item)), 0).toFixed(2);
     };
 
+    const updateBillAmount = async (amount) => {
+        try {
+            await axios.put(`http://localhost:8080/onlineBills/${onlineBillNo}`, { totalAmont: amount });
+        } catch (error) {
+            console.error('Error updating bill amount:', error);
+        }
+    };
+
+    useEffect(() => {
+        if (billedItems.length > 0) {
+            const totalAmount = calculateNetTotal();
+            updateBillAmount(totalAmount);
+        }
+    }, [billedItems]);
+
     if (!billData) {
         return <div>Loading...</div>;
     }
