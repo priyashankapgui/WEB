@@ -1,4 +1,5 @@
 import React from "react";
+import secureLocalStorage from "react-secure-storage";
 import { Link } from "react-router-dom";
 import { SiFacebook } from "react-icons/si";
 import { FaYoutube } from "react-icons/fa6";
@@ -7,6 +8,8 @@ import logo from "../../Assets/Green Leaf Super.png";
 import "./Footer.css";
 
 const Footer = () => {
+  const token = secureLocalStorage.getItem("accessToken");
+
   return (
     <footer className="footer">
       <div className="footer_section_padding">
@@ -34,9 +37,15 @@ const Footer = () => {
 
           <div className="footer-links-div">
             <h4>Account</h4>
-            <a href="/signIn">
-              <p>My Account</p>
-            </a>
+            {token ? (
+              <Link to="/my-account">
+                <p>My Account</p>
+              </Link>
+            ) : (
+              <Link to="/login">
+                <p>Login</p>
+              </Link>
+            )}
             <Link to="/signup">
               <p>Register</p>
             </Link>

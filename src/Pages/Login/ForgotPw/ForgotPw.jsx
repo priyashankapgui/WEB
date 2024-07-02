@@ -6,6 +6,7 @@ import InputField from "../../../Components/InputField/InputField";
 import Buttons from "../../../Components/Button/Button";
 import Popup from "../../../Components/Popup/Popup";
 import LoaderComponent from "../../../Components/Spiner/HashLoader/HashLoader";
+import { forgotPassword } from "../../../Api/LoginApi/LoginApi";
 
 
 const ForgotPw = () => {
@@ -38,22 +39,13 @@ const ForgotPw = () => {
         return;
     }
     
-    const response = await fetch("http://localhost:8080/api/customers/login/forgotpw", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ 
-        email: email 
-      }),
-    }).catch((error) => console.error("Error:", error));
-    
-    if (response.ok) {
+    const response = await forgotPassword(email);
+    if (response.status ===200) {
       setLoading(false);  
       setshowPopup(true);
     } else {
       setLoading(false);
-      const data = await response.json();
+      const data = await response.data;
       setError(data.message);
     }
   };
