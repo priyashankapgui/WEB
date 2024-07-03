@@ -9,12 +9,16 @@ const BranchDropDown = ({ id, name, height, width, onChange, editable, borderRad
     const [options, setOptions] = useState([]);
     const dropdownRef = useRef(null);
     const placeholder = "Select a branch";
+    
 
     useEffect(() => {
         axios.get('http://localhost:8080/branchesWeb')
             .then(response => {
                 setOptions(response.data);
                 const savedBranchName = localStorage.getItem('selectedBranch');
+                const storedBranchName = localStorage.getItem('selectedBranch');
+console.log('branch', { branchName: storedBranchName });
+              
                 if (savedBranchName) {
                     setSelectedOption(savedBranchName);
                 }
@@ -26,6 +30,8 @@ const BranchDropDown = ({ id, name, height, width, onChange, editable, borderRad
         setSelectedOption(option.branchName);
         localStorage.setItem('selectedBranch', option.branchName);
         localStorage.setItem('selectedBranchId', option.branchId);
+        
+      
         onChange(option);
         setIsOpen(false);
     };

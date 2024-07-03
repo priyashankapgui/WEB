@@ -15,52 +15,29 @@ export default function Home() {
   const { category } = itemsData;
   const [categoryPosition, setCategoryPosition] = useState(0);
   const [loading, setLoading] = useState(true);
-  const [combinedData, setCombinedData] = useState([]);
+  const [items, setItems] = useState([]);
+
   const categoryLength = category.length;
 
   useEffect(() => {
     const fetchHomePageItems = async () => {
       try {
-        // setLoading(true);
+        const branchName = localStorage.getItem('selectedBranch');
+      
+        const response = await axios.get(
+          `http://localhost:8080/product-branch?branchName=${branchName}`
+        );
 
-        // const [productResponse, priceResponse, discountResponse] = await Promise.all([
-          
-        //   axios.get('localhost:8080/product-quantities-by-branch'),
-          
-        // ]);
-        setLoading(true);
-
-      const [productResponse, priceResponse, discountResponse] = await Promise.all([
-        axios.get('http://localhost:8080/products'),
-        axios.get('http://localhost:8080/product-batch-sum'),
-        axios.get('http://localhost:8080/product-batch-sum'),
-      ]);
-
-        console.log('Product Response:', productResponse); 
-
-        const productData = productResponse.data.data;
-        const priceData = priceResponse.data;
-        const discountData = discountResponse.data;
-
-        const combinedData = productData.map(item => {
-          const price = priceData.find(priceItem => priceItem.productId === item.productId);
-          const discount = discountData.find(discountItem => discountItem.productId === item.productId);
-          return {
-            ...item,
-            sellingPrice: price ? price.sellingPrice : null,
-            discount: discount ? discount.discount : null
-          };
-        });
-
-        setCombinedData(combinedData);
+        setItems(response.data); // Assuming the response data is an array of items
         setLoading(false);
       } catch (error) {
-        console.error('Failed to fetch data:', error);
+        console.error("Error fetching data:", error);
         setLoading(false);
       }
     };
 
     fetchHomePageItems();
+
   }, []);
 
   const handlePreviousCategory = () => {
@@ -98,7 +75,7 @@ export default function Home() {
             </div>
 
             <div className="itemsCards">
-              <ProductCards items={combinedData} />
+              <ProductCards items={items} />
             </div>
 
             <div className="title">
@@ -123,9 +100,17 @@ export default function Home() {
 
             <div className="endImage">
               {itemsData.endImage.map((endImg, index) => (
-                <div key={index}  className="endImage">
-                  <img src={`https://flexflowstorage01.blob.core.windows.net/webimage/endimage(${0}).png`} alt="Background" className="end1" />
-                  <img src={`https://flexflowstorage01.blob.core.windows.net/webimage/endimage(${1}).png`} alt="Overlay" className="end2" />
+                <div key={index} className="endImage">
+                  <img
+                    src={`https://flexflowstorage01.blob.core.windows.net/webimage/endimage(${0}).png`}
+                    alt="Background"
+                    className="end1"
+                  />
+                  <img
+                    src={`https://flexflowstorage01.blob.core.windows.net/webimage/endimage(${1}).png`}
+                    alt="Overlay"
+                    className="end2"
+                  />
                 </div>
               ))}
             </div>

@@ -16,6 +16,7 @@ const Navbar = () => {
 
   useEffect(() => {
     const token = secureLocalStorage.getItem('accessToken');
+   
       if (token) {
         setIsLoggedIn(true);
       } else {
@@ -29,6 +30,7 @@ const Navbar = () => {
 
   const handleBranchChange = (branch) => {
     setSelectedBranch(branch.branchName);
+
   };
 
   useEffect(() => {
@@ -36,6 +38,7 @@ const Navbar = () => {
     if (savedBranch) {
       setSelectedBranch(savedBranch);
     }
+    
   }, []);
 
   return (
