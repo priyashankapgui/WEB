@@ -22,7 +22,7 @@ export default function Slider() {
             <img
               src={`https://flexflowstorage01.blob.core.windows.net/webimage/carosel(${item}).png`}
               height="650px"
-              width="500px"
+              width="100%"
               alt={`img${item.id}`}
             />
           </div>

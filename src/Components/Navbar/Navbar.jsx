@@ -7,23 +7,14 @@ import "./Navbar.css";
 import { Link } from "react-router-dom";
 import CustomizedBadges from "../CartIcon/CartIcon";
 import BranchDropDown from "../BranchDropDown/BranchDropDown";
-import secureLocalStorage from "react-secure-storage";
+import { useAuth } from "../UseAuth/UseAuth";
 
 const Navbar = () => {
   const [showNavbar, setShowNavbar] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const isLoggedIn = useAuth();
   const [selectedBranch, setSelectedBranch] = useState(
     localStorage.getItem("selectedBranch") || ""
   );
-
-  useEffect(() => {
-    const token = secureLocalStorage.getItem("accessToken");
-    if (token) {
-      setIsLoggedIn(true);
-    } else {
-      setIsLoggedIn(false);
-    }
-  }, []);
 
   const handleShowNavbar = () => {
     setShowNavbar(!showNavbar);
