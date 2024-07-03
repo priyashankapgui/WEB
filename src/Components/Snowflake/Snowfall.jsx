@@ -8,7 +8,7 @@ const Snowfall = () => {
     useEffect(() => {
         const generateSnowflakes = () => {
             let flakes = [];
-            for (let i = 0; i < 10; i++) {
+            for (let i = 0; i < 20; i++) {
                 const style = {
                     left: Math.random() * 100 + 'vw',
                     animationDelay: Math.random() * 20 + 's',
