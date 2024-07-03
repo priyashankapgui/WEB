@@ -9,11 +9,14 @@ import { FaRegEye, FaEyeSlash } from "react-icons/fa";
 import LoaderComponent from '../../Components/Spiner/HashLoader/HashLoader';
 import secureLocalStorage from 'react-secure-storage';
 import PasswordStrengthBar from "react-password-strength-bar";
+import { useAuth } from '../../Components/UseAuth/UseAuth';
+import { customerUpdate, customerUpdatePassword } from '../../Api/MyAccountAPI/MyAccountAPI';
 
 
 
 
 const MyAccount = () => {
+    const isLoggedIn = useAuth();
     const [activeTab, setActiveTab] = useState('myDetails');
     const [showAlertSuccess, setShowAlertSuccess] = useState(false);
     const [showAlertError, setShowAlertError] = useState("");
@@ -26,6 +29,7 @@ const MyAccount = () => {
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     let user = secureLocalStorage.getItem("user");
+    const token = secureLocalStorage.getItem("accessToken");
     // const [customerData, setCustomerData] = useState(
     //     {
     //         firstName: user?.firstName,
@@ -45,35 +49,23 @@ const MyAccount = () => {
     });
 
     useEffect(() => {
-        if (!user) {
-            window.location.href = '/';
-            return;
-        } else {
-            setCustomerData({
-                firstName: user?.firstName,
-                lastName: user?.lastName,
-                phone: user?.phone,
-                address: user?.address,
-                email: user?.email,
-            });
-        }
-    }, []);
+        setCustomerData({
+            firstName: user?.firstName,
+            lastName: user?.lastName,
+            phone: user?.phone,
+            address: user?.address,
+            email: user?.email,
+        });
+    }, [token, user]);
 
     const handleCustomerDataUpdate = async(e) => {
         e.preventDefault();
         setLoading(true);
         try{
             const user = secureLocalStorage.getItem('user');
-            const response = await fetch(`http://localhost:8080/api/customers/${user.customerId}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${secureLocalStorage.getItem('accessToken')}`,
-                },
-                body: JSON.stringify(customerData),
-            });
-            if(response.ok){
-                const updatedCustomerData = await response.json();
+            const response = await customerUpdate(user.customerId, customerData);
+            if(response.status === 200){
+                const updatedCustomerData = await response.data;
                 setCustomerData({
                     firstName: updatedCustomerData.firstName,
                     lastName: updatedCustomerData.lastName,
@@ -82,12 +74,11 @@ const MyAccount = () => {
                     email: updatedCustomerData.email,
                 });
                 secureLocalStorage.setItem("user", updatedCustomerData);
-                setShowAlertSuccess(true);
+                setShowAlertSuccess('Customer updated successfully');
             }
             else{
-                const responseError = await response.json();
-                console.log(responseError);
-                setShowAlertError(responseError.message);
+                const error = await response.data;
+                setShowAlertError(error.message);
             }
         }
         catch(error){
@@ -114,25 +105,14 @@ const MyAccount = () => {
         }
         try{
             const user = secureLocalStorage.getItem('user');
-            const response = await fetch(`http://localhost:8080/api/customers/password/${user.customerId}`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${secureLocalStorage.getItem('accessToken')}`,
-                },
-                body: JSON.stringify({
-                    oldPassword: currentPassword,
-                    newPassword: password,
-
-                }),
-            });
-            if(response.ok){
+            const response = await customerUpdatePassword(user.customerId, currentPassword, password);
+            if(response.status === 200){
                 setLoading(false);
-                setShowAlertSuccess(true);
+                setShowAlertSuccess('Password updated successfully');
             }
             else{
                 setLoading(false);
-                const responseError = await response.json();
+                const responseError = await response.data;
                 setShowAlertError(responseError.message);
             }
         }
@@ -427,14 +407,14 @@ const MyAccount = () => {
                             </div>
                     </div>
                     <div className="myaccount-content">
-                        {renderContent()}
+                        {isLoggedIn ? renderContent() : <p>Please login to view this page</p>}
                     </div>
                 </div>
                 {showAlertSuccess && (
                 <CustomAlert
                     severity="success"
                     title="Success"
-                    message="Customer updated successfully"
+                    message={showAlertSuccess}
                     duration={3000}
                     onClose={() => window.location.reload()}
                 />

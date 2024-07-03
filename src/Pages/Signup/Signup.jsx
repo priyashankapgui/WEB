@@ -7,6 +7,7 @@ import { FaRegEye,FaEyeSlash} from "react-icons/fa";
 import LoaderComponent from '../../Components/Spiner/HashLoader/HashLoader';
 import CustomAlert from "../../Components/Alerts/CustomAlert/CustomAlert";
 import PasswordStrengthBar from "react-password-strength-bar";
+import { registerCustomer } from "../../Api/LoginApi/LoginApi";
 
 
 
@@ -87,29 +88,22 @@ const Signup = () => {
     // if (!emailRegex.test(email)) {
     //     throw new Error("Invalid email format");
     // }
-    const cus = JSON.stringify({
+    const customerData = {
       firstName: firstname,
       lastName: lastname,
       email: email,
       phone: phone,
       address: address,
       password: password,
-    })
-    const response = await fetch ('http://localhost:8080/api/customers/registercustomer',{
-    method : 'POST',
-    headers : {
-      'Content-Type' : 'application/json'
-    },
-    body : cus,
-  }).catch((error) => console.error("Error:", error));
-
-  if (response.ok){
+    }
+    const response = await registerCustomer(customerData);
+  if (response.status === 201){
     setLoading(false);
     setShowAlertSuccess('Account created successfully');
     window.location.href = '/login';
   }else {
     setLoading(false);
-    const data = await response.json();
+    const data = await response.data;
     console.log("Error:", data.message);
     setError(data.message);
   }
@@ -290,7 +284,7 @@ const Signup = () => {
                 <CustomAlert
                     severity="success"
                     title="Success"
-                    message="Customer updated successfully"
+                    message={showAlertSuccess}
                     duration={4000}
                     onClose={() =>window.location.href = '/login'}
                 />
