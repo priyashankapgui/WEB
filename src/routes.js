@@ -15,7 +15,6 @@ import ResetPw from "./Pages/Login/ResetPw/ResetPw";
 import MyAccount from "./Pages/MyAccount/MyAccount";
 import Bill from "./Pages/Ebill/Ebill";
 import SingleProduct from "./Pages/Products/SingleProduct/SingleProduct";
-import UseAuth from "./Components/UseAuth/UseAuth";
 
 const createRoutes = () => (
   <Routes>

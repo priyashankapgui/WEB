@@ -45,3 +45,17 @@ export const customerUpdatePassword = async (customerId, oldPassword, newPasswor
         return error.response ? error.response : error;
     }
 }
+
+export const customerOnlineOrders = async (customerId) => {
+    try {
+        const response = await api.get(`/onlineBillsByCustomer/${customerId}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            },
+        });
+        return response;
+    } catch (error) {
+        console.error('Error fetching online orders:', error);
+        return error.response ? error.response : error;
+    }
+}

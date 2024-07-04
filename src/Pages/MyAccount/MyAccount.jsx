@@ -11,6 +11,7 @@ import secureLocalStorage from 'react-secure-storage';
 import PasswordStrengthBar from "react-password-strength-bar";
 import { useAuth } from '../../Components/UseAuth/UseAuth';
 import { customerUpdate, customerUpdatePassword } from '../../Api/MyAccountAPI/MyAccountAPI';
+import Orders from '../../Components/Orders/Orders';
 
 
 
@@ -39,6 +40,18 @@ const MyAccount = () => {
     //         email: user?.email,
     //     }
     // );
+
+    useEffect(() => {
+        const activeTab = sessionStorage.getItem('activeTab');
+        if (activeTab) {
+            setActiveTab(activeTab);
+        }
+    }, []);
+
+    const clickTab = (tab) => {
+        setActiveTab(tab);
+        sessionStorage.setItem('activeTab', tab);
+    };
 
     const [customerData, setCustomerData] = useState({
         firstName: "",
@@ -234,7 +247,7 @@ const MyAccount = () => {
                 return (
                     <div className="content-section-ma">
                         <h2>Orders</h2><hr></hr>
-                        <p>No orders yet.</p>
+                        <Orders />
                     </div>
                 );
             case 'accountSettings':
@@ -367,19 +380,19 @@ const MyAccount = () => {
                             <ul>
                                 <li
                                     className={activeTab === 'myDetails' ? 'active' : ''}
-                                    onClick={() => setActiveTab('myDetails')}
+                                    onClick={() => clickTab('myDetails')}
                                 >
                                     My Details
                                 </li>
                                 <li
                                     className={activeTab === 'orders' ? 'active' : ''}
-                                    onClick={() => setActiveTab('orders')}
+                                    onClick={() => clickTab('orders')}
                                 >
                                     Orders
                                 </li>
                                 <li
                                     className={activeTab === 'accountSettings' ? 'active' : ''}
-                                    onClick={() => setActiveTab('accountSettings')}
+                                    onClick={() => clickTab('accountSettings')}
                                 >
                                     Account Settings
                                 </li>
