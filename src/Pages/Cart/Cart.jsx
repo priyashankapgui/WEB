@@ -272,7 +272,7 @@ export default function Cart() {
         Return To Shop
       </Button>
       <div className="checkoutContainer">
-        <Box height={350} width={470} p={2} sx={{ border: "2px solid grey" }}>
+        <Box height={270} width={470} p={2} sx={{ border: "2px solid grey" }}>
           <h2>Cart Total</h2>
           <div>
             <Table sx={{ minWidth: 400 }} aria-label="custom pagination table">
@@ -291,10 +291,10 @@ export default function Cart() {
                 </TableRow>
               </TableBody>
             </Table>
-            <div className="PickupDatePicker">
+            {/* <div className="PickupDatePicker">
               <h4 className="PickupDate">Select a date you hope to pick up your order </h4>
               <DatePickerInput />
-            </div>
+            </div> */}
           </div>
           <Button
             style={checkoutButton}
@@ -303,7 +303,7 @@ export default function Cart() {
           >
             Proceed to checkout
           </Button>
-          <h3 className="CancelNotification">Please note that once an online order is placed, it cannot be canceled.</h3>
+          {/* <h3 className="CancelNotification">Please note that once an online order is placed, it cannot be canceled.</h3> */}
         </Box>
       </div>
     </Layout>
