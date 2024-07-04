@@ -71,7 +71,7 @@ export default function ItemCard({
     >
       <CardMedia
         component="img"
-        image='src\Image\1717949678014.png'
+        image={image}
         alt="Product"
         width={imageWidth}
         height={imageHeight}

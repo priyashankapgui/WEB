@@ -6,6 +6,7 @@ import "slick-carousel/slick/slick-theme.css";
 import axios from 'axios';
 import ConnectionWarning from '../Alerts/ConnectionWarning';
 import secureLocalStorage from 'react-secure-storage';
+import { Link } from "react-router-dom";
 
 const ProductCards = ({ items, customerId: propCustomerId, selectedBranchId: propBranchId }) => {
   const [alertMessage, setAlertMessage] = useState("");
@@ -122,7 +123,7 @@ const ProductCards = ({ items, customerId: propCustomerId, selectedBranchId: pro
       <ConnectionWarning message={alertMessage} />
       <Slider {...settings} style={{ paddingTop: "1%" }}>
         {items.map((item) => (
-          <div style={{ margin: "0 9px" }} key={item.productId}>
+          <Link to={`single-product/${item.productId}`} style={{ margin: "0 9px" }} key={item.productId}>
             <ItemCard
               LablePrice={item.sellingPrice ? formatPrice(item.sellingPrice) : "LKR 000.00"}
               LableProductName={item.productName}
@@ -141,7 +142,7 @@ const ProductCards = ({ items, customerId: propCustomerId, selectedBranchId: pro
               buttonLabel="Add to Cart"
               onAddToCart={() => handleAddToCart(item)}
             />
-          </div>
+          </Link>
         ))}
       </Slider>
     </div>
