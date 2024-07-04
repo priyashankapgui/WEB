@@ -22,72 +22,72 @@ const Navbar = () => {
 
   const handleBranchChange = (branch) => {
     setSelectedBranch(branch.branchName);
-
+    window.location.reload();
   };
 
   useEffect(() => {
-    const savedBranch = localStorage.getItem('selectedBranch');
+    const savedBranch = localStorage.getItem("selectedBranch");
     if (savedBranch) {
       setSelectedBranch(savedBranch);
     }
-    
   }, []);
 
   return (
     <nav className="navbar">
-      <div className="container">
-        <div className="Logo_content">
-          <div className="logo">
-            <img src={logo} alt="logo"></img>
-          </div>
-          <div className="navbar_p">
-            <p>Green Leaf</p>
-          </div>
+      <div className="Logo_content">
+        <div className="logo">
+          <img src={logo} alt="logo"></img>
         </div>
-        <div className="menu-icon" onClick={handleShowNavbar}>
-          <MenuIcon />
+        <div className="navbar_p">
+          <p>Green Leaf</p>
         </div>
-        <div className={`nav-elements  ${showNavbar && "active"}`}>
-          <div>
-            <ul className="nav_item1">
-              <li>
-                <NavLink to="/">Home</NavLink>
-              </li>
-              <li>
-                <NavLink to="/products">Products</NavLink>
-              </li>
-              <li>
-                <NavLink to="/about">About</NavLink>
-              </li>
-              <li>
-                <NavLink to="/contact">Contact</NavLink>
-              </li>
-              <li>
-                <BranchDropDown id="branch" name="branch" editable={true} onChange={handleBranchChange}/>
-              </li>
-            </ul>
-          </div>
+      </div>
+      <div className={`menu-icons ${showNavbar && "active"}`} onClick={handleShowNavbar}>
+        <MenuIcon />
+      </div>
+      <div className={`nav-elements  ${showNavbar && "active"}`}>
+        <ul className="nav_item1">
+          <li>
+            <NavLink to="/">Home</NavLink>
+          </li>
+          <li>
+            <NavLink to="/products">Products</NavLink>
+          </li>
+          <li>
+            <NavLink to="/about">About</NavLink>
+          </li>
+          <li>
+            <NavLink to="/contact">Contact</NavLink>
+          </li>
+          <li>
+              <BranchDropDown
+                id="branch"
+                name="branch"
+                editable={true}
+                onChange={handleBranchChange}
+              />
+            </li>
+        </ul>
 
-          <div>
-            <ul className="navbar_cart_person">
-              {isLoggedIn ? (
-                <li>
-                  <NavLink to="/my-account">
-                    <GoPerson className="iconPerson" />
-                  </NavLink>
-                </li>
-              ) : (
-                <li>
-                  <NavLink to="/login">Login</NavLink>
-                </li>
-              )}
+        <div className="end-items">
+          <ul className="navbar_cart_person">
+            {isLoggedIn ? (
               <li>
-                <Link to="/cart">
-                  <CustomizedBadges className="nav_login_cart" />
-                </Link>
+                <NavLink to="/my-account">
+                  <GoPerson className="iconPerson" />
+                </NavLink>
               </li>
-            </ul>
-          </div>
+            ) : (
+              <li>
+                <NavLink to="/login">Login</NavLink>
+              </li>
+            )}
+            <li>
+              <Link to="/cart">
+                <CustomizedBadges className="nav_login_cart" />
+              </Link>
+            </li>
+          </ul>
         </div>
       </div>
     </nav>

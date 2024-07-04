@@ -27,7 +27,7 @@ export default function Home() {
         const response = await axios.get(
           `http://localhost:8080/product-branch?branchName=${branchName}`
         );
-
+        console.log("response", response);
         setItems(response.data); // Assuming the response data is an array of items
         setLoading(false);
       } catch (error) {
