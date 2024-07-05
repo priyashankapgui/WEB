@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import ReceiptPopup from '../ReceiptPopup/ReceiptPopup';
+import React from 'react';
+import ReceiptPopup from '../../Components/ReceiptPopup/ReceiptPopup';
 import './Terms&Conditions.css';
-import axios from 'axios';
+import { FcInspection } from "react-icons/fc";
 
 const TermsConditions = ({ onClose }) => {
 
@@ -11,30 +11,24 @@ const TermsConditions = ({ onClose }) => {
     const handleReprintReceipt = () => {
         window.print();
     };
-
-
 //implement workorder body content here
-
     const TermsConditions = (
 
-        <div className="work-order-receipt">
-            <div className="work-order-receipt-header">
-
-Hi Dinuriii................
-
+        <div className="terms-Cons-receipt">
+            <div className='termsIcon'>
+                <FcInspection />
             </div>
-	</div>
-
-
-
-
-
-
-
-
-
+            <div className="terms-Cons-receipt-header">
+                <h3 className='termsTitile'>Terms and Conditions</h3>
+            </div>
+            <div className='TermsDetails'>
+                <ul type='square'>
+                    <li>Once an online order has been placed, it cannot be cancelled.</li>
+                    <li>When you successfully place your order, you must pick it up within 12 hours.</li>
+                </ul>
+            </div>
+	    </div>
     );
-
     return (
         <ReceiptPopup bodyContent={TermsConditions} onClose={onClose} onPrint={handleReprintReceipt} />
     );
