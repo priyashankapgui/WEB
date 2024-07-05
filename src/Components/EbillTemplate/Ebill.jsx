@@ -59,7 +59,7 @@ const Ebill = () => {
 
     const updateBillAmount = async (amount) => {
         try {
-            await axios.put(`http://localhost:8080/onlineBills/${onlineBillNo}`, { onlineBillTotal: amount });
+            await axios.put(`http://localhost:8080/onlineBillAmount/${onlineBillNo}`, { onlineBillTotal: amount });
         } catch (error) {
             console.error('Error updating bill amount:', error);
         }
