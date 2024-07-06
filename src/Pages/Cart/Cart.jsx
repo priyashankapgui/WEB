@@ -14,9 +14,9 @@ import Box from "@mui/material/Box";
 import Layout from '../../Components/Layout/Layout';
 import { loadStripe } from "@stripe/stripe-js";
 import axios from 'axios';
-import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import secureLocalStorage from 'react-secure-storage';
+import TermsConditions from "../../Components/Terms&Conditions/Terms&Conditions";
 
 const style = { color: "red", fontSize: "1.8em", cursor: "pointer" };
 
@@ -64,7 +64,7 @@ const returnButton = {
   borderColor: "black",
 };
 
-const checkoutButton = {
+const checkoutButtonEnabled = {
   backgroundColor: "#2FAA3C",
   color: "#fafafa",
   fontSize: "16px",
@@ -72,31 +72,21 @@ const checkoutButton = {
   marginTop: "5%",
   marginRight: "0%",
   marginLeft: "25%",
+  cursor: "pointer",
+};
+
+const checkoutButtonDisabled = {
+  backgroundColor: "gray",
+  color: "#fafafa",
+  fontSize: "16px",
+  fontFamily: "Poppins",
+  marginTop: "5%",
+  marginRight: "0%",
+  marginLeft: "25%",
+  cursor: "not-allowed",
 };
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_KEY);
-
-const DatePickerInput = () => {
-  const [selectedDate, setSelectedDate] = useState(null);
-
-  return (
-    <div className="inputFieldContainer">
-      <input
-        type="text"
-        value={selectedDate ? selectedDate.toLocaleDateString() : ''}
-        placeholder="Select a date"
-        readOnly
-        className="dateInput"
-      />
-      <DatePicker
-        selected={selectedDate}
-        onChange={(date) => setSelectedDate(date)}
-        customInput={<button className="calendarButton">📅</button>}
-        className="datePicker"
-      />
-    </div>
-  );
-};
 
 export default function Cart() {
   const [rows, setRows] = useState([]);
@@ -104,6 +94,8 @@ export default function Cart() {
   const [alertMessage, setAlertMessage] = useState("");
   const [customerId, setCustomerId] = useState('');
   const [cartId, setCartId] = useState('');
+  const [isTermsAccepted, setIsTermsAccepted] = useState(false);
+  const [showPopup, setShowPopup] = useState(false);
 
   useEffect(() => {
     if (!customerId) {
@@ -224,7 +216,20 @@ export default function Cart() {
     }
   };
 
+  const handleTermsChange = () => {
+    setIsTermsAccepted(!isTermsAccepted);
+  };
+  const handleTermsClick = (e) => {
+    e.preventDefault();
+    setShowPopup(true);
+  };
+
+  const handleClosePopup = () => {
+    setShowPopup(false);
+  };
+
   return (
+    <>
     <Layout>
       <div className="CartContainer">
         {alertMessage && <div className="alert">{alertMessage}</div>}
@@ -258,7 +263,6 @@ export default function Cart() {
                 </StyledTableRow>
               ))}
             </TableBody>
-
           </Table>
         </TableContainer>
       </div>
@@ -272,7 +276,7 @@ export default function Cart() {
         Return To Shop
       </Button>
       <div className="checkoutContainer">
-        <Box height={350} width={470} p={2} sx={{ border: "2px solid grey" }}>
+        <Box height={300} width={470} p={2} sx={{ border: "2px solid grey" }}>
           <h2>Cart Total</h2>
           <div>
             <Table sx={{ minWidth: 400 }} aria-label="custom pagination table">
@@ -291,21 +295,28 @@ export default function Cart() {
                 </TableRow>
               </TableBody>
             </Table>
-            <div className="PickupDatePicker">
-              <h4 className="PickupDate">Select a date you hope to pick up your order </h4>
-              <DatePickerInput />
-            </div>
+          </div>
+          {/* Checkbox */}
+          <div className="termscheckboxcontainer">
+            <input
+              type="checkbox"
+              id="terms"
+              checked={isTermsAccepted}
+              onChange={handleTermsChange}
+            />
+            <span>I agree to the <a href="/" onClick={handleTermsClick}>terms and conditions</a></span>
           </div>
           <Button
-            style={checkoutButton}
-            variant="contained"
-            onClick={handleCheckout}
-          >
+              style={isTermsAccepted ? checkoutButtonEnabled : checkoutButtonDisabled}
+              onClick={handleCheckout}
+              disabled={!isTermsAccepted}
+            >
             Proceed to checkout
           </Button>
-          <h3 className="CancelNotification">Please note that once an online order is placed, it cannot be canceled.</h3>
         </Box>
       </div>
     </Layout>
+    {showPopup && <TermsConditions onClose={handleClosePopup} />}
+    </>
   );
 }
