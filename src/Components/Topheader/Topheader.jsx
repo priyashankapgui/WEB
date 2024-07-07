@@ -6,8 +6,8 @@ const Topheader = () => {
   // const[isAction, setAction] = useState(false);
   return (
     <div className="topheader">
-      <p>Christmas Sale For All Cakes - OFF 20%!</p>
-      <button className="shop_btn">Shop Now</button>
+      <marquee><p>Welcome to Green Leaf Super Mart :  Where Freshness Meets Flavor Every Day.......! </p> 
+       </marquee>
     </div>
   );
 };

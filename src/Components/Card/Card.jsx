@@ -6,6 +6,7 @@ import CustomRating from "../CustomRating/CustomRating";
 import Buttons from "../Button/Buttons";
 import InputLabel from "../InputLable/InputLable";
 import styled from "styled-components";
+import ReviewForm from "../ReviewForm/ReviewForm";
 
 const HoverCard = styled(Card)`
   position: relative;
@@ -153,12 +154,7 @@ export default function ItemCard({
         </InputLabel>
 
         {showRating && (
-          <CustomRating
-            value={value}
-            onChange={handleChange}
-            legend="reviews :"
-            sx={{ fontSize: "5px", paddingBottom: "2vh" }}
-          />
+          <ReviewForm/>
         )}
 
         {showButton && (
