@@ -27,7 +27,7 @@ const Category = ({ customerId: propCustomerId, selectedBranchId: propBranchId }
                     }
                 });
                 console.log("API response:", response.data); // Log the API response
-                setItems(response.data); // Update state with the fetched items
+                setItems(response.data.productDetails); // Update state with the fetched items
             } catch (error) {
                 console.error('Error fetching product:', error);
                 setAlertMessage('Failed to fetch products. Please try again later.'); // Set error message
