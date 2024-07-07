@@ -19,7 +19,7 @@ export default function CustomRating({ value, onChange, legend }) {
       >
         {legend}
       </Typography>
-      <Rating name="custom-rating" value={value} onChange={onChange} />
+      
     </Box>
   );
 }
