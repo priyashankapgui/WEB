@@ -4,6 +4,7 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import "./Slider.css";
 // import items from "../../data/items.json";
 
+
 export default function Slider() {
 
   const items = [0,1,2,3,4];

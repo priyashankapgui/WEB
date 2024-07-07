@@ -9,10 +9,21 @@
 }
 
 .Snowflake {
-    position: absolute;
-    color: #fffafa75; /* Light snow color with transparency */
+    position: absolute;/* Light snow color with transparency */
     opacity: 0;
-    animation: fall 16s linear infinite;
+    animation: fall 20s linear infinite;
+}
+
+.iconHeart{
+    color: rgb(255, 71, 71);
+}
+
+.iconSnow{
+    color: rgb(221, 221, 221);
+}
+.iconSunny{
+    color: rgb(255, 215, 0);
+
 }
 
 @keyframes fall {
