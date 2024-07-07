@@ -6,8 +6,8 @@ const Topheader = () => {
   // const[isAction, setAction] = useState(false);
   return (
     <div className="topheader">
-      <p>Christmas Sale For All Cakes - OFF 20%!</p>
-      <button className="shop_btn">Shop Now</button>
+      <p></p>
+      
     </div>
   );
 };
