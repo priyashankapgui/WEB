@@ -6,7 +6,6 @@ import "slick-carousel/slick/slick-theme.css";
 import axios from 'axios';
 import ConnectionWarning from '../Alerts/ConnectionWarning';
 import secureLocalStorage from 'react-secure-storage';
-import { Link } from "react-router-dom";
 
 const ProductCards = ({ items, customerId: propCustomerId, selectedBranchId: propBranchId }) => {
   const [alertMessage, setAlertMessage] = useState("");
@@ -19,7 +18,7 @@ const ProductCards = ({ items, customerId: propCustomerId, selectedBranchId: pro
 
       if (user && user.customerId) {
         setCustomerId(user.customerId);
-        console.log("userid",customerId)
+        console.log("userid", customerId);
       } else {
         setAlertMessage("Customer ID not found. Please log in again.");
       }
@@ -57,7 +56,7 @@ const ProductCards = ({ items, customerId: propCustomerId, selectedBranchId: pro
         sellingPrice: item.sellingPrice,
         quantity: 1,
         discount: item.discount,
-        customerId:customerId
+        customerId: customerId
       });
 
       // Show alert on success
@@ -123,26 +122,26 @@ const ProductCards = ({ items, customerId: propCustomerId, selectedBranchId: pro
       <ConnectionWarning message={alertMessage} />
       <Slider {...settings} style={{ paddingTop: "1%" }}>
         {items.map((item) => (
-          <Link to={`single-product/${item.productId}`} style={{ margin: "0 9px" }} key={item.productId}>
-            <ItemCard
-              LablePrice={item.sellingPrice ? formatPrice(item.sellingPrice) : "LKR 000.00"}
-              LableProductName={item.productName}
-              quarterLabel={item.discount ? `${item.discount}%` : "0%"}
-              image={item.image}
-              imageHeight="180vh"
-              imageWidth="40vw"
-              buttonProps={{
-                type: "submit",
-                id: "AddtoCartbtn",
-                btnHeight: "2.0em",
-                btnWidth: "10em",
-                alignSelf: "center",
-                style: { backgroundColor: "#2EB072", color: "#EBEBEB" },
-              }}
-              buttonLabel="Add to Cart"
-              onAddToCart={() => handleAddToCart(item)}
-            />
-          </Link>
+          <ItemCard
+            key={item.productId}
+            LablePrice={item.sellingPrice ? formatPrice(item.sellingPrice) : "LKR 000.00"}
+            LableProductName={item.productName}
+            quarterLabel={item.discount ? `${item.discount}%` : "0%"}
+            image={item.image}
+            imageHeight="180vh"
+            imageWidth="40vw"
+            buttonProps={{
+              type: "submit",
+              id: "AddtoCartbtn",
+              btnHeight: "2.0em",
+              btnWidth: "10em",
+              alignSelf: "center",
+              style: { backgroundColor: "#2EB072", color: "#EBEBEB" },
+            }}
+            buttonLabel="Add to Cart"
+            onAddToCart={() => handleAddToCart(item)}
+            viewItemLink={`single-product/${item.productId}`} 
+          />
         ))}
       </Slider>
     </div>

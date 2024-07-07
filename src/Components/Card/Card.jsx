@@ -6,6 +6,7 @@ import CustomRating from "../CustomRating/CustomRating";
 import Buttons from "../Button/Buttons";
 import InputLabel from "../InputLable/InputLable";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 const HoverCard = styled(Card)`
   position: relative;
@@ -14,7 +15,7 @@ const HoverCard = styled(Card)`
   &:hover {
     transform: scale(1.05);
     background-color: ${(props) =>
-      props.hoverColor || "none"}; 
+      props.hoverColor || "none"};
 `;
 
 const QuarterCircle = styled.div`
@@ -46,8 +47,9 @@ export default function ItemCard({
   showRating = true,
   showQuarter = true,
   quarterCircleProps,
-  hoverColor, 
-  onAddToCart, // Receive the function as a prop
+  hoverColor,
+  onAddToCart,
+  viewItemLink, // New prop for the view item link
 }) {
   const [value, setValue] = useState(1);
 
@@ -67,7 +69,7 @@ export default function ItemCard({
         paddingBottom: "0",
         ...cardStyles,
       }}
-      hoverColor={hoverColor} 
+      hoverColor={hoverColor}
     >
       <CardMedia
         component="img"
@@ -76,7 +78,6 @@ export default function ItemCard({
         width={imageWidth}
         height={imageHeight}
       />
-
       {showQuarter && (
         <QuarterCircle {...quarterCircleProps}>
           <InputLabel
@@ -166,7 +167,13 @@ export default function ItemCard({
             {buttonLabel}
           </Buttons>
         )}
+        {viewItemLink && (
+          <Link to={viewItemLink}>
+            <Buttons>View Item</Buttons>
+          </Link>
+        )}
       </CardContent>
     </HoverCard>
   );
 }
+  
