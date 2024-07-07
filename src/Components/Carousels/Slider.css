@@ -1,0 +1,25 @@
+.mainSlide {
+    padding-top: 2vh;
+}
+
+.carousel.slider-wrapper {
+    width: 500px;
+
+
+}
+
+.carousel .thumbs-wrapper {
+    display: none;
+}
+
+.carousel {
+    text-align: center;
+}
+
+.carousel-status {
+    display: none;
+}
+
+.control-dots {
+    display: none;
+}

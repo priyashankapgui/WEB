@@ -1,0 +1,63 @@
+.CartContainer{
+    margin: 4%;
+    margin-bottom: 0;
+    padding: 10px;
+}
+.checkoutContainer{
+    margin-left: 64%;
+    font-family: 'Poppins';
+    font-size: 1em;
+    margin-bottom: 15vh;
+}
+.checkoutTable {
+    font-family: 'Poppins';
+    font-size: 1em;
+    color: black;
+}
+.checkoutButton{
+    background-color: #2FAA3C;
+    color: #fafafa;
+    font-size: 1em;
+    font-family: 'Poppins';
+    margin: 10%;
+    margin-top: 5%;
+    margin-left: 30%;
+}
+.PickupDatePicker{
+    display: flex;
+    align-items: center;
+    padding: 10px;
+}
+.PickupDate{
+    /* padding-top: 20px; */
+    font-family: 'Poppins';
+}
+.CancelNotification{
+    padding-top: 50px;
+    color: red;
+    margin-bottom: 10px;
+}
+
+.inputFieldContainer {
+    display: flex;
+    align-items: center;
+  }
+  
+  .dateInput {
+    padding: 10px;
+    font-size: 16px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 150px;
+  }
+  
+  .calendarButton {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+  }
+  .termscheckboxcontainer{
+    padding: 10px;
+  }

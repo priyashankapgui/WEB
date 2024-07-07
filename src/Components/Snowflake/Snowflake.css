@@ -1,0 +1,48 @@
+.Snowfall {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Allow interaction with underlying content */
+    z-index: 999; /* Ensure it appears on top of other elements */
+}
+
+.Snowflake {
+    position: absolute;/* Light snow color with transparency */
+    opacity: 0;
+    animation: fall 20s linear infinite;
+}
+
+.iconHeart{
+    color: rgb(255, 71, 71);
+}
+
+.iconSnow{
+    color: rgb(221, 221, 221);
+}
+.iconSunny{
+    color: rgb(255, 215, 0);
+
+}
+
+@keyframes fall {
+    0% {
+        opacity: 0;
+        transform: translateY(-10vh); /* Start slightly above the viewport */
+    }
+    3% {
+        opacity: 0.9;
+    }
+    90% {
+        opacity: 1.0;
+    }
+    100% {
+        transform: translateY(97vh); /* End just below the viewport */
+        opacity: 0;
+    }
+}
+.heartImg{
+    height: 15px;
+    width: 15px;
+}

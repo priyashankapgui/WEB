@@ -1,52 +1,29 @@
-
-import './App.css';
-import { BrowserRouter as Router,Route,Switch } from 'react-router-dom'
-import Home from './Pages/HomePage/Home';
-import Products from './Pages/ProductsPage/Products';
-import About from './Pages/AboutPage/About';
-import Signup from './Pages/SignupPage/Signup';
-import Contact from './Pages/ContactPage/Contact';
-import Cart from './Pages/CartPage/Cart';
+import React, { useState } from "react";
+import "./App.css";
+import { BrowserRouter as Router } from "react-router-dom";
+import createRoutes from "./routes";
 
 function App() {
+  const [cart, setCart] = useState([]);
+
+  const addToCart = (item) => {
+    setCart((prevCart) => {
+      const itemInCart = prevCart.find((cartItem) => cartItem.id === item.id);
+      if (itemInCart) {
+        return prevCart.map((cartItem) =>
+          cartItem.id === item.id
+            ? { ...cartItem, quantity: cartItem.quantity + 1 }
+            : cartItem
+        );
+      } else {
+        return [...prevCart, { ...item, quantity: 1 }];
+      }
+    });
+  };
+
   return (
-    <div className="App">
-   
-   <Router>
-      <div>
-
-        <Switch>
-
-          <Route exact path="/Home">
-            <Home/>
-          </Route>
-
-          <Route path="/Products">
-            <Products/>
-          </Route>
-
-          <Route path="/About">
-            <About/>
-          </Route>
-
-          <Route path="/Signup">
-            <Signup/>
-          </Route>
-
-          <Route path="/Contact">
-            <Contact/>
-          </Route>
-
-          <Route path="/Cart">
-            <Cart/>
-          </Route>
-
-
-        </Switch>
-      </div>
-      </Router>
-
-      
+    <div>
+      <Router>{createRoutes({ cart, addToCart })}</Router>
     </div>
   );
 }

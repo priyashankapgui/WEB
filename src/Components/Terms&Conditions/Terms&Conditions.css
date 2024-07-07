@@ -1,0 +1,27 @@
+.terms-Cons-receipt{
+    width: 100mm;
+    height: fit-content;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    background-color: #fafafa;
+    font-family: Poppins;
+}
+.termsTitile{
+    text-align: center;
+    margin-top: 15px;
+    font-size: 3vh;
+}
+.TermsDetails{
+    display: flex;
+    margin-top: 2vh;
+    font-family: Poppins;
+    margin-left: 2vh;
+}
+.termsIcon{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 8em; 
+    margin-bottom: 10px;
+}

@@ -1,0 +1,55 @@
+.ebillmainContainer {
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+    position: relative;
+  }
+  .ebillleftcontainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    background-color: rgb(24, 111, 101);
+    background-size: cover;
+  }
+  .billthank{
+    font-size: 5rem;
+    color:azure;
+    font-family:  monospace;
+  }
+  .greenimage {
+    width: 30%;
+  }
+
+  .bill-flexflow-text {
+    font-size: 2rem;
+    line-height: 0;
+    color: #ffffff;
+    font-family: 'Helvetica';
+  }
+
+  .bill-companyName {
+    font-size: 14px;
+    margin-top: 100px;
+    color: #ffffff;
+  }
+  .bill-rightcontainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    background-color: #e3dadab3;
+  }
+  .button-container{
+    display: flex;
+  }
+  .billbutton{
+    width: 100%;
+    height: 100%;
+    margin: 10px;
+  }
+  .billbutton :hover{
+    color: #45a049;
+  }

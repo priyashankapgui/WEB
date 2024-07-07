@@ -1,0 +1,192 @@
+{
+  "items": [
+    {
+      "id": 1,
+      "price": "Rs : 375.00 LKR",
+      "productName": "Signal Strong Teeth",
+      "weight": "200g",
+      "discount": "20%",
+      "image": "https://static-01.daraz.lk/p/de4fb4408952b792333f99b33cbad6fd.png"
+    },
+    {
+      "id": 2,
+      "price": "150 LKR",
+      "productName": "Lifeboy",
+      "weight": "250g",
+      "discount": "10%",
+      "image": "https://gainmart.lk/cdn/shop/products/Lifebuoy-Care-Soap_1000x1000.jpg?v=1565151475"
+    },
+    {
+      "id": 3,
+      "price": "110LKR",
+      "productName": "Lifeboy Soap",
+      "weight": "250g",
+      "discount": "10%",
+      "image": "https://gainmart.lk/cdn/shop/products/Lifebuoy-Care-Soap_1000x1000.jpg?v=1565151475"
+    },
+    {
+      "id": 4,
+      "price": "555 LKR",
+      "productName": "Lifeboy Shampoo",
+      "weight": "250g",
+      "discount": "10%",
+      "image": "https://rakanaa.pk/cdn/shop/products/134354_0.jpg?v=1628285228"
+    },
+    {
+      "id": 5,
+      "price": "159.00 LKR",
+      "productName": "Frozen yoghurt",
+      "weight": "200g",
+      "discount": "3%",
+      "image": "https://www.brentcorp.com.au/wp-content/uploads/2018/04/STRAWB-VAN.png"
+    },
+    {
+      "id": 6,
+      "price": "237.00 LKR",
+      "productName": "Ice cream sandwich",
+      "weight": "150g",
+      "discount": "1%",
+      "image": "https://www.icecream.com/content/dam/dreyersgrandicecreaminc/us/en/licensed/nestle-treats/pdp/NestleTreats-VanillaSandwich-PDP-1ct-1500x1140.png"
+    },
+    {
+      "id": 7,
+      "price": "262.00 LKR",
+      "productName": "Eclair",
+      "weight": "100g",
+      "discount": "1%",
+      "image": "https://cooplands-bakery.co.uk/wp-content/uploads/2022/08/Chocolate_Eclair.png"
+    },
+    {
+      "id": 8,
+      "price": "305.00 LKR",
+      "productName": "Cupcake",
+      "weight": "60g",
+      "discount": "1%",
+      "image": "https://cdn.craft.cloud/224393fa-1975-4d80-9067-ada3cb5948ca/assets/detail_bb_Chocolate_Cupcake_3-0008_2022.jpg"
+    }
+  ],
+
+  "options": [
+    {
+      "id": 1,
+      "categoryName": "Biscuits"
+    },
+    {
+      "id": 2,
+      "categoryName": "Vegetable"
+    },
+    {
+      "id": 3,
+      "categoryName": "Fruits"
+    }
+  ],
+
+  "slide": [
+    {
+      "id": 1,
+      "imageUrl": "https://static.vecteezy.com/system/resources/previews/004/852/278/non_2x/christmas-sale-banner-design-christmas-sale-text-with-holiday-season-offer-for-xmas-seasonal-business-discount-promotion-illustration-vector.jpg"
+    },
+    {
+      "id": 2,
+      "imageUrl": "https://www.hindustantimes.com/ht-img/img/2023/12/24/1600x900/merry_christmas_2023_1703398418677_1703398418917.jpg"
+    },
+    {
+      "id": 3,
+      "imageUrl": "https://www.biscuitpeople.com/media/cache/platform_full/4e3667c20a6a847341580381a1f269c8f7195567.jpg"
+    }
+  ],
+
+  "category": [
+    {
+      "id": 1,
+      "categoryName": "Biscuits",
+      "image": "https://cdn-icons-png.freepik.com/512/440/440262.png"
+    },
+    {
+      "id": 2,
+      "categoryName": "Vegetable",
+      "image": "https://cdn4.iconfinder.com/data/icons/fruits-and-vegetables-66/512/Vegetable_7-512.png"
+    },
+    {
+      "id": 3,
+      "categoryName": "Fruits",
+      "image": "https://static.thenounproject.com/png/2501615-200.png"
+    },
+    {
+      "id": 4,
+      "categoryName": "Cake",
+      "image": "https://www.freeiconspng.com/thumbs/birthday-icon/birthday-cake-icon-1.png"
+    },
+    {
+      "id": 5,
+      "categoryName": "Spices",
+      "image": "https://cdn-icons-png.freepik.com/512/4786/4786835.png"
+    },
+    {
+      "id": 6,
+      "categoryName": "C1",
+      "image": "https://static.thenounproject.com/png/2501615-200.png"
+    },
+    {
+      "id": 7,
+      "categoryName": "D1",
+      "image": "https://cdn-icons-png.flaticon.com/512/216/216341.png"
+    },
+    {
+      "id": 8,
+      "categoryName": "E1",
+      "image": "https://cdn4.iconfinder.com/data/icons/fruits-and-vegetables-66/512/Vegetable_7-512.png"
+    },
+    {
+      "id": 9,
+      "categoryName": "F1",
+      "image": "https://static.thenounproject.com/png/2501615-200.png"
+    },
+    {
+      "id": 10,
+      "categoryName": "10",
+      "image": "https://static.thenounproject.com/png/2501615-200.png"
+    },
+    {
+      "id": 11,
+      "categoryName": "11",
+      "image": "https://static.thenounproject.com/png/2501615-200.png"
+    }
+  ],
+
+  "about": [
+    {
+      "paragraph": "Welcome to Green Leaf, your one-stop destination for sustainable and eco-friendly shopping! At Green Leaf, we are passionate about offering you a curated selection of products that not only meet your needs but also align with our commitment to a greener planet. Our mission is to provide a seamless online shopping experience that empowers you to make conscious choices without compromising on style, quality, or affordability. From organic apparel to environmentally-friendly home goods, every item in our collection reflects our dedication to a sustainable lifestyle.",
+      "imageLogo": "https://seeklogo.com/images/G/green-leaf-logo-3DBB8FA5E8-seeklogo.com.png",
+      "altText": "logo"
+    }
+  ],
+
+  "hoverSlide": [
+    {
+      "id": 1,
+      "imageUrl": "https://static.vecteezy.com/system/resources/previews/004/852/278/non_2x/christmas-sale-banner-design-christmas-sale-text-with-holiday-season-offer-for-xmas-seasonal-business-discount-promotion-illustration-vector.jpg"
+    },
+    {
+      "id": 2,
+      "imageUrl": "https://www.hindustantimes.com/ht-img/img/2023/12/24/1600x900/merry_christmas_2023_1703398418677_1703398418917.jpg"
+    }
+  ],
+
+  "contact": [
+    {
+      "id": 1,
+      "teleNumber": "091- 365 2214 / 077- 649 1483",
+      "email1": "greenleaf@gmail.com",
+      "email2": "Green@gamil.com"
+    }
+  ],
+
+  "endImage": [
+    {
+      "id": 1,
+      "image1": "https://static.vecteezy.com/system/resources/previews/025/480/738/non_2x/vegetables-set-and-spices-for-cooking-on-dark-background-ai-generated-free-photo.jpg",
+      "image2": "https://static.vecteezy.com/system/resources/previews/025/272/701/non_2x/selection-of-fresh-herbs-and-spices-on-a-wooden-background-top-view-free-photo.jpg"
+    }
+  ]
+}

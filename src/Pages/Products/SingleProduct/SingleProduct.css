@@ -1,0 +1,12 @@
+.singleproducts {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; 
+    padding: 0px; 
+    box-sizing: border-box;
+  }
+  .nameContainer{
+    margin-bottom: 30px;
+  }

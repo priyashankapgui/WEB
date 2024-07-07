@@ -1,0 +1,103 @@
+.my-account {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+.heading-ma {
+    text-align: left;
+    margin-left: 10%;
+    margin-bottom: 20px;
+}
+
+.my-account-container {
+    display: flex;
+    height: 100%;
+    margin-bottom: 50px;
+}
+
+.sidebar-my-account {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    gap: 30px;
+    width: fit-content;
+    border-right:  #ccc;
+    margin-left: 10%;
+    border-radius: 15px;
+    padding-bottom: 20px;
+}
+
+.sidebar-my-account ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.sidebar-my-account ul li {
+    padding: 10px;
+    cursor: pointer;
+    margin-bottom: 10px;
+    border-radius: 15px;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.sidebar-my-account ul li:hover {
+    background-color: #f1f2f1;
+}
+
+.sidebar-my-account ul li.active {
+    padding: 10px;
+    font-weight: bold;
+    color: #51B541;
+    background-color: #c5efbe;
+    border-radius: 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.myaccount-content {
+    width: 50%;
+    background-color: #f7f7f7; /* A bit dark white */
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adding shadow to the right container */
+    border-radius: 8px;
+    margin-left: 8%; /* Adding margin to create space around the form */
+    overflow-y: auto; /* Allows scrolling if content goes beyond the full height of the page */
+}
+
+.content-section-ma {
+    padding: 20px;
+}
+
+.content-section-ma h2 {
+    margin-top: 0;
+}
+
+.content-section-ma h3 {
+    margin-top: 20px;
+}
+
+.content-section-ma form {
+    display: flex;
+    flex-direction: column;
+}
+
+.content-section-ma form label {
+    margin-bottom: 10px;
+}
+
+.content-section-ma form input {
+    padding: 8px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* .button {
+    padding: 10px 20px;
+    background-color: #0377A8;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+} */
