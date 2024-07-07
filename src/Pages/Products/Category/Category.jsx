@@ -20,7 +20,7 @@ const Category = ({ customerId: propCustomerId, selectedBranchId: propBranchId }
         const fetchCategory = async () => {
             try {
                 const branchName = localStorage.getItem('selectedBranch');
-                const response = await axios.get('http://localhost:3000/products-by-category-and-branch', {
+                const response = await axios.get('http://localhost:8080/products-by-category-and-branch', {
                     params: {
                         categoryId: categoryId,
                         branchName: branchName

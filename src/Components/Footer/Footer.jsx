@@ -42,13 +42,15 @@ const Footer = () => {
                 <p>My Account</p>
               </Link>
             ) : (
-              <Link to="/login">
-                <p>Login</p>
-              </Link>
+              <>
+                <Link to="/login">
+                  <p>Login</p>
+                </Link>
+                <Link to="/signup">
+                  <p>Register</p>
+                </Link>
+              </>
             )}
-            <Link to="/signup">
-              <p>Register</p>
-            </Link>
           </div>
 
           <div className="footer-links-div">
