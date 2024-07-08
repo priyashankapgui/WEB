@@ -11,6 +11,7 @@ import Paper from '@mui/material/Paper';
 import { TiDelete } from "react-icons/ti";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
+import CircularProgress from '@mui/material/CircularProgress'; // Import CircularProgress for spinner
 import Layout from '../../Components/Layout/Layout';
 import { loadStripe } from "@stripe/stripe-js";
 import axios from 'axios';
@@ -18,6 +19,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import secureLocalStorage from 'react-secure-storage';
 import TermsConditions from "../../Components/Terms&Conditions/Terms&Conditions";
 import { getCartItemsByCartId, updateCartItem, deleteCartItem } from '../../Api/CartApi/CartApi'
+import MainSpiner from "../../Components/Spiner/MainSpiner/MainSpiner";
 
 const style = { color: "red", fontSize: "1.8em", cursor: "pointer" };
 
@@ -97,6 +99,8 @@ export default function Cart() {
   const [cartId, setCartId] = useState('');
   const [isTermsAccepted, setIsTermsAccepted] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
+  const [cartCount, setcartCount] = useState(0); 
+  const [loading, setLoading] = useState(true); // Add loading state
 
   useEffect(() => {
     if (!customerId) {
@@ -128,6 +132,8 @@ export default function Cart() {
       } catch (error) {
         console.error('Failed to fetch cart items:', error);
         setAlertMessage('Failed to fetch cart items.');
+      } finally {
+        setLoading(false); // Set loading to false once data is fetched
       }
     };
 
@@ -170,6 +176,9 @@ export default function Cart() {
       console.error('Error updating cart item quantity:', error);
     }
   };
+  if (loading) {
+    return <p><MainSpiner/></p>; 
+  }
 
   const handleDecrement = async (index) => {
     const updatedRows = [...rows];
@@ -203,19 +212,6 @@ export default function Cart() {
     }
   };
 
-  // const handleCheckout = async () => {
-  //   try {
-  //     const response = await axios.post('http://localhost:8080/create-checkout-session', {
-  //       items: rows
-  //     });
-
-  //     const { sessionId } = response.data;
-  //     const stripe = await stripePromise;
-  //     await stripe.redirectToCheckout({ sessionId });
-  //   } catch (error) {
-  //     console.error('Error during checkout:', error);
-  //   }
-  // };
   const handleCheckout = async () => {
     try {
       const response = await axios.post('http://localhost:8080/create-checkout-session', {
@@ -252,41 +248,47 @@ export default function Cart() {
   return (
     <>
       <Layout>
-        <div className="CartContainer">
-          {alertMessage && <div className="alert">{alertMessage}</div>}
-          <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 700, '& .MuiTableCell-sizeMedium': { padding: '20px 16px' } }} aria-label="customized table">
-              <TableHead>
-                <TableRow>
-                  <StyledTableCell>{ }</StyledTableCell>
-                  <StyledTableCell>Product</StyledTableCell>
-                  <StyledTableCell align="right">Price</StyledTableCell>
-                  <StyledTableCell align="right">Quantity</StyledTableCell>
-                  <StyledTableCell align="right">Subtotal</StyledTableCell>
-                  <StyledTableCell align="right">Discount</StyledTableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {rows.map((item, index) => (
-                  <StyledTableRow key={item.productId}>
-                    <StyledTableCell>
-                      <TiDelete style={style} onClick={() => handleDelete(index)} />
-                    </StyledTableCell>
-                    <StyledTableCell component="th" scope="row">{item.product.productName}</StyledTableCell>
-                    <StyledTableCell align="right">{'Rs.' + item.sellingPrice.toFixed(2)}</StyledTableCell>
-                    <StyledTableCell align="right">
-                      <button style={buttonStyle} onClick={() => handleDecrement(index)}>-</button>
-                      <label style={qty} htmlFor="qty">{item.quantity}</label>
-                      <button style={buttonStyle} onClick={() => handleIncrement(index)}>+</button>
-                    </StyledTableCell>
-                    <StyledTableCell align="right">{'Rs.' + (item.sellingPrice * item.quantity).toFixed(2)}</StyledTableCell>
-                    <StyledTableCell align="right">{item.discount + '%'}</StyledTableCell>
-                  </StyledTableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </div>
+        {loading ? ( // Conditionally render the spinner
+          <div className="spinnerContainer">
+            <CircularProgress />
+          </div>
+        ) : (
+          <div className="CartContainer">
+            {alertMessage && <div className="alert">{alertMessage}</div>}
+            <TableContainer component={Paper}>
+              <Table sx={{ minWidth: 700, '& .MuiTableCell-sizeMedium': { padding: '20px 16px' } }} aria-label="customized table">
+                <TableHead>
+                  <TableRow>
+                    <StyledTableCell>{ }</StyledTableCell>
+                    <StyledTableCell>Product</StyledTableCell>
+                    <StyledTableCell align="right">Price</StyledTableCell>
+                    <StyledTableCell align="right">Quantity</StyledTableCell>
+                    <StyledTableCell align="right">Subtotal</StyledTableCell>
+                    <StyledTableCell align="right">Discount</StyledTableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {rows.map((item, index) => (
+                    <StyledTableRow key={item.productId}>
+                      <StyledTableCell>
+                        <TiDelete style={style} onClick={() => handleDelete(index)} />
+                      </StyledTableCell>
+                      <StyledTableCell component="th" scope="row">{item.product.productName}</StyledTableCell>
+                      <StyledTableCell align="right">{'Rs.' + item.sellingPrice.toFixed(2)}</StyledTableCell>
+                      <StyledTableCell align="right">
+                        <button style={buttonStyle} onClick={() => handleDecrement(index)}>-</button>
+                        <label style={qty} htmlFor="qty">{item.quantity}</label>
+                        <button style={buttonStyle} onClick={() => handleIncrement(index)}>+</button>
+                      </StyledTableCell>
+                      <StyledTableCell align="right">{'Rs.' + (item.sellingPrice * item.quantity).toFixed(2)}</StyledTableCell>
+                      <StyledTableCell align="right">{item.discount + '%'}</StyledTableCell>
+                    </StyledTableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </div>
+        )}
         <Button
           style={returnButton}
           onClick={() => {

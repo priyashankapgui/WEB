@@ -5,6 +5,7 @@ import { Box } from '@mui/material';
 import ItemCard from "../../../Components/Card/Card";
 import axios from "axios";
 import { useParams } from 'react-router-dom';
+import { margin } from '@mui/system';
 
 const boxStyle = {
   width: '1180px',
@@ -15,6 +16,7 @@ const boxStyle = {
   border: '1px solid rgba(0, 0, 0, 0.1)', 
   display: 'flex',
   flexDirection: 'row',
+  marginTop:'11.25em'
 };
 
 const innerBoxStyle = {
@@ -23,6 +25,7 @@ const innerBoxStyle = {
   justifyContent: 'center',
   alignItems: 'center',
   borderRight: '1px solid rgba(0, 0, 0, 0.1)',
+  height: '530px',
 };
 
 const innerBoxStyleLast = {
@@ -54,7 +57,6 @@ const SingleProduct = () => {
 
   const handleAddToCart = async (item) => {
     try {
-      // Implement your add to cart logic
     } catch (error) {
       console.error('Failed to add to cart:', error);
     }
@@ -70,7 +72,7 @@ const SingleProduct = () => {
   };
 
   if (!product) {
-    return null; // You can render a loading spinner or message while waiting for product data
+    return null;
   }
 
   return (
@@ -86,7 +88,7 @@ const SingleProduct = () => {
               LableProductName={product.productName}
               LabelProductWeight='500g'
               productLable={product.categoryName}
-              quarterLabel={product.discount ? `${product.discount}%` : 'No Discount'}
+              quarterLabel={product.discount ? `${product.discount}%` : '0%'}
               showButton={true}
               showRating={true}
               showQuarter={true}

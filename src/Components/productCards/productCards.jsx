@@ -63,6 +63,8 @@ const ProductCards = ({ items, customerId: propCustomerId, selectedBranchId: pro
         quantity: 1,
         discount: item.discount,
       });
+      console.log(response.data.totalProductCount);
+      localStorage.setItem("ProductCount",response.data.totalProductCount);
 
       setAlertMessage('Item added to cart!');
       setAlertVisible(true);
