@@ -40,10 +40,10 @@ export default function About() {
       <Body>
         <div className="aboutContent">
           <div className="aboutImage">
-            <img
-              src={AboutImage}
-              alt="About"
-            />
+          <img
+                  src={`https://flexflowstorage01.blob.core.windows.net/webimage/aboutimages(${0}).png`}
+                  alt="logo"
+                />
           </div>
           <div className="aboutPhara">
             {about.map((item, index) => (
