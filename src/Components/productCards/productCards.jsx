@@ -1,3 +1,4 @@
+// ProductCards.jsx
 import React, { useState, useEffect } from "react";
 import Slider from "react-slick";
 import ItemCard from "../Card/Card";
@@ -6,6 +7,7 @@ import "slick-carousel/slick/slick-theme.css";
 import axios from 'axios';
 import ConnectionWarning from '../Alerts/ConnectionWarning';
 import secureLocalStorage from 'react-secure-storage';
+import ReviewForm from "../ReviewForm/ReviewForm";
 
 const ProductCards = ({ items, customerId: propCustomerId, selectedBranchId: propBranchId }) => {
   const [alertMessage, setAlertMessage] = useState("");
@@ -48,11 +50,11 @@ const ProductCards = ({ items, customerId: propCustomerId, selectedBranchId: pro
     try {
       // Save item in backend
       const response = await axios.post('http://localhost:8080/cart-items/add', {
-        customerId, // Using the customerId from state
+        customerId,
         productId: item.productId,
         productName: item.productName,
         batchNo: item.batchNo,
-        branchId: selectedBranchId,  // Send branchId from state
+        branchId: selectedBranchId,
         sellingPrice: item.sellingPrice,
         quantity: 1,
         discount: item.discount,
@@ -140,6 +142,7 @@ const ProductCards = ({ items, customerId: propCustomerId, selectedBranchId: pro
             }}
             buttonLabel="Add to Cart"
             onAddToCart={() => handleAddToCart(item)}
+            productId={item.productId}
             viewItemLink={`single-product/${item.productId}`}
             lableViewItem={'View Item...'} 
           />

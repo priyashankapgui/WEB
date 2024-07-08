@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
-import CustomRating from "../CustomRating/CustomRating";
 import Buttons from "../Button/Buttons";
 import InputLabel from "../InputLable/InputLable";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import ReviewForm from "../ReviewForm/ReviewForm"; 
 
 const HoverCard = styled(Card)`
   position: relative;
@@ -50,7 +50,8 @@ export default function ItemCard({
   hoverColor,
   onAddToCart,
   viewItemLink,
-  lableViewItem // New prop for the view item link
+  lableViewItem,
+  productId 
 }) {
   const [value, setValue] = useState(1);
 
@@ -155,12 +156,7 @@ export default function ItemCard({
         </InputLabel>
 
         {showRating && (
-          <CustomRating
-            value={value}
-            onChange={handleChange}
-            legend="reviews :"
-            sx={{ fontSize: "5px", paddingBottom: "2vh" }}
-          />
+          <ReviewForm productId={productId} /> 
         )}
 
         {showButton && (
