@@ -1,0 +1,15 @@
+.Category-title {
+    display: flex;
+    padding-top: 8vh;
+    align-items: flex-end;
+    width: 100%;
+  }
+
+ 
+
+  .CategoryPageProducts{
+    padding-top: 8vh;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3vw;
+  }

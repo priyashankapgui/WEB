@@ -15,7 +15,7 @@ import ResetPw from "./Pages/Login/ResetPw/ResetPw";
 import MyAccount from "./Pages/MyAccount/MyAccount";
 import Bill from "./Pages/Ebill/Ebill";
 import SingleProduct from "./Pages/Products/SingleProduct/SingleProduct";
-import UseAuth from "./Components/UseAuth/UseAuth";
+import Category from "./Pages/Products/Category/Category";
 
 const createRoutes = () => (
   <Routes>
@@ -33,6 +33,7 @@ const createRoutes = () => (
     <Route path="/bill/:onlineBillNo" element={<Bill />} />
     <Route path="/single-product/:productId" element={<SingleProduct />} />
     <Route path="/all-product" element={<AllProducts />} />
+    <Route path="/category/:categoryId" element={<Category />} />
     <Route path="/my-account" element={<MyAccount />} />
   </Routes>
 );

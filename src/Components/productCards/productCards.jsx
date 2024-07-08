@@ -1,3 +1,4 @@
+// ProductCards.jsx
 import React, { useState, useEffect } from "react";
 import Slider from "react-slick";
 import ItemCard from "../Card/Card";
@@ -6,6 +7,7 @@ import "slick-carousel/slick/slick-theme.css";
 import axios from 'axios';
 import ConnectionWarning from '../Alerts/ConnectionWarning';
 import secureLocalStorage from 'react-secure-storage';
+import ReviewForm from "../ReviewForm/ReviewForm";
 
 const ProductCards = ({ items, customerId: propCustomerId, selectedBranchId: propBranchId }) => {
   const [alertMessage, setAlertMessage] = useState("");
@@ -18,7 +20,6 @@ const ProductCards = ({ items, customerId: propCustomerId, selectedBranchId: pro
 
       if (user && user.customerId) {
         setCustomerId(user.customerId);
-        console.log("userid",customerId)
       } else {
         setAlertMessage("Customer ID not found. Please log in again.");
       }
@@ -48,15 +49,14 @@ const ProductCards = ({ items, customerId: propCustomerId, selectedBranchId: pro
     try {
       // Save item in backend
       const response = await axios.post('http://localhost:8080/cart-items/add', {
-        customerId, // Using the customerId from state
+        customerId,
         productId: item.productId,
         productName: item.productName,
         batchNo: item.batchNo,
-        branchId: selectedBranchId,  // Send branchId from state
+        branchId: selectedBranchId,
         sellingPrice: item.sellingPrice,
         quantity: 1,
         discount: item.discount,
-        customerId:customerId
       });
 
       // Show alert on success
@@ -122,7 +122,7 @@ const ProductCards = ({ items, customerId: propCustomerId, selectedBranchId: pro
       <ConnectionWarning message={alertMessage} />
       <Slider {...settings} style={{ paddingTop: "1%" }}>
         {items.map((item) => (
-          <div style={{ margin: "0 9px" }} key={item.productId}>
+          <div key={item.productId}>
             <ItemCard
               LablePrice={item.sellingPrice ? formatPrice(item.sellingPrice) : "LKR 000.00"}
               LableProductName={item.productName}
@@ -140,6 +140,7 @@ const ProductCards = ({ items, customerId: propCustomerId, selectedBranchId: pro
               }}
               buttonLabel="Add to Cart"
               onAddToCart={() => handleAddToCart(item)}
+              productId={item.productId} // Pass productId to ItemCard
             />
           </div>
         ))}

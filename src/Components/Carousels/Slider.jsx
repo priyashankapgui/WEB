@@ -4,6 +4,7 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import "./Slider.css";
 // import items from "../../data/items.json";
 
+
 export default function Slider() {
 
   const items = [0,1,2,3,4];
@@ -22,7 +23,7 @@ export default function Slider() {
             <img
               src={`https://flexflowstorage01.blob.core.windows.net/webimage/carosel(${item}).png`}
               height="650px"
-              width="500px"
+              width="100%"
               alt={`img${item.id}`}
             />
           </div>

@@ -11,46 +11,36 @@ import ProductCards from "../../../Components/productCards/productCards";
 
 export default function Products() {
   const [loading, setLoading] = useState(true);
-  const [discountedProducts, setDiscountedProducts] = useState([]);
+  const [items, setItems] = useState([]);
 
   // Fetch products with discounts
-  const fetchProductsPageDiscuntItems = async () => {
-    try {
-      setLoading(true);
-
-      const [productResponse, priceResponse, discountResponse] = await Promise.all([
-        axios.get('http://localhost:8080/products'),
-        axios.get('http://localhost:8080/product-batch-sum'),
-        axios.get('http://localhost:8080/product-batch-sum'),
-      ]);
-
-      const productData = productResponse.data.data;
-      const priceData = priceResponse.data;
-      const discountData = discountResponse.data;
-
-      const combinedData = productData.map(item => {
-        const price = priceData.find(priceItem => priceItem.productId === item.productId);
-        const discount = discountData.find(discountItem => discountItem.productId === item.productId);
-        return {
-          ...item,
-          sellingPrice: price ? price.sellingPrice : null,
-          discount: discount ? discount.discount : null
-        };
-      });
-
-      const discountedProducts = combinedData.filter(item => item.discount !== null);
-
-      setDiscountedProducts(discountedProducts);
-      setLoading(false);
-    } catch (error) {
-      console.error('Failed to fetch data:', error);
-      setLoading(false);
-    }
-  };
-
   useEffect(() => {
-    fetchProductsPageDiscuntItems();
+    const fetchProductPageItems = async () => {
+      try {
+        const branchName = localStorage.getItem('selectedBranch');
+      
+        const response = await axios.get(
+          `http://localhost:8080/product-branch?branchName=${branchName}`
+        );
+        console.log("response", response);
+        
+        // Filter items with discounts greater than 0
+        const itemsWithDiscounts = response.data.filter(item => item.discount > 0);
+        
+        setItems(itemsWithDiscounts); // Assuming the response data is an array of items
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        setLoading(false);
+      }
+    };
+    
+
+    fetchProductPageItems();
+
   }, []);
+
+
 
   return (
     <Layout>
@@ -70,7 +60,7 @@ export default function Products() {
             <Link to="/all-product" className="products_ViewAll">View All..</Link>
           </div>
           <div className="itemsCardsProducts">
-            <ProductCards items={discountedProducts} />
+          <ProductCards items={items} />
           </div>
 
           <div className="Products-title">
@@ -86,9 +76,7 @@ export default function Products() {
             </InputLabel>
             <Link to="/productsall" className="products_ViewAll">View All..</Link>
           </div>
-          {/* <div className="itemsCardsProducts">
-            <ProductCards items={discountedProducts} />
-          </div> */}
+          <ProductCards items={items} />
         </div>
       </Body>
     </Layout>
