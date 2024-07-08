@@ -95,6 +95,8 @@ const Category = ({ customerId: propCustomerId, selectedBranchId: propBranchId }
                                             }}
                                             buttonLabel="Add to Cart"
                                             onAddToCart={() => handleAddToCart(item)}
+                                            viewItemLink={`single-product/${item.productId}`}
+                                            lableViewItem={'View Item...'}
                                         />
                                    
                                 ))

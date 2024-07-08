@@ -102,6 +102,8 @@ const formatPrice = (price) => {
                                             }}
                                             buttonLabel="Add to Cart"
                                             onAddToCart={() => handleAddToCart(item)}
+                                            viewItemLink={`single-product/${item.productId}`}
+                                            lableViewItem={'View Item...'}
                                         />
                                    
                                 ))

@@ -103,6 +103,8 @@ export default function NewProducts({ customerId: propCustomerId, selectedBranch
                                                 }}
                                                 buttonLabel="Add to Cart"
                                                 onAddToCart={() => handleAddToCart(item)}
+                                                viewItemLink={`single-product/${item.productId}`}
+                                               lableViewItem={'View Item...'}
                                             />
                                        
                                     ))
