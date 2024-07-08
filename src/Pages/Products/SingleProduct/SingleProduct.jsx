@@ -5,8 +5,6 @@ import { Box } from '@mui/material';
 import ItemCard from "../../../Components/Card/Card";
 import axios from "axios";
 import { useParams } from 'react-router-dom';
-import { size } from 'lodash';
-import { fontSize, style, width } from '@mui/system';
 
 const boxStyle = {
   width: '1180px',
@@ -17,7 +15,7 @@ const boxStyle = {
   border: '1px solid rgba(0, 0, 0, 0.1)', 
   display: 'flex',
   flexDirection: 'row',
-  marginTop:'11.25em'
+  marginTop: '11.25em'
 };
 
 const innerBoxStyle = {
@@ -40,25 +38,39 @@ const innerBoxStyleLast = {
 
 const SingleProduct = () => {
   const { productId } = useParams();
-  const [product, setProduct] = useState(null);
+  const [items, setItems] = useState([]); // State to store items array
+  const [loading, setLoading] = useState(true); // Loading state
 
   useEffect(() => {
-    const fetchProduct = async () => {
+    const fetchHomePageItems = async () => {
       try {
-        const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/products/${productId}`);
-        const { data } = response.data; 
-        console.log("p1",response);
-        setProduct(data);
+        const branchName = localStorage.getItem('selectedBranch');
+        const response = await axios.get(
+          `${process.env.REACT_APP_API_BASE_URL}/product-branch?branchName=${branchName}`
+        );
+        console.log("response", response);
+        setItems(response.data); // Assuming response.data is an array of items
+        setLoading(false);
       } catch (error) {
-        console.error('Error fetching product:', error);
+        console.error("Error fetching data:", error);
+        setLoading(false);
       }
     };
 
-    fetchProduct();
-  }, [productId]);
+    fetchHomePageItems();
+
+  }, []);
+
+  // Function to find item by productId
+  const findItemByProductId = (productId) => {
+    return items.find(item => item.productId === productId);
+  };
+
+  const product = findItemByProductId(productId);
 
   const handleAddToCart = async (item) => {
     try {
+      // Add logic to handle adding item to cart
     } catch (error) {
       console.error('Failed to add to cart:', error);
     }
@@ -73,8 +85,8 @@ const SingleProduct = () => {
     }).format(price);
   };
 
-  if (!product) {
-    return null;
+  if (!product || loading) {
+    return null; // You can render a loading indicator here if needed
   }
 
   return (
@@ -86,10 +98,10 @@ const SingleProduct = () => {
           </div>
           <div style={innerBoxStyleLast}>
             <ItemCard
-            className="singleproductCard"
-             LablePrice={product.sellingPrice ? formatPrice(product.sellingPrice) : 'LKR 000.00'}
+              className="singleproductCard"
+              LablePrice={product.sellingPrice ? formatPrice(product.sellingPrice) : 'LKR 000.00'}
               LableProductName={product.productName}
-              quarterLabel={product.discount ? `${product.discount}%` : 'No Discount'}
+              quarterLabel={product.discount ? `${product.discount}%` : '0%'}
               showButton={true}
               showRating={true}
               showQuarter={true}
@@ -101,7 +113,6 @@ const SingleProduct = () => {
                 btnWidth: '10em',
                 alignSelf: 'center',
                 style: { backgroundColor: '#2EB072', color: '#EBEBEB' },
-                
               }}
               buttonLabel='Add to Cart'
               onAddToCart={() => handleAddToCart(product)}
@@ -112,16 +123,7 @@ const SingleProduct = () => {
                 flexDirection: 'column',
                 justifyContent: 'center',
                 fontSize: '1.5em',
-
-                
               }}
-
-              quarterCircleProps={{
-                
-
-                
-              
-               } }
               showImage={false}
             />
           </div>
