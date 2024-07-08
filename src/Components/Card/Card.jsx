@@ -5,7 +5,8 @@ import CardContent from "@mui/material/CardContent";
 import Buttons from "../Button/Buttons";
 import InputLabel from "../InputLable/InputLable";
 import styled from "styled-components";
-import ReviewForm from "../ReviewForm/ReviewForm"; // Import your ReviewForm component
+import { Link } from "react-router-dom";
+import ReviewForm from "../ReviewForm/ReviewForm"; 
 
 const HoverCard = styled(Card)`
   position: relative;
@@ -14,7 +15,7 @@ const HoverCard = styled(Card)`
   &:hover {
     transform: scale(1.05);
     background-color: ${(props) =>
-      props.hoverColor || "none"}; 
+      props.hoverColor || "none"};
 `;
 
 const QuarterCircle = styled.div`
@@ -47,8 +48,10 @@ export default function ItemCard({
   showQuarter = true,
   quarterCircleProps,
   hoverColor,
-  onAddToCart, // Receive the function as a prop
-  productId // Define the productId prop here
+  onAddToCart,
+  viewItemLink,
+  lableViewItem,
+  productId 
 }) {
   const [value, setValue] = useState(1);
 
@@ -77,7 +80,6 @@ export default function ItemCard({
         width={imageWidth}
         height={imageHeight}
       />
-
       {showQuarter && (
         <QuarterCircle {...quarterCircleProps}>
           <InputLabel
@@ -162,7 +164,25 @@ export default function ItemCard({
             {buttonLabel}
           </Buttons>
         )}
+        {viewItemLink && (
+          <Link to={viewItemLink}>
+            {/* <Buttons>View Item</Buttons> */}
+            <InputLabel
+          htmlFor="example"
+          color="black"
+          fontFamily="Poppins"
+          fontSize="0.8em"
+          fontWeight={200}
+          lineHeight="1.5"
+          marginTop="10px"
+          marginBottom="20px"
+        >
+          {lableViewItem}
+        </InputLabel>
+          </Link>
+        )}
       </CardContent>
     </HoverCard>
   );
 }
+  
