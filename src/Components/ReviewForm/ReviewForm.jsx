@@ -4,17 +4,35 @@ import Box from '@mui/material/Box';
 import Rating from '@mui/material/Rating';
 import axios from 'axios';
 import InputLabel from '../InputLable/InputLable';
+import Body from '../Body/Body';
 
-export default function ReviewForm({ productId, onReviewSubmitted }) {
+export default function ReviewForm({ productId }) {
   const [value, setValue] = useState(0);
   const [averageRating, setAverageRating] = useState(null);
 
+  const fetchAverageRating = async () => {
 
+    try {
+      const response = await axios.post(`http://localhost:8080/review/product`,{productId : productId});
+      console.log("This",response);
+      setAverageRating(response.data[0].averageRating);
+    } catch (error) {
+      console.error('Failed to fetch average rating:', error);
+    }
+  };
+
+
+  useEffect(() => {
+    console.log("pd",productId);
+   
+
+    fetchAverageRating();
+  }, [productId]);
   
 
   const handleSubmit = async (newValue) => {
     let requestBody;
-
+    console.log(newValue);
     switch (newValue) {
       case 1:
         requestBody = { productId, oneStar: 1 };
@@ -37,10 +55,9 @@ export default function ReviewForm({ productId, onReviewSubmitted }) {
 
     try {
       await axios.put(`http://localhost:8080/review/add`, requestBody);
-      if (onReviewSubmitted) {
-        onReviewSubmitted(newValue);
-      }
-  
+
+      fetchAverageRating();
+      
     } catch (error) {
       console.error('Failed to submit review:', error);
     }
@@ -52,12 +69,12 @@ export default function ReviewForm({ productId, onReviewSubmitted }) {
         color="black"
         fontFamily="Poppins"
         fontSize="2vh"
-        fontWeight={400}
+        fontWeight={300}
         lineHeight="2"
         marginTop="2vh"
         marginBottom="20px"
       >
-         review: {}
+        review : {averageRating !== null ? averageRating.toFixed(1) : 'Loading...'}
       </InputLabel>
       <Rating
         name="custom-rating"
@@ -73,5 +90,5 @@ export default function ReviewForm({ productId, onReviewSubmitted }) {
 
 ReviewForm.propTypes = {
   productId: PropTypes.string.isRequired,
-  onReviewSubmitted: PropTypes.func,
+
 };
