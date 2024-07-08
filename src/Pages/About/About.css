@@ -13,7 +13,9 @@
 
 }
 .aboutParagraph{
-text-align: justify;
+text-align: left;
+
+
 }
 
 .aboutImage img {
@@ -26,7 +28,8 @@ text-align: justify;
 .aboutPhara p {
   font-size: 1.1rem;
   line-height: 2.5rem;
-  color: #333;
-  font-weight: 400;
+ 
+color: rgb(2, 64, 2);
+  font-weight: 500;
   margin-bottom: 2rem;
 }
