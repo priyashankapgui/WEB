@@ -1,30 +1,32 @@
 .aboutContent {
-    display: flex;
-   align-items: center;
-   gap: 5vw;
+  display: flex;
+  align-items: center;
+  gap: 5vw;
+  margin-top: 13.25em;
 
-  }
+}
 
 .aboutPhara {
- max-width: 40%;
- text-align: left;
- 
+  max-width: 40%;
+  text-align: left;
 
+
+}
+.aboutParagraph{
+text-align: justify;
 }
 
 .aboutImage img {
-    width: 90%; 
-    max-width: 800px; 
-    height: auto; 
-  }
-  
-
-.aboutPhara p{
-    font-size: 1.1rem;
-    line-height: 2.5rem;
-    color: #333;
-    font-weight: 400;
-    margin-bottom: 2rem;
+  width: 90%;
+  max-width: 800px;
+  height: auto;
 }
 
-  
+
+.aboutPhara p {
+  font-size: 1.1rem;
+  line-height: 2.5rem;
+  color: #333;
+  font-weight: 400;
+  margin-bottom: 2rem;
+}

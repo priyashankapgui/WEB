@@ -13,9 +13,6 @@ import { useAuth } from '../../Components/UseAuth/UseAuth';
 import { customerUpdate, customerUpdatePassword } from '../../Api/MyAccountAPI/MyAccountAPI';
 import Orders from '../../Components/Orders/Orders';
 
-
-
-
 const MyAccount = () => {
     const isLoggedIn = useAuth();
     const [activeTab, setActiveTab] = useState('myDetails');
@@ -409,7 +406,7 @@ const MyAccount = () => {
                                 ) : (
                                     <Buttons
                                     style= {{
-                                        backgroundColor: "#51B541",
+                                        backgroundColor: "#df3e0d",
                                         color: "#f7f7f7",
                                     }}
                                     onClick={handleLogout}

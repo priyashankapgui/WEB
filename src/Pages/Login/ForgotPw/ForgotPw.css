@@ -38,3 +38,9 @@
     font-size: 0.8rem;
     margin-top: 2rem;
   }
+
+  .backtologin:hover{
+    color: rgb(11, 155, 40);
+    font-weight: 500;
+    text-decoration: underline;
+  }

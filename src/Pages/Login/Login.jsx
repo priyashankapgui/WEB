@@ -1,13 +1,14 @@
-import React, { useState} from "react";
+import React, { useState } from "react";
 import "./Login.css";
 import { Link } from "react-router-dom";
-import greenmart from "../../Assets/Green Leaf Super.png";
+import greenmart from "../../Assets/greenleafBillLogo.svg";
 import InputField from "../../Components/InputField/InputField";
-import { FaRegEye, FaRegUserCircle,FaEyeSlash} from "react-icons/fa";
+import { FaRegEye, FaRegUserCircle, FaEyeSlash } from "react-icons/fa";
 import Buttons from "../../Components/Button/Button";
 import LoaderComponent from "../../Components/Spiner/HashLoader/HashLoader";
 import secureLocalStorage from "react-secure-storage";
 import { loginCustomer } from "../../Api/LoginApi/LoginApi";
+import SquareButton from "../../Components/Button/SquareButton";
 
 export default function Login(props) {
   const [email, setEmail] = useState("");
@@ -30,35 +31,33 @@ export default function Login(props) {
     setShowPassword(!showPassword);
   };
 
-  const handleLogin = async(e) => {
-    try{
-        e.preventDefault();
-        setLoading(true);
-        const response = await loginCustomer(email, password);
-        console.log(response);
-        if (response.status === 200){
-          const data = await response.data;
-          console.log("Success:", data);
-          secureLocalStorage.setItem("accessToken", data.token);
-          secureLocalStorage.setItem("user", data.user);
-          window.location.href = '/';
-        }
-        else {
-          //login failed
-          const data = await response.data;
-          console.log("Error:", data.message);
-          setError(data.message);
-          setLoading(false);
-        }
-      }catch(error){
-        setError(error.message);
+  const handleLogin = async (e) => {
+    try {
+      e.preventDefault();
+      setLoading(true);
+      const response = await loginCustomer(email, password);
+      console.log(response);
+      if (response.status === 200) {
+        const data = await response.data;
+        console.log("Success:", data);
+        secureLocalStorage.setItem("accessToken", data.token);
+        secureLocalStorage.setItem("user", data.user);
+        window.location.href = '/';
+      }
+      else {
+        //login failed
+        const data = await response.data;
+        console.log("Error:", data.message);
+        setError(data.message);
         setLoading(false);
       }
-    
-  
+    } catch (error) {
+      setError(error.message);
+      setLoading(false);
+    }
+
+
   };
-
-
 
   return (
     <div className="s-w-loginContainer">
@@ -76,12 +75,13 @@ export default function Login(props) {
               <InputField
                 id="email"
                 name="email"
+                width="100%"
                 type="email"
                 placeholder="Email"
                 onChange={handleEmailChange}
                 editable={true}
                 required>
-              <FaRegUserCircle/>
+                <FaRegUserCircle />
               </InputField>
 
             </div>
@@ -96,47 +96,47 @@ export default function Login(props) {
                 required>
 
                 {showPassword ? (
-                    <FaRegEye
-                      onClick={toggleShowPassword}
-                      style={{ cursor: "pointer" }}
-                    />
-                  ) : (
-                    <FaEyeSlash
-                      onClick={toggleShowPassword}
-                      style={{ cursor: "pointer" }}
-                    />
-                  )}
+                  <FaRegEye
+                    onClick={toggleShowPassword}
+                    style={{ cursor: "pointer" }}
+                  />
+                ) : (
+                  <FaEyeSlash
+                    onClick={toggleShowPassword}
+                    style={{ cursor: "pointer" }}
+                  />
+                )}
               </InputField>
-
-              
             </div>
-              {error && <p className="login-error">{error}</p>}
+            {loading ? (
+              <div className='loading-container'>
+                <LoaderComponent size={50} />
+              </div>
+            ) : (
+              <SquareButton type="submit"
+                id="s-w-loginButton"
+                className="signin-btn"
+                style={{ backgroundColor: "green", color: "white" }}
+                btnHeight="45px"
+                btnWidth="342px"
+                fontSize="18px"
+                marginTop="2px">
+                Login
+              </SquareButton>
+            )}
+            {error && <p className="login-error">{error}</p>}
             <div className="s-w-forgotpw">
               <Link to="/login/forgotpw">Forgot Password?</Link>
             </div>
             <div className="s-w-Lsignup">
               Don't have an account? <Link to="/signup">Sign Up</Link>
             </div>
-            {loading ? (
-                <div className='loading-container'>
-                    <LoaderComponent size={50} />
-                </div>
-            ) : (
-                <Buttons
-                  className="s-w-loginButton"
-                  type="submit"
-                  id="submit"
-                  style={{ backgroundColor: "green", color: "white"}}
-                  $alignSelf="center"
-                >
-                  Login
-                </Buttons>
-            )}
           </form>
+          
           <div className="s-w-terms">
             <p>
-            &copy; 2022 Green Leaf Company. All rights reserved.
-            </p> 
+              &copy; 2024 Green Leaf Company. All rights reserved.
+            </p>
           </div>
 
         </div>
