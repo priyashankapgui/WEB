@@ -17,22 +17,23 @@ export default function ProductsAll({ customerId: propCustomerId, selectedBranch
   const [customerId, setCustomerId] = useState(propCustomerId || null);
   const [selectedBranchId, setSelectedBranchId] = useState(propBranchId || null);
   const [loading, setLoading] = useState(true);
-  
-  
+  const[productId, setProductId] = useState(null);
+
+
   useEffect(() => {
     const fetchProductPageItems = async () => {
       try {
         const branchName = localStorage.getItem('selectedBranch');
       
         const response = await axios.get(
-          `http://localhost:8080/product-branch?branchName=${branchName}`
+          `${process.env.REACT_APP_API_BASE_URL}/product-branch?branchName=${branchName}`
         );
-        console.log("response", response);
-        
-        // Filter items with discounts greater than 0
+        console.log("rese", response);
+       
         const itemsWithDiscounts = response.data.filter(item => item.discount > 0);
         
-        setItems(itemsWithDiscounts); // Assuming the response data is an array of items
+        setItems(itemsWithDiscounts); 
+      
         setLoading(false);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -88,7 +89,8 @@ const formatPrice = (price) => {
                                             LableProductName={item.productName}
                                             quarterLabel={item.discount ? `${item.discount}%` : "0%"}
                                             image={item.image}
-                                            imageHeight="180vh"
+                                            imageHeight="150vh"
+                                            productId={item.productId}
                                             imageWidth="40vw"
                                             buttonProps={{
                                                 type: "submit",

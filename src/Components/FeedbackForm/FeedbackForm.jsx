@@ -24,7 +24,7 @@ export const FeedbackForm = () => {
   }, []);
 
   const fetchBranches = () => {
-    axios.get("http://localhost:8080/branchesWeb")
+    axios.get(`${process.env.REACT_APP_API_BASE_URL}/branchesWeb`)
       .then(response => {
         setBranches(response.data);
       })

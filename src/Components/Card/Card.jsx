@@ -46,6 +46,7 @@ export default function ItemCard({
   showButton = true,
   showRating = true,
   showQuarter = true,
+  showImage = true,
   quarterCircleProps,
   hoverColor,
   onAddToCart,
@@ -64,7 +65,7 @@ export default function ItemCard({
       sx={{
         position: "relative",
         width: "35vh",
-        height: "55vh",
+        height: "58vh",
         borderRadius: "8px",
         boxShadow: "0 9px 10px rgba(0,0,0,0.5)",
         textAlign: "center",
@@ -73,13 +74,15 @@ export default function ItemCard({
       }}
       hoverColor={hoverColor}
     >
+
+{showImage &&
       <CardMedia
         component="img"
         image={image}
         alt="Product"
         width={imageWidth}
         height={imageHeight}
-      />
+      />}
       {showQuarter && (
         <QuarterCircle {...quarterCircleProps}>
           <InputLabel
@@ -114,6 +117,7 @@ export default function ItemCard({
           justifyContent: "center",
           paddingTop: "0vh",
           paddingBottom: "0vh",
+    
         }}
       >
         <InputLabel
