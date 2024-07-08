@@ -253,7 +253,7 @@ const MyAccount = () => {
                         <h2>Account Settings</h2>
                         <h3>Change Password</h3>
                         <hr></hr>
-                        <form>
+                        <form className='password-form'>
                             <InputLable  htmlFor="password" color="#000">
                                 Current Password:
                             </InputLable>

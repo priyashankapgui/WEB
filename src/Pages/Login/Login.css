@@ -44,6 +44,7 @@
 .s-w-form {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 0.625em;
 }
 
@@ -56,7 +57,7 @@
 }
 
 .s-w-forgotpw :hover {
-  color: red;
+  color: rgb(0, 163, 79);
 }
 
 .s-w-Lsignup {
