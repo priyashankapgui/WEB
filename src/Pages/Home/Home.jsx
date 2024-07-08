@@ -56,10 +56,12 @@ export default function Home() {
         <MainSpiner />
       ) : (
         <Layout>
-          <Body>
-            <div>
+
+          <div>
               <Carousel />
             </div>
+          <Body>
+           
 
             <div className="title">
               <Square size={5} color="#62C96D" marginRight={2.5} />
