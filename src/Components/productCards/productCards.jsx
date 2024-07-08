@@ -5,24 +5,24 @@ import ItemCard from "../Card/Card";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import axios from 'axios';
-import ConnectionWarning from '../Alerts/ConnectionWarning';
 import secureLocalStorage from 'react-secure-storage';
-import ReviewForm from "../ReviewForm/ReviewForm";
+import CustomAlert from '../Alerts/CustomAlert/CustomAlert';
 
 const ProductCards = ({ items, customerId: propCustomerId, selectedBranchId: propBranchId }) => {
   const [alertMessage, setAlertMessage] = useState("");
+  const [alertVisible, setAlertVisible] = useState(false);
   const [customerId, setCustomerId] = useState(propCustomerId || null);
   const [selectedBranchId, setSelectedBranchId] = useState(propBranchId || null);
 
   useEffect(() => {
     if (!customerId) {
       const user = secureLocalStorage.getItem("user");
-
       if (user && user.customerId) {
         setCustomerId(user.customerId);
         console.log("userid", customerId);
       } else {
         setAlertMessage("Customer ID not found. Please log in again.");
+        setAlertVisible(true);
       }
     }
 
@@ -32,23 +32,25 @@ const ProductCards = ({ items, customerId: propCustomerId, selectedBranchId: pro
         setSelectedBranchId(branchId);
       } else {
         setAlertMessage("Selected branch ID not found. Please select a branch.");
+        setAlertVisible(true);
       }
     }
   }, [customerId, selectedBranchId]);
 
   const handleAddToCart = async (item) => {
     if (!customerId) {
-      setAlertMessage("Customer ID not found. Please log in again.");
+      setAlertMessage("To add products to cart, you have to login into our system.");
+      setAlertVisible(true);
       return;
     }
 
     if (!selectedBranchId) {
       setAlertMessage("Selected branch ID not found. Please select a branch.");
+      setAlertVisible(true);
       return;
     }
 
     try {
-      // Save item in backend
       const response = await axios.post('http://localhost:8080/cart-items/add', {
         customerId,
         productId: item.productId,
@@ -58,11 +60,10 @@ const ProductCards = ({ items, customerId: propCustomerId, selectedBranchId: pro
         sellingPrice: item.sellingPrice,
         quantity: 1,
         discount: item.discount,
-        customerId: customerId
       });
 
-      // Show alert on success
       setAlertMessage('Item added to cart!');
+      setAlertVisible(true);
     } catch (error) {
       console.error('Failed to add to cart:', error);
       if (error.response) {
@@ -71,6 +72,7 @@ const ProductCards = ({ items, customerId: propCustomerId, selectedBranchId: pro
       } else {
         setAlertMessage('Failed to add item to cart.');
       }
+      setAlertVisible(true);
     }
   };
 
@@ -121,7 +123,15 @@ const ProductCards = ({ items, customerId: propCustomerId, selectedBranchId: pro
 
   return (
     <div className="slider-container">
-      <ConnectionWarning message={alertMessage} />
+      {alertVisible && (
+        <CustomAlert
+          severity="success"
+          title="Notification"
+          message={alertMessage}
+          duration={4000}
+          onClose={() => setAlertVisible(false)}
+        />
+      )}
       <Slider {...settings} style={{ paddingTop: "1%" }}>
         {items.map((item) => (
           <ItemCard

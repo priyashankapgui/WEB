@@ -25,6 +25,7 @@ const TermsConditions = ({ onClose }) => {
                 <ul type='square'>
                     <li>Once an online order has been placed, it cannot be cancelled.</li>
                     <li>When you successfully place your order, you must pick it up within 12 hours.</li>
+                    <li>When you arrive to pick up your order, please bring the downloaded bill with you.</li>
                 </ul>
             </div>
 	    </div>

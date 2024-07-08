@@ -106,7 +106,7 @@ export default function Cart() {
         setCustomerId(user.customerId);
         setCartId(user.cartId); 
       } else {
-        setAlertMessage("Customer ID not found. Please log in again.");
+        // setAlertMessage("Customer ID not found. Please log in again.");
       }
     }
   }, [customerId]);
