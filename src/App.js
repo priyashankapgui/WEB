@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import './App.css';
-import { BrowserRouter as Router } from 'react-router-dom';
-import createRoutes from './routes';
+import "./App.css";
+import { BrowserRouter as Router } from "react-router-dom";
+import createRoutes from "./routes";
 
 function App() {
   const [cart, setCart] = useState([]);
@@ -23,9 +23,7 @@ function App() {
 
   return (
     <div>
-      <Router>
-        {createRoutes({ cart, addToCart })}
-      </Router>
+      <Router>{createRoutes({ cart, addToCart })}</Router>
     </div>
   );
 }

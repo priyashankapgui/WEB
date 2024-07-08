@@ -23,7 +23,7 @@ export default function OrderCard({ order }) {
         <p className="status">{order.status}</p>
       </div>
       <div className="col-2">
-        <p className="price">Rs. {order.onlineBillTotal.toLocaleString()}</p>
+        <p className="price">Rs. {order.onlineBillTotal?.toLocaleString()}</p>
         <p className="arrow">→</p>
       </div>
     </Link>

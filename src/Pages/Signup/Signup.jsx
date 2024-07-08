@@ -230,9 +230,6 @@ const Signup = () => {
                   shortScoreWord="should be atlest 8 characters long"
                 />
               )}
-
-            </div>
-            <div className="pasword-Section-signin-pass-confirm">
               <InputField
                 id="confirmpassword"
                 name="confirmpassword"

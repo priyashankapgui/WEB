@@ -65,6 +65,10 @@
     overflow-y: auto; /* Allows scrolling if content goes beyond the full height of the page */
 }
 
+.password-form {
+    width: fit-content;
+}
+
 .content-section-ma {
     padding: 20px;
 }

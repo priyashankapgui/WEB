@@ -16,6 +16,7 @@ import MyAccount from "./Pages/MyAccount/MyAccount";
 import Bill from "./Pages/Ebill/Ebill";
 import SingleProduct from "./Pages/Products/SingleProduct/SingleProduct";
 import Category from "./Pages/Products/Category/Category";
+import Newproducts from "./Pages/Products/ProductsAll/NewProducts"
 
 const createRoutes = () => (
   <Routes>
@@ -35,6 +36,7 @@ const createRoutes = () => (
     <Route path="/all-product" element={<AllProducts />} />
     <Route path="/category/:categoryId" element={<Category />} />
     <Route path="/my-account" element={<MyAccount />} />
+    <Route path="/new-products" element={<Newproducts />} />
   </Routes>
 );
 

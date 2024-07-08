@@ -20,7 +20,7 @@ export default function Products() {
         const branchName = localStorage.getItem('selectedBranch');
       
         const response = await axios.get(
-          `http://localhost:8080/product-branch?branchName=${branchName}`
+          `${process.env.REACT_APP_API_BASE_URL}/product-branch?branchName=${branchName}`
         );
         console.log("response", response);
         
@@ -84,7 +84,7 @@ export default function Products() {
             >
               New Arrival
             </InputLabel>
-            <Link to="/productsall" className="products_ViewAll">View All..</Link>
+            <Link to="/new-products" className="products_ViewAll">View All..</Link>
           </div>
           <ProductCards items={items} />
         </div>

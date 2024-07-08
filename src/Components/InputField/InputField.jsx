@@ -31,6 +31,7 @@ function InputField(props) {
         id={props.id}
         name={props.name}
         style={{
+          position: "relative",
           borderRadius: "0.625em",
           border: "1px solid #8d9093",
           height: "2.25em",
@@ -53,10 +54,10 @@ function InputField(props) {
       {props.children && (
         <span
           style={{
-            position: "relative",
-            top: "50%",
-            right: "0.625em",
-            transform: "translateX(-100%)",
+            position: "absolute",
+            top: "0%",
+            right: "0.6em",
+            height: "100%",
             display: "flex",
             alignItems: "center",
           }}
