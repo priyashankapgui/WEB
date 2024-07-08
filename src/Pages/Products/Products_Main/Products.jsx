@@ -74,7 +74,7 @@ export default function Products() {
             >
               New Arrival
             </InputLabel>
-            <Link to="/productsall" className="products_ViewAll">View All..</Link>
+            <Link to="/new-products" className="products_ViewAll">View All..</Link>
           </div>
           <ProductCards items={items} />
         </div>
