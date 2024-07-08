@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
-import CustomRating from "../CustomRating/CustomRating";
 import Buttons from "../Button/Buttons";
 import InputLabel from "../InputLable/InputLable";
 import styled from "styled-components";
+import ReviewForm from "../ReviewForm/ReviewForm"; // Import your ReviewForm component
 
 const HoverCard = styled(Card)`
   position: relative;
@@ -13,8 +13,8 @@ const HoverCard = styled(Card)`
 
   &:hover {
     transform: scale(1.05);
-    background-color: ${(props) =>
-      props.hoverColor || "none"}; 
+    background-color: ${(props) => props.hoverColor || "none"};
+  }
 `;
 
 const QuarterCircle = styled.div`
@@ -46,8 +46,9 @@ export default function ItemCard({
   showRating = true,
   showQuarter = true,
   quarterCircleProps,
-  hoverColor, 
+  hoverColor,
   onAddToCart, // Receive the function as a prop
+  productId // Define the productId prop here
 }) {
   const [value, setValue] = useState(1);
 
@@ -67,7 +68,7 @@ export default function ItemCard({
         paddingBottom: "0",
         ...cardStyles,
       }}
-      hoverColor={hoverColor} 
+      hoverColor={hoverColor}
     >
       <CardMedia
         component="img"
@@ -153,12 +154,7 @@ export default function ItemCard({
         </InputLabel>
 
         {showRating && (
-          <CustomRating
-            value={value}
-            onChange={handleChange}
-            legend="reviews :"
-            sx={{ fontSize: "5px", paddingBottom: "2vh" }}
-          />
+          <ReviewForm productId={productId} /> 
         )}
 
         {showButton && (

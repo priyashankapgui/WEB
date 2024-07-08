@@ -20,14 +20,14 @@ const Category = ({ customerId: propCustomerId, selectedBranchId: propBranchId }
         const fetchCategory = async () => {
             try {
                 const branchName = localStorage.getItem('selectedBranch');
-                const response = await axios.get('http://localhost:3000/products-by-category-and-branch', {
+                const response = await axios.get('http://localhost:8080/products-by-category-and-branch', {
                     params: {
                         categoryId: categoryId,
                         branchName: branchName
                     }
                 });
                 console.log("API response:", response.data); // Log the API response
-                setItems(response.data); // Update state with the fetched items
+                setItems(response.data.productDetails); // Update state with the fetched items
             } catch (error) {
                 console.error('Error fetching product:', error);
                 setAlertMessage('Failed to fetch products. Please try again later.'); // Set error message
@@ -66,14 +66,17 @@ const Category = ({ customerId: propCustomerId, selectedBranchId: propBranchId }
                                 fontWeight={500}
                                 lineHeight="1.5"
                             >
-                                Category
+                                Category Products
                             </InputLabel>
+
+                            </div>
+                            <div className="CategoryPageProducts">
 
                             {alertMessage && <p className="alert-message">{alertMessage}</p>}
 
                             {Array.isArray(items) && items.length > 0 ? (
                                 items.map((item) => (
-                                    <div key={item.productId} style={{ border: '1px solid red', margin: '10px' }}>
+                                    
                                         <ItemCard
                                             LablePrice={item.sellingPrice ? formatPrice(item.sellingPrice) : "LKR 000.00"}
                                             LableProductName={item.productName}
@@ -92,12 +95,12 @@ const Category = ({ customerId: propCustomerId, selectedBranchId: propBranchId }
                                             buttonLabel="Add to Cart"
                                             onAddToCart={() => handleAddToCart(item)}
                                         />
-                                    </div>
+                                   
                                 ))
                             ) : (
-                                <p>No products available</p>
+                                <p>Loading......</p>
                             )}
-                        </div>
+                      </div>
                     </div>
                 </Body>
             </Layout>

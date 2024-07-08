@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import "./Layout.css";
-import Topheader from "../Topheader/Topheader";
 import Navbar from "../Navbar/Navbar";
 import Footer from "../Footer/Footer";
 import Searchbar from "../Searchbar/Searchbar";
-import Body from "../Body/Body";
 import { SearchResultsList } from "../Searchbar/SearchResultsList";
+import Topheader from "../Topheader/Topheader";
+import ConnectionWarning from "../Alerts/ConnectionWarning";
 
 export default function Layout({ children }) {
   const [results, setResults] = useState([]);
@@ -13,12 +13,10 @@ export default function Layout({ children }) {
   return (
     <div className="layout">
       <div id="wrapper">
-        <div id="topcontent">
-          <Topheader />
-        </div>
         <div id="navcontent">
+          <ConnectionWarning/>
           <Navbar />
-          <Searchbar setResults={setResults} />
+          <Searchbar setResults={setResults}  />
           {results.length > 0 && <SearchResultsList results={results} />}
         </div>
         {children}

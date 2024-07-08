@@ -23,8 +23,10 @@ export default function Orders() {
     <div className="orders">
       {loading ? (
         <LoaderComponent size={50} />
-      ) : (
+      ) : orders.length > 0 ? (
         orders.map((order) => <OrderCard key={order.onlineBillNo} order={order} />)
+      ) : (
+        <p>No Orders</p>
       )}
     </div>
   );

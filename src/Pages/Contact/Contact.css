@@ -3,6 +3,7 @@
     flex-direction: row;
     gap: 25%; 
     overflow-x: auto; 
+    margin-top: 13.25em;
 }
 
 .Contact_details {

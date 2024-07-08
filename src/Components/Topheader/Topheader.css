@@ -18,28 +18,13 @@ body {
 
 .topheader p {
     font-family: "Poppins", Helvetica;
-    letter-spacing: normal;
+    letter-spacing: 0.15vw;
     font-weight: 400;
     color: #ffffff;
-    line-height: 21px;
+    line-height: 30px;
     font-size: 80%;
     display: inline;
     padding-right: 30px;
-
-
-}
-
-.shop_btn {
-    width: auto;
-    height: auto;
-    background: none;
-    border: none;
-    color: #ffffff;
-    font-size: 15px;
-    font-family: "Poppins-Regular", Helvetica;
-    font-weight: 600;
-    text-decoration-line: underline;
-    cursor: pointer;
 
 
 }
