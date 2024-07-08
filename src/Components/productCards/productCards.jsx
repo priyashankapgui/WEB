@@ -50,7 +50,7 @@ const ProductCards = ({ items, customerId: propCustomerId, selectedBranchId: pro
 
     try {
       // Save item in backend
-      const response = await axios.post('http://localhost:8080/cart-items/add', {
+      const response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/cart-items/add`, {
         customerId,
         productId: item.productId,
         productName: item.productName,

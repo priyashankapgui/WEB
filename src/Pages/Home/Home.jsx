@@ -25,7 +25,7 @@ export default function Home() {
         const branchName = localStorage.getItem('selectedBranch');
       
         const response = await axios.get(
-          `http://localhost:8080/product-branch?branchName=${branchName}`
+          `${process.env.REACT_APP_API_BASE_URL}/product-branch?branchName=${branchName}`
         );
         console.log("response", response);
         setItems(response.data); // Assuming the response data is an array of items
