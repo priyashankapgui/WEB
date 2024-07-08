@@ -46,11 +46,16 @@ export default function About() {
                 />
           </div>
           <div className="aboutPhara">
-            {about.map((item, index) => (
-              <p className="aboutParagraph" key={index}>
-                {item.paragraph}
+           
+              <p className="aboutParagraph">
+              Welcome to Green Leaf, your one-stop destination for sustainable and eco-friendly shopping! At
+               Green Leaf, we are passionate about offering you a curated selection of products that not only meet your
+                needs but also align with our commitment to a greener planet. Our mission is to provide a seamless online 
+                shopping experience that empowers you to make conscious choices without compromising on style, quality, or affordability. 
+                From organic apparel to 
+              environmentally-friendly home goods, every item in our collection reflects our dedication to a sustainable lifestyle.
               </p>
-            ))}
+            
           </div>
         </div>
       </Body>
