@@ -5,6 +5,8 @@ import { Box } from '@mui/material';
 import ItemCard from "../../../Components/Card/Card";
 import axios from "axios";
 import { useParams } from 'react-router-dom';
+import { size } from 'lodash';
+import { fontSize, style, width } from '@mui/system';
 
 const boxStyle = {
   width: '1180px',
@@ -41,9 +43,10 @@ const SingleProduct = () => {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const response = await axios.get(`http://localhost:8080/products/${productId}`);
-        const { data } = response.data; // Destructure the 'data' field from the response
-        setProduct(data); // Update state with the 'data' field
+        const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/products/${productId}`);
+        const { data } = response.data; 
+        console.log("p1",response);
+        setProduct(data);
       } catch (error) {
         console.error('Error fetching product:', error);
       }
@@ -78,18 +81,18 @@ const SingleProduct = () => {
       <div className='singleproducts'>
         <Box style={boxStyle}>
           <div style={innerBoxStyle}>
-            <img src={product.image} alt={product.productName} style={{ width: '100%', height: 'auto' }} />
+            <img src={product.image} alt={product.productName} style={{ width: '80%', height: 'auto' }} />
           </div>
           <div style={innerBoxStyleLast}>
             <ItemCard
-              LablePrice={product.sellingPrice ? formatPrice(product.sellingPrice) : 'LKR 000.00'}
+            className="singleproductCard"
+             LablePrice={product.sellingPrice ? formatPrice(product.sellingPrice) : 'LKR 000.00'}
               LableProductName={product.productName}
-              LabelProductWeight='500g'
-              productLable={product.categoryName}
               quarterLabel={product.discount ? `${product.discount}%` : 'No Discount'}
               showButton={true}
               showRating={true}
               showQuarter={true}
+              productId={productId}
               buttonProps={{
                 type: 'submit',
                 id: 'AddtoCartbtn',
@@ -97,6 +100,7 @@ const SingleProduct = () => {
                 btnWidth: '10em',
                 alignSelf: 'center',
                 style: { backgroundColor: '#2EB072', color: '#EBEBEB' },
+                
               }}
               buttonLabel='Add to Cart'
               onAddToCart={() => handleAddToCart(product)}
@@ -106,7 +110,18 @@ const SingleProduct = () => {
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'center',
+                fontSize: '1.5em',
+
+                
               }}
+
+              quarterCircleProps={{
+                
+
+                
+              
+               } }
+              showImage={false}
             />
           </div>
         </Box>

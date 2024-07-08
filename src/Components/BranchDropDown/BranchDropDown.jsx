@@ -12,7 +12,7 @@ const BranchDropDown = ({ id, name, height, width, onChange, editable, borderRad
     
 
     useEffect(() => {
-        axios.get('http://localhost:8080/branchesWeb')
+        axios.get(`${process.env.REACT_APP_API_BASE_URL}/branchesWeb`)
             .then(response => {
                 setOptions(response.data);
                 const savedBranchName = localStorage.getItem('selectedBranch');

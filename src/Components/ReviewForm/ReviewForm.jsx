@@ -13,7 +13,7 @@ export default function ReviewForm({ productId }) {
   const fetchAverageRating = async () => {
 
     try {
-      const response = await axios.post(`http://localhost:8080/review/product`,{productId : productId});
+      const response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/review/product`,{productId : productId});
       console.log("This",response);
       setAverageRating(response.data[0].averageRating);
     } catch (error) {
