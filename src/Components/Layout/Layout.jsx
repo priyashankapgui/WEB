@@ -21,7 +21,7 @@ export default function Layout({ children }) {
         </div>
         <div id="navcontent">
           <Navbar />
-          <Searchbar setResults={setResults} />
+          <Searchbar setResults={setResults}  />
           {results.length > 0 && <SearchResultsList results={results} />}
         </div>
         {children}

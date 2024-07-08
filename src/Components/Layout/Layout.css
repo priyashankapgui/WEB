@@ -13,6 +13,7 @@
 
 #navcontent {
   min-height: 20vh;
+  padding-bottom: 4vh;
 }
 
 #bodycontent {
@@ -25,4 +26,5 @@
 .layout{
   background-color: #fafafa;
 }
+
 
