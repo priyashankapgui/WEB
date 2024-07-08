@@ -66,14 +66,17 @@ const Category = ({ customerId: propCustomerId, selectedBranchId: propBranchId }
                                 fontWeight={500}
                                 lineHeight="1.5"
                             >
-                                Category
+                                Category Products
                             </InputLabel>
+
+                            </div>
+                            <div className="CategoryPageProducts">
 
                             {alertMessage && <p className="alert-message">{alertMessage}</p>}
 
                             {Array.isArray(items) && items.length > 0 ? (
                                 items.map((item) => (
-                                    <div key={item.productId} style={{ border: '1px solid red', margin: '10px' }}>
+                                    
                                         <ItemCard
                                             LablePrice={item.sellingPrice ? formatPrice(item.sellingPrice) : "LKR 000.00"}
                                             LableProductName={item.productName}
@@ -92,12 +95,12 @@ const Category = ({ customerId: propCustomerId, selectedBranchId: propBranchId }
                                             buttonLabel="Add to Cart"
                                             onAddToCart={() => handleAddToCart(item)}
                                         />
-                                    </div>
+                                   
                                 ))
                             ) : (
-                                <p>No products available</p>
+                                <p>Loading......</p>
                             )}
-                        </div>
+                      </div>
                     </div>
                 </Body>
             </Layout>
