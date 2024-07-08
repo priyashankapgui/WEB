@@ -8,6 +8,7 @@ import axios from 'axios';
 import ConnectionWarning from '../Alerts/ConnectionWarning';
 import secureLocalStorage from 'react-secure-storage';
 import ReviewForm from "../ReviewForm/ReviewForm";
+import { padding, textAlign } from "@mui/system";
 
 const ProductCards = ({ items, customerId: propCustomerId, selectedBranchId: propBranchId }) => {
   const [alertMessage, setAlertMessage] = useState("");
@@ -144,7 +145,7 @@ const ProductCards = ({ items, customerId: propCustomerId, selectedBranchId: pro
             onAddToCart={() => handleAddToCart(item)}
             productId={item.productId}
             viewItemLink={`single-product/${item.productId}`}
-            lableViewItem={'View Item...'} 
+            lableViewItem={'View Item...'}
           />
         ))}
       </Slider>

@@ -7,12 +7,12 @@ import Square from "../../../Components/Square/Square";
 import Layout from "../../../Components/Layout/Layout";
 import Body from "../../../Components/Body/Body";
 import ProductCards from "../../../Components/productCards/productCards";
-
+import MainSpiner from "../../../Components/Spiner/MainSpiner/MainSpiner";
 
 export default function Products() {
-  const [loading, setLoading] = useState(true);
   const [items, setItems] = useState([]);
-
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   // Fetch products with discounts
   useEffect(() => {
     const fetchProductPageItems = async () => {
@@ -40,7 +40,17 @@ export default function Products() {
 
   }, []);
 
+  if (loading) {
+    return (
+      <p>
+        <MainSpiner />
+      </p>
+    );
+  }
 
+  if (error) {
+    return <p>Error: {error}</p>;
+  }
 
   return (
     <Layout>

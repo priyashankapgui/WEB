@@ -6,6 +6,7 @@ import "./FeedbackForm.css";
 import axios from "axios";
 import emailjs from "@emailjs/browser";
 import ConnectionWarning from "../../Components/Alerts/ConnectionWarning";
+import SquareButton from "../../Components/Button/SquareButton"
 
 export const FeedbackForm = () => {
   const feedbackApiUrl = process.env.REACT_APP_FEEDBACK_API;
@@ -15,8 +16,8 @@ export const FeedbackForm = () => {
   const [phone, setPhone] = useState("");
   const [phoneError, setPhoneError] = useState("");
   const [loading, setLoading] = useState(false);
-  const [successMessage, setSuccessMessage] = useState(""); 
-  const [errorMessage, setErrorMessage] = useState(""); 
+  const [successMessage, setSuccessMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
   const [branches, setBranches] = useState([]);
 
   useEffect(() => {
@@ -56,7 +57,7 @@ export const FeedbackForm = () => {
       return;
     }
 
-    setLoading(true); 
+    setLoading(true);
 
     emailjs
       .sendForm("service_s3vt08f", "template_f7grc7g", form.current, {
@@ -81,20 +82,20 @@ export const FeedbackForm = () => {
               setPhoneError("");
               setPhone("");
               setLoading(false);
-              setSuccessMessage("Your feedback has been sent successfully!"); 
-              setErrorMessage(""); 
-              setTimeout(() => setSuccessMessage(""), 3000); 
+              setSuccessMessage("Your feedback has been sent successfully!");
+              setErrorMessage("");
+              setTimeout(() => setSuccessMessage(""), 3000);
             })
             .catch((error) => {
               console.log(error);
               setLoading(false);
-              setErrorMessage("Failed to send feedback. Please try again later."); 
+              setErrorMessage("Failed to send feedback. Please try again later.");
             });
         },
         (error) => {
           console.log("FAILED...", error.text);
           setLoading(false);
-          setErrorMessage("Failed to send feedback. Please try again later."); 
+          setErrorMessage("Failed to send feedback. Please try again later.");
         }
       );
   };
@@ -169,19 +170,16 @@ export const FeedbackForm = () => {
             border: "1px solid rgba(141, 144, 147, 0.5)",
           }}
         />
-
-        <Buttons
-          type="submit"
-          style={{
-            width: "20vh",
-            height: "7vh",
-            backgroundColor: "#51B541",
-            color: "white",
-          }}
-          value="send"
-        >
+        <SquareButton type="submit"
+          id="sendButton"
+          className="signin-btn"
+          style={{ backgroundColor: "#51B541", color: "white" }}
+          btnHeight="45px"
+          btnWidth="342px"
+          fontSize="18px"
+          marginTop="2px">
           Send
-        </Buttons>
+        </SquareButton>
       </form>
     </div>
   );

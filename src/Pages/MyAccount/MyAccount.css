@@ -14,6 +14,7 @@
     display: flex;
     height: 100%;
     margin-bottom: 50px;
+    margin-top: 9.25em;
 }
 
 .sidebar-my-account {
@@ -62,6 +63,10 @@
     border-radius: 8px;
     margin-left: 8%; /* Adding margin to create space around the form */
     overflow-y: auto; /* Allows scrolling if content goes beyond the full height of the page */
+}
+
+.password-form {
+    width: fit-content;
 }
 
 .content-section-ma {

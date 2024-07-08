@@ -12,8 +12,8 @@ body {
   display: flex;
   justify-content: space-between;
   flex-grow: 1;
-  padding-left: 20px;
-  padding-right: 20px;
+  padding: 10px 10px;
+  height: 5em;
 }
 
 .Logo_content {
