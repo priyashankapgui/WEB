@@ -3,28 +3,26 @@
 * {
   margin: 0;
   padding: 0;
-  font-family: 'Poppins';
-  
+  font-family: 'Poppins', sans-serif;
 }
 
-#topcontent {
-  min-height: 5vh;
-}
 
 #navcontent {
-  min-height: 20vh;
-  padding-bottom: 4vh;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 999;
 }
 
 #bodycontent {
   min-height: 40vh;
+  padding-top: 25vh;
 }
 
 #footercontent {
   min-height: 10vh;
 }
-.layout{
+
+.layout {
   background-color: #fafafa;
 }
-
-

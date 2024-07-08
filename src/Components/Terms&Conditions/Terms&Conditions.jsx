@@ -8,9 +8,7 @@ const TermsConditions = ({ onClose }) => {
     console.log('Work Order receipt component rendered');
 
 
-    const handleReprintReceipt = () => {
-        window.print();
-    };
+  
 //implement workorder body content here
     const TermsConditions = (
 
@@ -31,7 +29,7 @@ const TermsConditions = ({ onClose }) => {
 	    </div>
     );
     return (
-        <ReceiptPopup bodyContent={TermsConditions} onClose={onClose} onPrint={handleReprintReceipt} />
+        <ReceiptPopup bodyContent={TermsConditions} onClose={onClose}  />
     );
 };
 

@@ -1,13 +1,15 @@
 .CartContainer{
     margin: 4%;
-    margin-bottom: 0;
     padding: 10px;
+    margin-top: 12.25em;
+ 
 }
 .checkoutContainer{
     margin-left: 64%;
     font-family: 'Poppins';
     font-size: 1em;
     margin-bottom: 15vh;
+    
 }
 .checkoutTable {
     font-family: 'Poppins';

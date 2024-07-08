@@ -6,6 +6,8 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import axios from 'axios';
 import secureLocalStorage from 'react-secure-storage';
+import ReviewForm from "../ReviewForm/ReviewForm";
+import { padding, textAlign } from "@mui/system";
 import CustomAlert from '../Alerts/CustomAlert/CustomAlert';
 
 const ProductCards = ({ items, customerId: propCustomerId, selectedBranchId: propBranchId }) => {
@@ -154,7 +156,7 @@ const ProductCards = ({ items, customerId: propCustomerId, selectedBranchId: pro
             onAddToCart={() => handleAddToCart(item)}
             productId={item.productId}
             viewItemLink={`single-product/${item.productId}`}
-            lableViewItem={'View Item...'} 
+            lableViewItem={'View Item...'}
           />
         ))}
       </Slider>

@@ -1,6 +1,6 @@
 .popup-overlay {
     position: fixed;
-    z-index: 10;
+    z-index: 9999;
     top: 0;
     left: 0;
     margin: 0 auto;
@@ -8,12 +8,10 @@
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
     border-radius: 20px;
-    /* semi-transparent background */
     display: flex;
     justify-content: center;
-    /* horizontally center */
     align-items: center;
-    /* vertically center */
+    margin-top: 2.25em;
 }
 
 .popup {
@@ -21,10 +19,8 @@
     margin-top: 60px;
     padding: 20px;
     border-radius: 5px;
-    height: 500px;
+    height: fit-content;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    /* optional: add shadow */
-    /* overflow-y: scroll; */
 }
 
 .popup-btn-sec {
