@@ -13,8 +13,8 @@ const HoverCard = styled(Card)`
 
   &:hover {
     transform: scale(1.05);
-    background-color: ${(props) =>
-      props.hoverColor || "none"}; 
+    background-color: ${(props) => props.hoverColor || "none"};
+  }
 `;
 
 const QuarterCircle = styled.div`
@@ -154,7 +154,7 @@ export default function ItemCard({
         </InputLabel>
 
         {showRating && (
-          <ReviewForm productId={productId} /> 
+          <ReviewForm productId={productId} />
         )}
 
         {showButton && (

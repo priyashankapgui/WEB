@@ -6,9 +6,10 @@ body {
 
 .search-container {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-    border-radius: 0 0 0px 60%;
-    background-image: linear-gradient(to right top, #148d35, #14a453, #13bb72, #11d391, #12ebb2);
-    height: 80px;
+    background: #000000;  
+    background: -webkit-linear-gradient(to right, #0f9b0f, #000000);  
+    background: linear-gradient(to right, #0f9b0f, #000000); 
+    height: 5em;
     display: flex;
     align-items: center;
     justify-content: center;
