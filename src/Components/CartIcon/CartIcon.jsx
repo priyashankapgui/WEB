@@ -19,8 +19,8 @@ export default function CartIcon() {
 
   useEffect(() => {
     
-    const cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
-    setCartCount(cartItems.length);
+    const cartItems = JSON.parse(localStorage.getItem("ProductCount")) || [];
+    setCartCount(cartItems);
   }, []);
 
   return (

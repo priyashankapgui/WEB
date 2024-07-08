@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import secureLocalStorage from "react-secure-storage";
 import { createOnlineBill } from '../../Api/OnlineBillApi/OnlineBillApi';
 import { addProductsToBill } from '../../Api/OnlineBillProductsApi/OnlineBillProductsApi';
+import MainSpiner from '../../Components/Spiner/MainSpiner/MainSpiner';
 
 const billbutton = {
   backgroundColor: "rgb(24, 111, 101)",
@@ -16,6 +17,7 @@ const billbutton = {
 function Success() {
   const navigate = useNavigate();
   const [customerId, setCustomerId] = useState('');
+  const [loading, setLoading] = useState(false); 
 
   useEffect(() => {
     if (!customerId) {
@@ -30,9 +32,11 @@ function Success() {
 
   const handleGetBill = async () => {
     try {
+      setLoading(true);
       const branchId = localStorage.getItem('selectedBranchId');
       if (!branchId || !customerId) {
         alert("Branch ID or Customer ID is missing. Please check your inputs.");
+        setLoading(false); 
         return;
       }
 
@@ -48,31 +52,37 @@ function Success() {
       if (createBillResponse) {
         const onlineBillNo = createBillResponse.onlineBillNo;
 
-        // Perform add products to bill
         const addProductsResponse = await addProductsToBill(onlineBillNo);
 
         if (addProductsResponse) {
+          setLoading(false); 
           navigate(`/bill/${onlineBillNo}`);
         } else {
           console.error('Failed to add products to the bill.');
+          setLoading(false); 
         }
       } else {
         console.error('Failed to create the online bill.');
+        setLoading(false); 
       }
     } catch (error) {
       console.error('An error occurred while creating the bill:', error);
+      setLoading(false); 
     }
   };
 
   return (
     <div>
-      <Container maxWidth="sm" className="centered-box-container">
-        <Box className="centered-box">
-          <FcOk className="success-icon" />
-          <h1 className="success">Payment Successful!</h1>
-          <Button style={billbutton} variant="contained" onClick={handleGetBill}>Get the bill</Button>
-        </Box>
-      </Container>
+      {loading && <MainSpiner loading={loading} />} 
+      {!loading && (
+        <Container maxWidth="sm" className="centered-box-container">
+          <Box className="centered-box">
+            <FcOk className="success-icon" />
+            <h1 className="success">Payment Successful!</h1>
+            <Button style={billbutton} variant="contained" onClick={handleGetBill}>Get the bill</Button>
+          </Box>
+        </Container>
+      )}
     </div>
   );
 }
