@@ -49,7 +49,8 @@ export default function ItemCard({
   quarterCircleProps,
   hoverColor,
   onAddToCart,
-  viewItemLink, // New prop for the view item link
+  viewItemLink,
+  lableViewItem // New prop for the view item link
 }) {
   const [value, setValue] = useState(1);
 
@@ -169,7 +170,19 @@ export default function ItemCard({
         )}
         {viewItemLink && (
           <Link to={viewItemLink}>
-            <Buttons>View Item</Buttons>
+            {/* <Buttons>View Item</Buttons> */}
+            <InputLabel
+          htmlFor="example"
+          color="black"
+          fontFamily="Poppins"
+          fontSize="0.8em"
+          fontWeight={200}
+          lineHeight="1.5"
+          marginTop="10px"
+          marginBottom="20px"
+        >
+          {lableViewItem}
+        </InputLabel>
           </Link>
         )}
       </CardContent>

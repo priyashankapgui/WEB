@@ -17,6 +17,7 @@ import axios from 'axios';
 import 'react-datepicker/dist/react-datepicker.css';
 import secureLocalStorage from 'react-secure-storage';
 import TermsConditions from "../../Components/Terms&Conditions/Terms&Conditions";
+import {getCartItemsByCartId,updateCartItem,deleteCartItem} from '../../Api/CartApi/CartApi'
 
 const style = { color: "red", fontSize: "1.8em", cursor: "pointer" };
 
@@ -117,7 +118,7 @@ export default function Cart() {
       }
 
       try {
-        const response = await axios.get(`http://localhost:8080/cart/items/${cartId}`);
+        const response = await getCartItemsByCartId(cartId);
 
         if (response.data && response.data.length > 0) {
           setRows(response.data);
@@ -162,7 +163,7 @@ export default function Cart() {
     const productId = updatedRows[index].productId;
 
     try {
-      await axios.put(`http://localhost:8080/cart/${cartId}/item/${productId}`, {
+      await updateCartItem(cartId, productId, {
         quantity: updatedRows[index].quantity,
       });
     } catch (error) {
@@ -180,7 +181,7 @@ export default function Cart() {
       const productId = updatedRows[index].productId;
 
       try {
-        await axios.put(`http://localhost:8080/cart/${cartId}/item/${productId}`, {
+        await updateCartItem(cartId, productId, {
           quantity: updatedRows[index].quantity,
         });
       } catch (error) {
@@ -194,7 +195,7 @@ export default function Cart() {
     const productId = rows[index].productId;
 
     try {
-      await axios.delete(`http://localhost:8080/cart/${cartId}/item/${productId}`);
+      await deleteCartItem(cartId, productId);
       const updatedRows = rows.filter((_, i) => i !== index);
       setRows(updatedRows);
     } catch (error) {
@@ -202,12 +203,32 @@ export default function Cart() {
     }
   };
 
+  // const handleCheckout = async () => {
+  //   try {
+  //     const response = await axios.post('http://localhost:8080/create-checkout-session', {
+  //       items: rows
+  //     });
+
+  //     const { sessionId } = response.data;
+  //     const stripe = await stripePromise;
+  //     await stripe.redirectToCheckout({ sessionId });
+  //   } catch (error) {
+  //     console.error('Error during checkout:', error);
+  //   }
+  // };
   const handleCheckout = async () => {
     try {
       const response = await axios.post('http://localhost:8080/create-checkout-session', {
-        items: rows
+        items: rows.map(row => ({
+          product: {
+            productName: row.product.productName
+          },
+          sellingPrice: row.sellingPrice,
+          discount: row.discount,
+          quantity: row.quantity
+        }))
       });
-
+  
       const { sessionId } = response.data;
       const stripe = await stripePromise;
       await stripe.redirectToCheckout({ sessionId });
@@ -215,7 +236,7 @@ export default function Cart() {
       console.error('Error during checkout:', error);
     }
   };
-
+  
   const handleTermsChange = () => {
     setIsTermsAccepted(!isTermsAccepted);
   };

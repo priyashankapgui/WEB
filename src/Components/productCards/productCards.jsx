@@ -140,7 +140,8 @@ const ProductCards = ({ items, customerId: propCustomerId, selectedBranchId: pro
             }}
             buttonLabel="Add to Cart"
             onAddToCart={() => handleAddToCart(item)}
-            viewItemLink={`single-product/${item.productId}`} 
+            viewItemLink={`single-product/${item.productId}`}
+            lableViewItem={'View Item...'} 
           />
         ))}
       </Slider>
