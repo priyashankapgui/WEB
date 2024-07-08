@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
 import './Ebill.css';
 import greenleafBillLogo from "../.././Assets/greenleafBillLogo.svg";
+import {getOnlineBillByNumber,updateOnlineBillAmount} from '../../Api/OnlineBillApi/OnlineBillApi'
+import {getOnlineBillProductsByBillNo} from '../../Api/OnlineBillProductsApi/OnlineBillProductsApi'
 
 const Ebill = () => {
     const { onlineBillNo } = useParams();
@@ -12,8 +13,8 @@ const Ebill = () => {
     useEffect(() => {
         const fetchBillData = async () => {
             try {
-                const response = await axios.get(`http://localhost:8080/onlineBills/${onlineBillNo}`);
-                setBillData(response.data);
+                const data = await getOnlineBillByNumber(onlineBillNo);
+                setBillData(data);
             } catch (error) {
                 console.error('Error fetching bill data:', error);
             }
@@ -25,8 +26,8 @@ const Ebill = () => {
     useEffect(() => {
         const fetchBilledItems = async () => {
             try {
-                const response = await axios.get(`http://localhost:8080/onlineBillProducts/${onlineBillNo}`);
-                setBilledItems(response.data);
+                const data = await getOnlineBillProductsByBillNo(onlineBillNo);
+                setBilledItems(data);
             } catch (error) {
                 console.error('Error fetching billed items:', error);
             }
@@ -59,7 +60,7 @@ const Ebill = () => {
 
     const updateBillAmount = async (amount) => {
         try {
-            await axios.put(`http://localhost:8080/onlineBillAmount/${onlineBillNo}`, { onlineBillTotal: amount });
+            await updateOnlineBillAmount(onlineBillNo, amount);
         } catch (error) {
             console.error('Error updating bill amount:', error);
         }
