@@ -8,8 +8,9 @@
     box-shadow: 0 6px 8px -1px rgba(3, 119, 168, 0.1), 0 4px 7px -1px rgba(3, 119, 168, 0.5);
     transition: top 0.3s ease-in-out, right 0.3s ease-in-out;
     font-family: 'Poppins';
-    color: green;
+    color: white;
     font-weight: 500;
+    background-color: green;
   }
   
   .connection-warning.offline {

@@ -17,7 +17,7 @@ import axios from 'axios';
 import 'react-datepicker/dist/react-datepicker.css';
 import secureLocalStorage from 'react-secure-storage';
 import TermsConditions from "../../Components/Terms&Conditions/Terms&Conditions";
-import {getCartItemsByCartId,updateCartItem,deleteCartItem} from '../../Api/CartApi/CartApi'
+import { getCartItemsByCartId, updateCartItem, deleteCartItem } from '../../Api/CartApi/CartApi'
 
 const style = { color: "red", fontSize: "1.8em", cursor: "pointer" };
 
@@ -104,7 +104,7 @@ export default function Cart() {
       console.log("customerId", customerId);
       if (user && user.customerId) {
         setCustomerId(user.customerId);
-        setCartId(user.cartId); 
+        setCartId(user.cartId);
       } else {
         setAlertMessage("Customer ID not found. Please log in again.");
       }
@@ -228,7 +228,7 @@ export default function Cart() {
           quantity: row.quantity
         }))
       });
-  
+
       const { sessionId } = response.data;
       const stripe = await stripePromise;
       await stripe.redirectToCheckout({ sessionId });
@@ -236,7 +236,7 @@ export default function Cart() {
       console.error('Error during checkout:', error);
     }
   };
-  
+
   const handleTermsChange = () => {
     setIsTermsAccepted(!isTermsAccepted);
   };
@@ -251,93 +251,93 @@ export default function Cart() {
 
   return (
     <>
-    <Layout>
-      <div className="CartContainer">
-        {alertMessage && <div className="alert">{alertMessage}</div>}
-        <TableContainer component={Paper}>
-          <Table sx={{ minWidth: 700, '& .MuiTableCell-sizeMedium': { padding: '20px 16px' } }} aria-label="customized table">
-            <TableHead>
-              <TableRow>
-                <StyledTableCell>{}</StyledTableCell>
-                <StyledTableCell>Product</StyledTableCell>
-                <StyledTableCell align="right">Price</StyledTableCell>
-                <StyledTableCell align="right">Quantity</StyledTableCell>
-                <StyledTableCell align="right">Subtotal</StyledTableCell>
-                <StyledTableCell align="right">Discount</StyledTableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {rows.map((item, index) => (
-                <StyledTableRow key={item.productId}>
-                  <StyledTableCell>
-                    <TiDelete style={style} onClick={() => handleDelete(index)} />
-                  </StyledTableCell>
-                  <StyledTableCell component="th" scope="row">{item.product.productName}</StyledTableCell>
-                  <StyledTableCell align="right">{'Rs.' + item.sellingPrice.toFixed(2)}</StyledTableCell>
-                  <StyledTableCell align="right">
-                    <button style={buttonStyle} onClick={() => handleDecrement(index)}>-</button>
-                    <label style={qty} htmlFor="qty">{item.quantity}</label>
-                    <button style={buttonStyle} onClick={() => handleIncrement(index)}>+</button>
-                  </StyledTableCell>
-                  <StyledTableCell align="right">{'Rs.' + (item.sellingPrice * item.quantity).toFixed(2)}</StyledTableCell>
-                  <StyledTableCell align="right">{item.discount + '%'}</StyledTableCell>
-                </StyledTableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </div>
-      <Button
-        style={returnButton}
-        onClick={() => {
-          window.location.href = "/";
-        }}
-        variant="outlined"
-      >
-        Return To Shop
-      </Button>
-      <div className="checkoutContainer">
-        <Box height={300} width={470} p={2} sx={{ border: "2px solid grey" }}>
-          <h2>Cart Total</h2>
-          <div>
-            <Table sx={{ minWidth: 400 }} aria-label="custom pagination table">
+      <Layout>
+        <div className="CartContainer">
+          {alertMessage && <div className="alert">{alertMessage}</div>}
+          <TableContainer component={Paper}>
+            <Table sx={{ minWidth: 700, '& .MuiTableCell-sizeMedium': { padding: '20px 16px' } }} aria-label="customized table">
+              <TableHead>
+                <TableRow>
+                  <StyledTableCell>{ }</StyledTableCell>
+                  <StyledTableCell>Product</StyledTableCell>
+                  <StyledTableCell align="right">Price</StyledTableCell>
+                  <StyledTableCell align="right">Quantity</StyledTableCell>
+                  <StyledTableCell align="right">Subtotal</StyledTableCell>
+                  <StyledTableCell align="right">Discount</StyledTableCell>
+                </TableRow>
+              </TableHead>
               <TableBody>
-                <TableRow>
-                  <TableCell className="checkoutTable" component="th" scope="row">Subtotal:</TableCell>
-                  <TableCell className="checkoutTable">{'Rs.' + totals.subtotal.toFixed(2)}</TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell className="checkoutTable" component="th" scope="row">Discount:</TableCell>
-                  <TableCell className="checkoutTable">{'Rs.' + totals.discount.toFixed(2)}</TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell className="checkoutTable" component="th" scope="row">Total:</TableCell>
-                  <TableCell className="checkoutTable">{'Rs.' + totals.total.toFixed(2)}</TableCell>
-                </TableRow>
+                {rows.map((item, index) => (
+                  <StyledTableRow key={item.productId}>
+                    <StyledTableCell>
+                      <TiDelete style={style} onClick={() => handleDelete(index)} />
+                    </StyledTableCell>
+                    <StyledTableCell component="th" scope="row">{item.product.productName}</StyledTableCell>
+                    <StyledTableCell align="right">{'Rs.' + item.sellingPrice.toFixed(2)}</StyledTableCell>
+                    <StyledTableCell align="right">
+                      <button style={buttonStyle} onClick={() => handleDecrement(index)}>-</button>
+                      <label style={qty} htmlFor="qty">{item.quantity}</label>
+                      <button style={buttonStyle} onClick={() => handleIncrement(index)}>+</button>
+                    </StyledTableCell>
+                    <StyledTableCell align="right">{'Rs.' + (item.sellingPrice * item.quantity).toFixed(2)}</StyledTableCell>
+                    <StyledTableCell align="right">{item.discount + '%'}</StyledTableCell>
+                  </StyledTableRow>
+                ))}
               </TableBody>
             </Table>
-          </div>
-          {/* Checkbox */}
-          <div className="termscheckboxcontainer">
-            <input
-              type="checkbox"
-              id="terms"
-              checked={isTermsAccepted}
-              onChange={handleTermsChange}
-            />
-            <span>I agree to the <a href="/" onClick={handleTermsClick}>terms and conditions</a></span>
-          </div>
-          <Button
+          </TableContainer>
+        </div>
+        <Button
+          style={returnButton}
+          onClick={() => {
+            window.location.href = "/";
+          }}
+          variant="outlined"
+        >
+          Return To Shop
+        </Button>
+        <div className="checkoutContainer">
+          <Box height={300} width={470} p={2} sx={{ border: "2px solid grey" }}>
+            <h2>Cart Total</h2>
+            <div>
+              <Table sx={{ minWidth: 400 }} aria-label="custom pagination table">
+                <TableBody>
+                  <TableRow>
+                    <TableCell className="checkoutTable" component="th" scope="row">Subtotal:</TableCell>
+                    <TableCell className="checkoutTable">{'Rs.' + totals.subtotal.toFixed(2)}</TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell className="checkoutTable" component="th" scope="row">Discount:</TableCell>
+                    <TableCell className="checkoutTable">{'Rs.' + totals.discount.toFixed(2)}</TableCell>
+                  </TableRow>
+                  <TableRow>
+                    <TableCell className="checkoutTable" component="th" scope="row">Total:</TableCell>
+                    <TableCell className="checkoutTable">{'Rs.' + totals.total.toFixed(2)}</TableCell>
+                  </TableRow>
+                </TableBody>
+              </Table>
+            </div>
+            {/* Checkbox */}
+            <div className="termscheckboxcontainer">
+              <input
+                type="checkbox"
+                id="terms"
+                checked={isTermsAccepted}
+                onChange={handleTermsChange}
+              />
+              <span style={{ marginLeft: '5px' }}>I agree to the <a style={{ fontWeight: '500', textDecoration: 'underline', color: 'red' }} href="/" onClick={handleTermsClick}>terms and conditions</a></span>
+            </div>
+            <Button
               style={isTermsAccepted ? checkoutButtonEnabled : checkoutButtonDisabled}
               onClick={handleCheckout}
               disabled={!isTermsAccepted}
             >
-            Proceed to checkout
-          </Button>
-        </Box>
-      </div>
-    </Layout>
-    {showPopup && <TermsConditions onClose={handleClosePopup} />}
+              Proceed to checkout
+            </Button>
+          </Box>
+        </div>
+      </Layout>
+      {showPopup && <TermsConditions onClose={handleClosePopup} />}
     </>
   );
 }

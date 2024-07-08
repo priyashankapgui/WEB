@@ -8,6 +8,7 @@ import Popup from "../../../Components/Popup/Popup";
 import LoaderComponent from "../../../Components/Spiner/HashLoader/HashLoader";
 import PasswordStrengthBar from "react-password-strength-bar";
 import { resetPassword } from "../../../Api/LoginApi/LoginApi";
+import SquareButton from "../../../Components/Button/SquareButton";
 
 
 const ResetPw = () => {
@@ -61,7 +62,7 @@ const ResetPw = () => {
       }
     }
 
-    
+
   };
 
   const handleOkButtonClick = () => {
@@ -76,9 +77,9 @@ const ResetPw = () => {
     setShowConfirmPassword(!showConfirmPassword);
   };
 
-  const handleClose=()=> {
+  const handleClose = () => {
     setShowPopup(false);
-    window.location.href="/login";
+    window.location.href = "/login";
 
   }
 
@@ -110,22 +111,22 @@ const ResetPw = () => {
             </button>
           </InputField>
           {password && (
-              <PasswordStrengthBar
-                password={password}
-                minLength={8}
-                scoreWordStyle={{
-                  fontSize: "14px",
-                  fontFamily: "Poppins",
-                }}
-                scoreWords={[
-                  "very weak",
-                  "weak",
-                  "good",
-                  "strong",
-                  "very strong",
-                ]}
-                shortScoreWord="should be atlest 8 characters long"
-              />
+            <PasswordStrengthBar
+              password={password}
+              minLength={8}
+              scoreWordStyle={{
+                fontSize: "14px",
+                fontFamily: "Poppins",
+              }}
+              scoreWords={[
+                "very weak",
+                "weak",
+                "good",
+                "strong",
+                "very strong",
+              ]}
+              shortScoreWord="should be atlest 8 characters long"
+            />
           )}
           <p>Confirm New Password:</p>
           <InputField
@@ -137,7 +138,7 @@ const ResetPw = () => {
             onChange={handleConfirmPasswordChange}
             required
           >
-      
+
             <button
               type="button"
               onClick={toggleShowConfirmPassword}
@@ -147,20 +148,24 @@ const ResetPw = () => {
               {showConfirmPassword ? <FaEye /> : <FaEyeSlash />}
             </button>
           </InputField>
-           {loading ? (
-                <div className='loading-container'>
-                    <LoaderComponent size={50} />
-                </div>
-            ) : (
-              <Buttons
-                type="submit"
-                id="save-btn"
-                style={{ backgroundColor: "green", color: "white" }}
-              >
-                Save
-              </Buttons>
+          {loading ? (
+            <div className='loading-container'>
+              <LoaderComponent size={50} />
+            </div>
+          ) : (
+            <SquareButton type="submit"
+              id="save-button"
+              className="signin-btn"
+              style={{ backgroundColor: "green", color: "white" }}
+              btnHeight="45px"
+              btnWidth="342px"
+              fontSize="18px"
+              marginTop="2px">
+              Update
+            </SquareButton>
           )}
         </div>
+
         {error && <p className="rp-error">{error}</p>}
       </form>
 

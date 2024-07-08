@@ -6,6 +6,7 @@ import { Icon } from "@iconify/react";
 import FeedbackForm from "../../Components/FeedbackForm/FeedbackForm";
 import { getBranchOptions } from "../../Api/BranchApi/BranchApi.jsx"; // Adjust the path accordingly
 import "./Contact.css";
+import MainSpiner from "../../Components/Spiner/MainSpiner/MainSpiner.jsx";
 
 export default function Contact() {
   const [branches, setBranches] = useState([]);
@@ -29,11 +30,11 @@ export default function Contact() {
   }, []);
 
   if (loading) {
-    return <p>Loading...</p>; // You can replace this with a loading spinner or animation
+    return <p><MainSpiner/></p>; 
   }
 
   if (error) {
-    return <p>Error: {error}</p>; // Basic error handling, you can improve this based on your app's requirements
+    return <p>Error: {error}</p>;
   }
 
   return (
