@@ -16,11 +16,14 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 
 export default function CartIcon() {
   const [cartCount, setCartCount] = useState(0);
-
+  const productCount = localStorage.getItem("ProductCount");
+  let newProductCount = [];
+  if(productCount !== "undefined"){
+    console.log("ProductCount", productCount);
+    newProductCount = JSON.parse(productCount);
+  }
   useEffect(() => {
-    
-    const cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
-    setCartCount(cartItems.length);
+    setCartCount(newProductCount);
   }, []);
 
   return (

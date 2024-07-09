@@ -20,12 +20,14 @@ const Category = ({ customerId: propCustomerId, selectedBranchId: propBranchId }
         const fetchCategory = async () => {
             try {
                 const branchName = localStorage.getItem('selectedBranch');
-                const response = await axios.get('http://localhost:8080/products-by-category-and-branch', {
+                console.log("data",categoryId,branchName);
+                const response = await axios.get(`http://localhost:8080/products-by-category-and-branch`, {
                     params: {
                         categoryId: categoryId,
                         branchName: branchName
                     }
                 });
+               
                 console.log("API response:", response.data); // Log the API response
                 setItems(response.data.productDetails); // Update state with the fetched items
             } catch (error) {
@@ -84,6 +86,7 @@ const Category = ({ customerId: propCustomerId, selectedBranchId: propBranchId }
                                             image={item.image}
                                             imageHeight="180vh"
                                             imageWidth="40vw"
+                                            productId={item.productId}
                                             buttonProps={{
                                                 type: "submit",
                                                 id: "AddtoCartbtn",

@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 const Button = styled.button`
   position: relative;
-  display: flex;
+  // display: flex;
   align-items: center;
   width: ${(props) => props.btnWidth || "5.125em"};
   height: ${(props) => props.btnHeight || "2em"};

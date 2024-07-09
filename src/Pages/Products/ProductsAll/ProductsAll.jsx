@@ -6,8 +6,8 @@ import Body from "../../../Components/Body/Body";
 import InputLabel from "../../../Components/InputLable/InputLable";
 import Square from "../../../Components/Square/Square";
 import ItemCard from "../../../Components/Card/Card";
-import "./ProductsAll.css";
-import MainSpiner from "../../../Components/Spiner/MainSpiner/MainSpiner";
+import "./ProductsAll.css"
+
 
 export default function ProductsAll({ customerId: propCustomerId, selectedBranchId: propBranchId }) {
 
@@ -17,103 +17,105 @@ export default function ProductsAll({ customerId: propCustomerId, selectedBranch
   const [customerId, setCustomerId] = useState(propCustomerId || null);
   const [selectedBranchId, setSelectedBranchId] = useState(propBranchId || null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const[productId, setProductId] = useState(null);
+
 
   useEffect(() => {
     const fetchProductPageItems = async () => {
       try {
         const branchName = localStorage.getItem('selectedBranch');
-
+      
         const response = await axios.get(
-          `http://localhost:8080/product-branch?branchName=${branchName}`
+          `${process.env.REACT_APP_API_BASE_URL}/product-branch?branchName=${branchName}`
         );
-        console.log("response", response);
-
-        // Filter items with discounts greater than 0
+        console.log("rese", response);
+       
         const itemsWithDiscounts = response.data.filter(item => item.discount > 0);
-
-        setItems(itemsWithDiscounts); // Assuming the response data is an array of items
+        
+        setItems(itemsWithDiscounts); 
+      
         setLoading(false);
       } catch (error) {
         console.error("Error fetching data:", error);
-        setError("Failed to fetch products. Please try again later.");
         setLoading(false);
       }
     };
+    
 
     fetchProductPageItems();
+
   }, []);
-
   const handleAddToCart = async (item) => {
+    // Your add to cart logic here
     console.log('Adding to cart:', item);
-    // Add your logic to handle adding items to cart here
-  };
+};
 
-  const formatPrice = (price) => {
+const formatPrice = (price) => {
+    // Format price function
     return new Intl.NumberFormat('en-LK', {
-      style: 'currency',
-      currency: 'LKR',
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
+        style: 'currency',
+        currency: 'LKR', 
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
     }).format(price);
-  };
-
-  if (loading) {
-    return (
-      <div className="spinner-container">
-        <MainSpiner />
-      </div>
-    );
-  }
+};
 
   return (
     <Layout>
       <Body>
-        <div className="productsAll">
-          <div className="ProductsAll-title">
-            <Square size={5} color="#62C96D" marginRight={2.5} />
-            <InputLabel
-              htmlFor="example"
-              color="black"
-              fontSize="1.4em"
-              fontWeight={500}
-              lineHeight="1.5"
-            >
-              Discounts
-            </InputLabel>
-          </div>
+      <div className="productsAll">
+      <div className="ProductsAll-title">
+      <Square size={5} color="#62C96D" marginRight={2.5} />
+              <InputLabel
+                htmlFor="example"
+                color="black"
+                fontSize="1.4em"
+                fontWeight={500}
+                lineHeight="1.5"
+              >
+                Discounts
+              </InputLabel>
+              </div>
 
-          <div className="CategoryPageProducts">
-            {alertMessage && <p className="alert-message">{alertMessage}</p>}
+              <div className="CategoryPageProducts">
 
-            {Array.isArray(items) && items.length > 0 ? (
-              items.map((item) => (
-                <ItemCard
-                  key={item.id} // Add a unique key for each item
-                  LablePrice={item.sellingPrice ? formatPrice(item.sellingPrice) : "LKR 000.00"}
-                  LableProductName={item.productName}
-                  quarterLabel={item.discount ? `${item.discount}%` : "0%"}
-                  image={item.image}
-                  imageHeight="180vh"
-                  imageWidth="40vw"
-                  buttonProps={{
-                    type: "submit",
-                    id: "AddtoCartbtn",
-                    btnHeight: "2.0em",
-                    btnWidth: "10em",
-                    alignSelf: "center",
-                    style: { backgroundColor: "#2EB072", color: "#EBEBEB" },
-                  }}
-                  buttonLabel="Add to Cart"
-                  onAddToCart={() => handleAddToCart(item)}
-                />
-              ))
-            ) : (
-              <p>No discounted products available.</p>
-            )}
-          </div>
-        </div>
+                            {alertMessage && <p className="alert-message">{alertMessage}</p>}
+
+                            {Array.isArray(items) && items.length > 0 ? (
+                                items.map((item) => (
+                                    
+                                        <ItemCard
+                                            LablePrice={item.sellingPrice ? formatPrice(item.sellingPrice) : "LKR 000.00"}
+                                            LableProductName={item.productName}
+                                            quarterLabel={item.discount ? `${item.discount}%` : "0%"}
+                                            image={item.image}
+                                            imageHeight="150vh"
+                                            productId={item.productId}
+                                            imageWidth="40vw"
+                                            buttonProps={{
+                                                type: "submit",
+                                                id: "AddtoCartbtn",
+                                                btnHeight: "2.0em",
+                                                btnWidth: "10em",
+                                                alignSelf: "center",
+                                                style: { backgroundColor: "#2EB072", color: "#EBEBEB" },
+                                            }}
+                                            buttonLabel="Add to Cart"
+                                            onAddToCart={() => handleAddToCart(item)}
+                                            viewItemLink={`single-product/${item.productId}`}
+                                            lableViewItem={'View Item...'}
+                                        />
+                                   
+                                ))
+                            ) : (
+                                <p>Loading......</p>
+                            )}
+                   
+
+              </div>
+            </div>
       </Body>
-    </Layout>
-  );
+      </Layout>
+  )
 }
+

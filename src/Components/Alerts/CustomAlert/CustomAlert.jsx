@@ -8,13 +8,12 @@ export default function CustomAlert({ severity, title, message, duration, onClos
   useEffect(() => {
     const timer = setTimeout(() => {
       setVisible(false);
-      onClose(); // Callback to parent component to handle closing
+      onClose(); 
     }, duration);
 
     return () => clearTimeout(timer);
   }, [duration, onClose]);
 
-  // Define text color based on severity
   let textColor;
   switch (severity) {
     case 'success':
@@ -30,7 +29,7 @@ export default function CustomAlert({ severity, title, message, duration, onClos
       textColor = '#eb1313';
       break;
     default:
-      textColor = '#000'; // Default text color
+      textColor = '#000'; 
   }
 
   return (
@@ -56,7 +55,7 @@ export default function CustomAlert({ severity, title, message, duration, onClos
           }}
           onClose={() => {
             setVisible(false);
-            onClose(); // Ensure the alert can be closed manually
+            onClose(); 
           }}
         >
           <AlertTitle>{title}</AlertTitle>

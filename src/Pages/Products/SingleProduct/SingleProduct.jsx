@@ -15,6 +15,7 @@ const boxStyle = {
   border: '1px solid rgba(0, 0, 0, 0.1)', 
   display: 'flex',
   flexDirection: 'row',
+  marginTop: '11.25em'
 };
 
 const innerBoxStyle = {
@@ -23,6 +24,7 @@ const innerBoxStyle = {
   justifyContent: 'center',
   alignItems: 'center',
   borderRight: '1px solid rgba(0, 0, 0, 0.1)',
+  height: '530px',
 };
 
 const innerBoxStyleLast = {
@@ -36,25 +38,39 @@ const innerBoxStyleLast = {
 
 const SingleProduct = () => {
   const { productId } = useParams();
-  const [product, setProduct] = useState(null);
+  const [items, setItems] = useState([]); // State to store items array
+  const [loading, setLoading] = useState(true); // Loading state
 
   useEffect(() => {
-    const fetchProduct = async () => {
+    const fetchHomePageItems = async () => {
       try {
-        const response = await axios.get(`http://localhost:8080/products/${productId}`);
-        const { data } = response.data; // Destructure the 'data' field from the response
-        setProduct(data); // Update state with the 'data' field
+        const branchName = localStorage.getItem('selectedBranch');
+        const response = await axios.get(
+          `${process.env.REACT_APP_API_BASE_URL}/product-branch?branchName=${branchName}`
+        );
+        console.log("response", response);
+        setItems(response.data); // Assuming response.data is an array of items
+        setLoading(false);
       } catch (error) {
-        console.error('Error fetching product:', error);
+        console.error("Error fetching data:", error);
+        setLoading(false);
       }
     };
 
-    fetchProduct();
-  }, [productId]);
+    fetchHomePageItems();
+
+  }, []);
+
+  // Function to find item by productId
+  const findItemByProductId = (productId) => {
+    return items.find(item => item.productId === productId);
+  };
+
+  const product = findItemByProductId(productId);
 
   const handleAddToCart = async (item) => {
     try {
-      // Implement your add to cart logic
+      // Add logic to handle adding item to cart
     } catch (error) {
       console.error('Failed to add to cart:', error);
     }
@@ -69,8 +85,8 @@ const SingleProduct = () => {
     }).format(price);
   };
 
-  if (!product) {
-    return null; // You can render a loading spinner or message while waiting for product data
+  if (!product || loading) {
+    return null; // You can render a loading indicator here if needed
   }
 
   return (
@@ -78,18 +94,18 @@ const SingleProduct = () => {
       <div className='singleproducts'>
         <Box style={boxStyle}>
           <div style={innerBoxStyle}>
-            <img src={product.image} alt={product.productName} style={{ width: '100%', height: 'auto' }} />
+            <img src={product.image} alt={product.productName} style={{ width: '80%', height: 'auto' }} />
           </div>
           <div style={innerBoxStyleLast}>
             <ItemCard
+              className="singleproductCard"
               LablePrice={product.sellingPrice ? formatPrice(product.sellingPrice) : 'LKR 000.00'}
               LableProductName={product.productName}
-              LabelProductWeight='500g'
-              productLable={product.categoryName}
-              quarterLabel={product.discount ? `${product.discount}%` : 'No Discount'}
+              quarterLabel={product.discount ? `${product.discount}%` : '0%'}
               showButton={true}
               showRating={true}
               showQuarter={true}
+              productId={productId}
               buttonProps={{
                 type: 'submit',
                 id: 'AddtoCartbtn',
@@ -106,7 +122,9 @@ const SingleProduct = () => {
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'center',
+                fontSize: '1.5em',
               }}
+              showImage={false}
             />
           </div>
         </Box>
