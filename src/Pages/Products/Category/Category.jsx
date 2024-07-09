@@ -15,7 +15,6 @@ const Category = ({ customerId: propCustomerId, selectedBranchId: propBranchId }
     const [alertMessage, setAlertMessage] = useState("");
     const [customerId, setCustomerId] = useState(propCustomerId || null);
     const [selectedBranchId, setSelectedBranchId] = useState(propBranchId || null);
-
     useEffect(() => {
         const fetchCategory = async () => {
             try {
